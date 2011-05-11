@@ -1,0 +1,15 @@
+var counter = {};
+
+module.exports = {
+	conn: {
+		host:     "localhost",
+		port:     5984,
+		party:    false,
+		name:     "admin",
+		password: "M@tte0s"
+	},
+	name: function (type) {
+		counter[type] = counter[type] || 0;
+		return "test_" + type + "_" + counter[type]++;
+	}
+};

@@ -1,0 +1,1247 @@
+<html>
+	<head>
+		<title>CouchDB-API</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<style>body {
+    margin: 0;
+    padding: 0;
+    font: 14px/1.5 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    color: #252519;
+}
+a {
+    color: #252519;
+}
+a:hover {
+    text-decoration: underline;
+    color: #19469D;
+}
+p {
+    margin: 12px 0;
+}
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+table#source {
+    width: 100%;
+    border-collapse: collapse;
+}
+table#source td:first-child {
+    padding: 30px 40px 30px 40px;
+    vertical-align: top;
+}
+table#source td:first-child,
+table#source td:first-child pre {
+    width: 450px;
+}
+table#source td:last-child {
+    padding: 30px 0 30px 40px;
+    border-left: 1px solid #E5E5EE;
+    background: #F5F5FF;
+}
+table#source tr {
+    border-bottom: 1px solid #E5E5EE;
+}
+table#source tr.filename {
+    padding-top: 40px;
+    border-top: 1px solid #E5E5EE;
+}
+table#source tr.filename td:first-child {
+    text-transform: capitalize;
+}
+table#source tr.filename td:last-child {
+    font-size: 12px;
+}
+table#source tr.filename h2 {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+table#source tr.code h1,
+table#source tr.code h2,
+table#source tr.code h3 {
+    margin-top: 30px;
+    font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif;
+    font-size: 18px;
+}
+table#source tr.code h2 {
+    font-size: 16px;
+}
+table#source tr.code h3 {
+    font-size: 14px;
+}
+table#source tr.code ul {
+    margin: 15px 0 15px 35px;
+    padding: 0;
+}
+table#source tr.code ul li {
+    margin: 0;
+    padding: 1px 0;
+}
+table#source tr.code ul li p {
+    margin: 0;
+    padding: 0;
+}
+table#source tr.code td:first-child pre {
+    padding: 20px;
+}
+#ribbon {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+code .string { color: #219161; }
+code .regexp { color: #219161; }
+code .keyword { color: #954121; }
+code .number { color: #19469D; }
+code .comment { color: #bbb; }
+code .this { color: #19469D; }</style>
+		<script>
+			$(function(){
+				$('tr.code').hide();
+				$('tr.filename').toggle(function(){
+					$(this).nextUntil('.filename').fadeIn();
+				}, function(){
+					$(this).nextUntil('.filename').fadeOut();
+				});
+			});
+		</script>
+	</head>
+	<body>
+<table id="source"><tbody><tr><td><h1>CouchDB-API</h1><p>A Node.JS wrapper for the CouchDB API</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/client.js"><a href="#">client</a></h2></td><td>lib/client.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;),
+	<span class="variable">http</span> = <span class="variable">require</span>(<span class="string">'http'</span>),
+	<span class="variable">url</span> = <span class="variable">require</span>(<span class="string">'url'</span>),
+	<span class="variable">qs</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">querystring</span>&<span class="variable">quot</span>;),
+	<span class="variable">crypto</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">crypto</span>&<span class="variable">quot</span>;),
+	<span class="variable">sha1</span> = <span class="variable">crypto</span>.<span class="variable">createHash</span>(&<span class="variable">quot</span>;<span class="variable">sha1</span>&<span class="variable">quot</span>;),
+	<span class="variable">cookie</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">cookie</span>&<span class="variable">quot</span>;),
+	<span class="class">Vargs</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">vargs</span>&<span class="variable">quot</span>;).<span class="class">Constructor</span>;</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>class</strong>: <em>Client</em></li></ul>
+
+<p>The Client deals with all the HTTP communication with CouchDB.
+It will handle content-negotiation and response.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">Client</span>() {}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Performs an HTTP request</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  urlObj       Object returned from url.parse()</p></li><li><p><strong>param</strong>: <em>object</em>  [options]    HTTP request configuration</p></li><li><p><strong>param</strong>: <em>function</em>  callback   Callback for HTTP response</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Client</span>.<span class="variable">prototype</span>.<span class="variable">request</span> = <span class="keyword">function</span> (<span class="variable">urlObj</span>, <span class="variable">options</span>, <span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>,
+		<span class="variable">opts</span> = <span class="variable">_</span>.<span class="variable">clone</span>(<span class="variable">options</span>);
+
+	<span class="variable">_</span>.<span class="variable">defaults</span>(<span class="variable">opts</span>, {
+		<span class="variable">method</span>: &<span class="variable">quot</span>;<span class="class">GET</span>&<span class="variable">quot</span>;,
+		<span class="variable">headers</span>: {}
+	});
+
+	<span class="variable">_</span>.<span class="variable">defaults</span>(<span class="variable">opts</span>.<span class="variable">headers</span>, {
+		&<span class="variable">quot</span>;<span class="variable">content</span>-<span class="variable">type</span>&<span class="variable">quot</span>;: &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">json</span>&<span class="variable">quot</span>;,
+		&<span class="variable">quot</span>;<span class="variable">accept</span>&<span class="variable">quot</span>;: [&<span class="variable">quot</span>;<span class="regexp">/plain&quot;, &quot;application/json</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">x</span>-<span class="variable">www</span>-<span class="variable">form</span>-<span class="variable">urlencoded</span>&<span class="variable">quot</span>;].<span class="variable">join</span>(&<span class="variable">quot</span>;, &<span class="variable">quot</span>;)
+	});
+
+	<span class="variable">opts</span>.<span class="variable">method</span> = <span class="variable">opts</span>.<span class="variable">method</span>.<span class="variable">toUpperCase</span>();
+
+	<span class="variable">opts</span>.<span class="variable">host</span> = <span class="variable">urlObj</span>.<span class="variable">hostname</span>;
+	<span class="variable">opts</span>.<span class="variable">port</span> = <span class="variable">urlObj</span>.<span class="variable">port</span>;
+	<span class="variable">opts</span>.<span class="variable">path</span> = <span class="variable">urlObj</span>.<span class="variable">pathname</span>;
+	<span class="keyword">if</span> (<span class="variable">urlObj</span>.<span class="variable">query</span>) {
+		<span class="variable">opts</span>.<span class="variable">path</span> += &<span class="variable">quot</span>;?&<span class="variable">quot</span>; + <span class="variable">qs</span>.<span class="variable">stringify</span>(<span class="variable">urlObj</span>.<span class="variable">query</span>);
+	}
+
+	<span class="keyword">if</span> (<span class="this">this</span>.<span class="variable">user</span>) {
+		<span class="variable">opts</span>.<span class="variable">headers</span>.<span class="variable">authorization</span> = &<span class="variable">quot</span>;<span class="class">Basic</span> &<span class="variable">quot</span>; + <span class="keyword">new</span> <span class="class">Buffer</span>(<span class="this">this</span>.<span class="variable">user</span>.<span class="variable">name</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="this">this</span>.<span class="variable">user</span>.<span class="variable">password</span>).<span class="variable">toString</span>(&<span class="variable">quot</span>;<span class="variable">base64</span>&<span class="variable">quot</span>;);
+	}
+
+	<span class="keyword">if</span> (<span class="this">this</span>.<span class="variable">debug</span>) {
+		<span class="variable">console</span>.<span class="variable">log</span>(<span class="variable">opts</span>);
+	}
+
+	<span class="keyword">var</span> <span class="variable">req</span> = <span class="variable">http</span>.<span class="variable">request</span>(<span class="variable">opts</span>, <span class="keyword">function</span> (<span class="variable">res</span>) {
+		<span class="keyword">var</span> <span class="variable">response</span> = &<span class="variable">quot</span>;&<span class="variable">quot</span>;;
+
+		<span class="variable">res</span>.<span class="variable">setEncoding</span>(<span class="string">'utf8'</span>);
+
+		<span class="variable">res</span>.<span class="variable">on</span>(<span class="string">'data'</span>, <span class="keyword">function</span> (<span class="variable">chunk</span>) {
+			<span class="variable">response</span> += <span class="variable">chunk</span>;
+		});
+
+		<span class="variable">res</span>.<span class="variable">on</span>(<span class="string">'end'</span>, <span class="keyword">function</span> () {
+			<span class="keyword">var</span> <span class="variable">result</span> = <span class="variable">response</span>;
+
+			<span class="keyword">switch</span> (<span class="variable">res</span>.<span class="variable">headers</span>[&<span class="variable">quot</span>;<span class="variable">content</span>-<span class="variable">type</span>&<span class="variable">quot</span>;]) {
+			<span class="keyword">case</span> &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">json</span>&<span class="variable">quot</span>;:
+				<span class="variable">result</span> = <span class="class">JSON</span>.<span class="variable">parse</span>(<span class="variable">result</span>);
+				<span class="keyword">break</span>;
+
+			<span class="keyword">case</span> &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">x</span>-<span class="variable">www</span>-<span class="variable">form</span>-<span class="variable">urlencoded</span>&<span class="variable">quot</span>;:
+				<span class="variable">result</span> = <span class="variable">qs</span>.<span class="variable">parse</span>(<span class="variable">result</span>);
+				<span class="keyword">break</span>;
+			}
+
+			<span class="keyword">if</span> (<span class="variable">res</span>.<span class="variable">statusCode</span> &<span class="variable">gt</span>;= <span class="number integer">200</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="variable">res</span>.<span class="variable">statusCode</span> &<span class="variable">lt</span>; <span class="number integer">300</span>) {
+				<span class="variable">callback</span>.<span class="variable">call</span>(<span class="variable">self</span>, <span class="keyword">null</span>, <span class="variable">result</span>, <span class="variable">res</span>.<span class="variable">headers</span>, <span class="variable">res</span>.<span class="variable">statusCode</span>);
+			} <span class="keyword">else</span> {
+				<span class="variable">callback</span>.<span class="variable">call</span>(<span class="variable">self</span>, <span class="variable">result</span>, <span class="keyword">null</span>, <span class="variable">res</span>.<span class="variable">headers</span>, <span class="variable">res</span>.<span class="variable">statusCode</span>);
+			}
+
+			<span class="keyword">if</span> (<span class="variable">self</span>.<span class="variable">debug</span>) {
+				<span class="variable">console</span>.<span class="variable">log</span>(<span class="variable">result</span>, <span class="variable">res</span>.<span class="variable">headers</span>, <span class="variable">res</span>.<span class="variable">statusCode</span>);
+			}
+		});
+	});
+
+	<span class="keyword">if</span> (<span class="variable">opts</span>.<span class="variable">body</span>) {
+		<span class="keyword">var</span> <span class="variable">body</span> = <span class="variable">opts</span>.<span class="variable">body</span>;
+		<span class="keyword">switch</span> (<span class="variable">opts</span>.<span class="variable">headers</span>[&<span class="variable">quot</span>;<span class="variable">content</span>-<span class="variable">type</span>&<span class="variable">quot</span>;]) {
+		<span class="keyword">case</span> &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">json</span>&<span class="variable">quot</span>;:
+			<span class="variable">body</span> = <span class="class">JSON</span>.<span class="variable">stringify</span>(<span class="variable">body</span>);
+			<span class="keyword">break</span>;
+
+		<span class="keyword">case</span> &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">x</span>-<span class="variable">www</span>-<span class="variable">form</span>-<span class="variable">urlencoded</span>&<span class="variable">quot</span>;:
+			<span class="variable">body</span> = <span class="variable">qs</span>.<span class="variable">stringify</span>(<span class="variable">body</span>);
+			<span class="keyword">break</span>;
+		}
+		<span class="variable">req</span>.<span class="variable">write</span>(<span class="variable">body</span>);
+	}
+
+	<span class="variable">req</span>.<span class="variable">end</span>();
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Performs an HTTP GET request</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  urlObj      Object returned from url.parse()</p></li><li><p><strong>param</strong>: <em>object</em>  [options]   HTTP request configuration</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback for HTTP response</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Client</span>.<span class="variable">prototype</span>.<span class="variable">get</span> = <span class="keyword">function</span> () {
+	<span class="keyword">var</span> <span class="variable">args</span> = <span class="keyword">new</span> <span class="class">Vargs</span>(<span class="variable">arguments</span>),
+		<span class="variable">urlObj</span> = <span class="variable">args</span>.<span class="variable">first</span>,
+		<span class="variable">options</span> = <span class="variable">args</span>.<span class="variable">all</span>[<span class="number integer">1</span>] || {};
+
+	<span class="variable">options</span>.<span class="variable">method</span> = &<span class="variable">quot</span>;<span class="class">GET</span>&<span class="variable">quot</span>;;
+
+	<span class="this">this</span>.<span class="variable">request</span>(<span class="variable">urlObj</span>, <span class="variable">options</span>, <span class="variable">args</span>.<span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Performs an HTTP PUT request</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  urlObj       Object returned from url.parse()</p></li><li><p><strong>param</strong>: <em>string | object</em>  body  Body of request (string, json object, qs object, etc.)</p></li><li><p><strong>param</strong>: <em>object</em>  [options]    HTTP request configuration</p></li><li><p><strong>param</strong>: <em>function</em>  callback   Callback for HTTP response</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Client</span>.<span class="variable">prototype</span>.<span class="variable">put</span> = <span class="keyword">function</span> () {
+	<span class="keyword">var</span> <span class="variable">args</span> = <span class="keyword">new</span> <span class="class">Vargs</span>(<span class="variable">arguments</span>),
+		<span class="variable">urlObj</span> = <span class="variable">args</span>.<span class="variable">first</span>,
+		<span class="variable">body</span> = <span class="variable">args</span>.<span class="variable">all</span>[<span class="number integer">1</span>] || <span class="keyword">null</span>,
+		<span class="variable">options</span> = <span class="variable">args</span>.<span class="variable">all</span>[<span class="number integer">2</span>] || {};
+
+	<span class="variable">options</span>.<span class="variable">method</span> = &<span class="variable">quot</span>;<span class="class">PUT</span>&<span class="variable">quot</span>;;
+	<span class="keyword">if</span> (<span class="variable">body</span>) {
+		<span class="variable">options</span>.<span class="variable">body</span> = <span class="variable">body</span>;
+	}
+
+	<span class="this">this</span>.<span class="variable">request</span>(<span class="variable">urlObj</span>, <span class="variable">options</span>, <span class="variable">args</span>.<span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Performs an HTTP POST request</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  urlObj       Object returned from url.parse()</p></li><li><p><strong>param</strong>: <em>string | object</em>  body  Body of request (string, json object, qs object, etc.)</p></li><li><p><strong>param</strong>: <em>object</em>  [options]    HTTP request configuration</p></li><li><p><strong>param</strong>: <em>function</em>  callback   Callback for HTTP response</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Client</span>.<span class="variable">prototype</span>.<span class="variable">post</span> = <span class="keyword">function</span> () {
+	<span class="keyword">var</span> <span class="variable">args</span> = <span class="keyword">new</span> <span class="class">Vargs</span>(<span class="variable">arguments</span>),
+		<span class="variable">urlObj</span> = <span class="variable">args</span>.<span class="variable">first</span>,
+		<span class="variable">body</span> = <span class="variable">args</span>.<span class="variable">all</span>[<span class="number integer">1</span>] || <span class="keyword">null</span>,
+		<span class="variable">options</span> = <span class="variable">args</span>.<span class="variable">all</span>[<span class="number integer">2</span>] || {};
+
+	<span class="variable">options</span>.<span class="variable">method</span> = &<span class="variable">quot</span>;<span class="class">POST</span>&<span class="variable">quot</span>;;
+	<span class="keyword">if</span> (<span class="variable">body</span>) {
+		<span class="variable">options</span>.<span class="variable">body</span> = <span class="variable">body</span>;
+	}
+
+	<span class="this">this</span>.<span class="variable">request</span>(<span class="variable">urlObj</span>, <span class="variable">options</span>, <span class="variable">args</span>.<span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Performs an HTTP DELETE request</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  urlObj      Object returned from url.parse()</p></li><li><p><strong>param</strong>: <em>object</em>  [options]   HTTP request configuration</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback for HTTP response</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Client</span>.<span class="variable">prototype</span>.<span class="variable">del</span> = <span class="keyword">function</span> () {
+	<span class="keyword">var</span> <span class="variable">args</span> = <span class="keyword">new</span> <span class="class">Vargs</span>(<span class="variable">arguments</span>),
+		<span class="variable">urlObj</span> = <span class="variable">args</span>.<span class="variable">first</span>,
+		<span class="variable">options</span> = <span class="variable">args</span>.<span class="variable">all</span>[<span class="number integer">1</span>] || {};
+
+	<span class="variable">options</span>.<span class="variable">method</span> = &<span class="variable">quot</span>;<span class="class">DELETE</span>&<span class="variable">quot</span>;;
+
+	<span class="this">this</span>.<span class="variable">request</span>(<span class="variable">urlObj</span>, <span class="variable">options</span>, <span class="variable">args</span>.<span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Export to CommonJS </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">Client</span>;
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/cookie.js"><a href="#">cookie</a></h2></td><td>lib/cookie.js</td></tr><tr class="code">
+<td class="docs">
+<p>HTTP Cookie Toolkit
+ - <strong>requires</strong>: <em>underscore</em>
+.js
+ </p>
+</td>
+<td class="code">
+
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Parses the HTTP Header into a Cookie object</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string | string[]</em>   The HTTP header to parse</p></li><li><p><strong>return</strong>: <em>object</em> </p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span>.<span class="variable">parse</span> = <span class="keyword">function</span> (<span class="variable">cookieStr</span>) {
+	<span class="comment">// If an array is passed, just use map to return an array of objects</span>
+	<span class="keyword">if</span> (<span class="variable">_</span>.<span class="variable">isArray</span>(<span class="variable">cookieStr</span>)) {
+		<span class="keyword">return</span> <span class="variable">_</span>.<span class="variable">map</span>(<span class="variable">cookieStr</span>, <span class="this">this</span>.<span class="variable">parse</span>);
+	}
+
+	<span class="comment">// split up the main components</span>
+	<span class="keyword">var</span> <span class="variable">parts</span> = <span class="variable">cookieStr</span>.<span class="variable">split</span>(&<span class="variable">quot</span>;;&<span class="variable">quot</span>;),
+		<span class="variable">main</span> = <span class="variable">parts</span>.<span class="variable">shift</span>().<span class="variable">split</span>(&<span class="variable">quot</span>;=&<span class="variable">quot</span>;),
+		<span class="variable">ret</span> = {
+			<span class="variable">name</span>: <span class="variable">main</span>[<span class="number integer">0</span>],
+			<span class="variable">value</span>: <span class="variable">main</span>[<span class="number integer">1</span>]
+		};
+
+	<span class="comment">// look the portions we have and build our object</span>
+	<span class="variable">_</span>.<span class="variable">each</span>(<span class="variable">parts</span>, <span class="keyword">function</span> (<span class="variable">part</span>, <span class="variable">x</span>) {
+		<span class="variable">part</span> = <span class="variable">part</span>.<span class="variable">split</span>(&<span class="variable">quot</span>;=&<span class="variable">quot</span>;);
+
+		<span class="comment">// here we divide up the part into a key/value pair</span>
+		<span class="comment">//   (sometimes we'll only have a key as a flag)</span>
+		<span class="keyword">var</span> <span class="variable">name</span> = <span class="variable">part</span>[<span class="number integer">0</span>] ? <span class="variable">part</span>[<span class="number integer">0</span>].<span class="variable">trim</span>() : &<span class="variable">quot</span>;&<span class="variable">quot</span>;,
+			<span class="variable">value</span> = <span class="variable">part</span>[<span class="number integer">1</span>] ? <span class="variable">part</span>[<span class="number integer">1</span>].<span class="variable">trim</span>() : &<span class="variable">quot</span>;&<span class="variable">quot</span>;;
+
+		<span class="comment">// add the key/value pair to our obj</span>
+		<span class="variable">ret</span>[<span class="variable">name</span>] = <span class="variable">value</span>;
+	});
+
+	<span class="keyword">return</span> <span class="variable">ret</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Output an HTTP header based on a parsed Cookie object</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>   The parsed Cookie object</p></li><li><p><strong>return</strong>: <em>string</em>   HTTP header text (set-cookie)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span>.<span class="variable">format</span> = <span class="keyword">function</span> (<span class="variable">cookieObj</span>) {
+	<span class="keyword">var</span> <span class="variable">cookie</span> = <span class="variable">_</span>.<span class="variable">clone</span>(<span class="variable">cookieObj</span>),              <span class="comment">// create a clone, rather than working directly with the obj</span>
+		<span class="variable">ret</span> = [<span class="variable">cookie</span>.<span class="variable">name</span> + &<span class="variable">quot</span>;=&<span class="variable">quot</span>; + <span class="variable">cookie</span>.<span class="variable">value</span>]; <span class="comment">// initialize the return array, with the cookie name/value as the first index</span>
+
+	<span class="comment">// delete values we no longer need</span>
+	<span class="keyword">delete</span> <span class="variable">cookie</span>.<span class="variable">name</span>;
+	<span class="keyword">delete</span> <span class="variable">cookie</span>.<span class="variable">value</span>;
+
+	<span class="comment">// add the flags and other configuration options</span>
+	<span class="variable">_</span>.<span class="variable">each</span>(<span class="variable">cookie</span>, <span class="keyword">function</span> (<span class="variable">value</span>, <span class="variable">key</span>) {
+		<span class="variable">ret</span>.<span class="variable">push</span>(<span class="variable">value</span> ? <span class="variable">key</span> + &<span class="variable">quot</span>;=&<span class="variable">quot</span>; + <span class="variable">value</span> : <span class="variable">key</span>);
+	});
+
+	<span class="keyword">return</span> <span class="variable">ret</span>.<span class="variable">join</span>(&<span class="variable">quot</span>;; &<span class="variable">quot</span>;);
+};
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/database.js"><a href="#">database</a></h2></td><td>lib/database.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Document</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">document</span>&<span class="variable">quot</span>;),
+	<span class="class">DesignDocument</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">designDocument</span>&<span class="variable">quot</span>;),
+	<span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>class</strong>: <em>Database</em></li></ul>
+
+<p>Handles interaction at the CouchDB database level
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">Database</span>(<span class="variable">server</span>, <span class="variable">name</span>) {
+	<span class="this">this</span>.<span class="variable">server</span> = <span class="variable">server</span>; <span class="comment">// add a reference to the server</span>
+	<span class="this">this</span>.<span class="variable">name</span> = <span class="variable">name</span>;
+
+	<span class="this">this</span>.<span class="variable">urlObj</span> = <span class="variable">_</span>.<span class="variable">clone</span>(<span class="variable">server</span>.<span class="variable">urlObj</span>); <span class="comment">// use a copy so we can make changes</span>
+	<span class="this">this</span>.<span class="variable">urlObj</span>.<span class="variable">pathname</span> += <span class="variable">name</span> + &<span class="variable">quot</span>;<span class="regexp">/&quot;;   /</span>/ <span class="variable">add</span> <span class="variable">the</span> <span class="variable">db</span> <span class="variable">name</span> <span class="variable">and</span> <span class="variable">trailing</span> <span class="variable">slash</span> <span class="variable">to</span> <span class="variable">the</span> <span class="variable">pathname</span>
+
+	<span class="this">this</span>.<span class="variable">client</span> = <span class="this">this</span>.<span class="variable">server</span>.<span class="variable">client</span>; <span class="comment">// add a reference to the client</span>
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>augments</strong>: <em>Database</em></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">_</span>.<span class="variable">extend</span>(<span class="class">Database</span>.<span class="variable">prototype</span>, <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">request</span>&<span class="variable">quot</span>;));</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get basic information about the database</p>
+
+<p><code>GET /db</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">info</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Create the database</p>
+
+<p><code>PUT /db</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">create</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">put</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Drop the database</p>
+
+<p><code>DELETE /db</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">drop</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">del</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Query the CouchDB <code>_changes</code> API</p>
+
+<p><code>GET /db/_changes</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  query       Query arguments to be passed</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">changes</span> = <span class="keyword">function</span> (<span class="variable">query</span>, <span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">url</span> = {
+		<span class="variable">pathname</span>: &<span class="variable">quot</span>;<span class="variable">_changes</span>&<span class="variable">quot</span>;,
+		<span class="variable">query</span>: <span class="variable">query</span>
+	};
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, <span class="variable">url</span>, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Perform a database (or design document view index) compation</p>
+
+<ul><li><code>GET /db/_compact</code></li><li><code>GET /db/_compact/ddoc</code></li></ul>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string</em>  [ddoc]      If passed, will compact the specified design document's view indexes</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">compact</span> = <span class="keyword">function</span> (<span class="variable">ddoc</span>, <span class="variable">callback</span>) {
+	<span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable">ddoc</span> === &<span class="variable">quot</span>;<span class="keyword">function</span>&<span class="variable">quot</span>;) {
+		<span class="variable">callback</span> = <span class="variable">ddoc</span>;
+		<span class="variable">ddoc</span> = <span class="keyword">null</span>;
+	}
+
+	<span class="keyword">var</span> <span class="variable">path</span> = &<span class="variable">quot</span>;<span class="variable">_compact</span>&<span class="variable">quot</span>;;
+	<span class="keyword">if</span> (<span class="variable">ddoc</span>) {
+		<span class="variable">path</span> += &<span class="variable">quot</span>;/&<span class="variable">quot</span>; + <span class="variable">ddoc</span>;
+	}
+
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">post</span>&<span class="variable">quot</span>;, <span class="variable">path</span>, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Clear the cached view output</p>
+
+<p><code>GET /db/_view_cleanup</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">viewCleanup</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">post</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_view_cleanup</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Commits recent db changes to disk</p>
+
+<p><code>GET /db/_ensure_full_commit</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">ensureFullCommit</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">post</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_ensure_full_commit</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Returns a new Document object</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string</em>  [id]  The Document's <code>_id</code></p></li><li><p><strong>return</strong>: <em>object</em>       A new Document object</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">doc</span> = <span class="keyword">function</span> (<span class="variable">id</span>) {
+	<span class="keyword">return</span> <span class="keyword">new</span> <span class="class">Document</span>(<span class="this">this</span>, <span class="variable">id</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Returns a new DesignDocument object</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string</em>  name  The DesignDocument's <code>name</code></p></li><li><p><strong>return</strong>: <em>object</em>       A new DesignDocument object</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Database</span>.<span class="variable">prototype</span>.<span class="variable">ddoc</span> = <span class="keyword">function</span> (<span class="variable">name</span>) {
+	<span class="keyword">return</span> <span class="keyword">new</span> <span class="class">DesignDocument</span>(<span class="this">this</span>, <span class="variable">name</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Export to CommonJS </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">Database</span>;
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/designDocument.js"><a href="#">designDocument</a></h2></td><td>lib/designDocument.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;),
+	<span class="class">Document</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">document</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>class</strong>: <em>DesignDocument</em></li></ul>
+
+<p>Handles interaction at the design document level
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">DesignDocument</span>(<span class="variable">db</span>, <span class="variable">name</span>) {
+	<span class="this">this</span>.<span class="variable">db</span> = <span class="variable">db</span>;
+	<span class="this">this</span>.<span class="variable">server</span> = <span class="variable">db</span>.<span class="variable">server</span>;
+	<span class="this">this</span>.<span class="variable">id</span> = &<span class="variable">quot</span>;<span class="variable">_design</span>/&<span class="variable">quot</span>; + <span class="variable">name</span>;
+
+	<span class="this">this</span>.<span class="variable">urlObj</span> = <span class="variable">_</span>.<span class="variable">clone</span>(<span class="variable">db</span>.<span class="variable">urlObj</span>);
+
+	<span class="this">this</span>.<span class="variable">body</span> = {
+		<span class="variable">_id</span>: <span class="this">this</span>.<span class="variable">id</span>
+	};
+	<span class="this">this</span>.<span class="variable">urlObj</span>.<span class="variable">pathname</span> += <span class="this">this</span>.<span class="variable">id</span>;
+
+	<span class="this">this</span>.<span class="variable">client</span> = <span class="this">this</span>.<span class="variable">server</span>.<span class="variable">client</span>;
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>augments</strong>: <em>Document</em></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">_</span>.<span class="variable">extend</span>(<span class="class">DesignDocument</span>.<span class="variable">prototype</span>, <span class="class">Document</span>.<span class="variable">prototype</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Gets the list of views
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">views</span> = <span class="keyword">function</span> () {
+	<span class="this">this</span>.<span class="variable">body</span>.<span class="variable">views</span> = <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">views</span> || {};
+	<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">views</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Add a new view to this design document</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  map              Map function for this view</p></li><li><p><strong>param</strong>: <em>function | string</em>  [reduce]  Reduce function for this view</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">view</span> = <span class="keyword">function</span> (<span class="variable">name</span>, <span class="variable">map</span>, <span class="variable">reduce</span>) {
+	<span class="keyword">if</span> (<span class="variable">map</span>) {
+		<span class="keyword">var</span> <span class="variable">view</span> = { <span class="variable">map</span>: <span class="variable">map</span>.<span class="variable">toString</span>() };
+		<span class="keyword">if</span> (<span class="variable">reduce</span>) {
+			<span class="variable">view</span>.<span class="variable">reduce</span> = <span class="variable">reduce</span>.<span class="variable">toString</span>();
+		}
+		<span class="this">this</span>.<span class="variable">views</span>()[<span class="variable">name</span>] = <span class="variable">view</span>;
+	} <span class="keyword">else</span> {
+		<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">views</span>()[<span class="variable">name</span>];
+	}
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get all the show functions
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">shows</span> = <span class="keyword">function</span> () {
+	<span class="this">this</span>.<span class="variable">body</span>.<span class="variable">shows</span> = <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">shows</span> || {};
+	<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">shows</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get/set the specified show function
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">show</span> = <span class="keyword">function</span> (<span class="variable">name</span>, <span class="variable">func</span>) {
+	<span class="keyword">if</span> (<span class="variable">func</span>) {
+		<span class="this">this</span>.<span class="variable">shows</span>()[<span class="variable">name</span>] = <span class="variable">func</span>.<span class="variable">toString</span>();
+	} <span class="keyword">else</span> {
+		<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">shows</span>()[<span class="variable">name</span>];
+	}
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get all the list functions
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">lists</span> = <span class="keyword">function</span> () {
+	<span class="this">this</span>.<span class="variable">body</span>.<span class="variable">lists</span> = <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">lists</span> || {};
+	<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">lists</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get/set the specified list function
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">list</span> = <span class="keyword">function</span> (<span class="variable">name</span>, <span class="variable">func</span>) {
+	<span class="keyword">if</span> (<span class="variable">func</span>) {
+		<span class="this">this</span>.<span class="variable">lists</span>()[<span class="variable">name</span>] = <span class="variable">func</span>.<span class="variable">toString</span>();
+	} <span class="keyword">else</span> {
+		<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">lists</span>()[<span class="variable">name</span>];
+	}
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get all the update handler
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">updates</span> = <span class="keyword">function</span> () {
+	<span class="this">this</span>.<span class="variable">body</span>.<span class="variable">updates</span> = <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">updates</span> || {};
+	<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">updates</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get/set the specified update handler
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">update</span> = <span class="keyword">function</span> (<span class="variable">name</span>, <span class="variable">func</span>) {
+	<span class="keyword">if</span> (<span class="variable">func</span>) {
+		<span class="this">this</span>.<span class="variable">updates</span>()[<span class="variable">name</span>] = <span class="variable">func</span>.<span class="variable">toString</span>();
+	} <span class="keyword">else</span> {
+		<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">updates</span>()[<span class="variable">name</span>];
+	}
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get/set the validation function
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="class">DesignDocument</span>.<span class="variable">prototype</span>.<span class="variable">val</span> = <span class="keyword">function</span> (<span class="variable">func</span>) {
+	<span class="keyword">if</span> (<span class="variable">func</span>) {
+		<span class="this">this</span>.<span class="variable">body</span>.<span class="variable">validate_doc_update</span> = <span class="variable">func</span>.<span class="variable">toString</span>();
+	} <span class="keyword">else</span> {
+		<span class="keyword">return</span> <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">validate_doc_update</span>;
+	}
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Export to CommonJS </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">DesignDocument</span>;
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/document.js"><a href="#">document</a></h2></td><td>lib/document.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Client</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">client</span>&<span class="variable">quot</span>;),
+	<span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>class</strong>: <em>Document</em></li></ul>
+
+<p>Handles interaction at the document level
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">Document</span>(<span class="variable">db</span>, <span class="variable">id</span>) {
+	<span class="this">this</span>.<span class="variable">db</span> = <span class="variable">db</span>;            <span class="comment">// create a reference to the database object</span>
+	<span class="this">this</span>.<span class="variable">server</span> = <span class="variable">db</span>.<span class="variable">server</span>; <span class="comment">// create a reference to the server object</span>
+	<span class="this">this</span>.<span class="variable">id</span> = <span class="variable">id</span> || <span class="keyword">null</span>;    <span class="comment">// default: null (CouchDB can generate an `_id` for us)</span>
+
+	<span class="this">this</span>.<span class="variable">urlObj</span> = <span class="variable">_</span>.<span class="variable">clone</span>(<span class="variable">db</span>.<span class="variable">urlObj</span>); <span class="comment">// create a copy, so we can modify for this doc</span>
+
+	<span class="this">this</span>.<span class="variable">body</span> = {}; <span class="comment">// initialize the document body</span>
+	<span class="keyword">if</span> (<span class="variable">id</span>) {
+		<span class="comment">// if there is an id, initialize where needed</span>
+		<span class="this">this</span>.<span class="variable">body</span>.<span class="variable">_id</span> = <span class="variable">id</span>;
+		<span class="this">this</span>.<span class="variable">urlObj</span>.<span class="variable">pathname</span> += <span class="variable">id</span>;
+	}
+
+	<span class="this">this</span>.<span class="variable">client</span> = <span class="this">this</span>.<span class="variable">server</span>.<span class="variable">client</span>; <span class="comment">// create a reference to HTTP client</span>
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>augments</strong>: <em>Document</em></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">_</span>.<span class="variable">extend</span>(<span class="class">Document</span>.<span class="variable">prototype</span>, <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">request</span>&<span class="variable">quot</span>;));</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Retrieve the document from the server</p>
+
+<p><code>GET /db/doc</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, doc</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Document</span>.<span class="variable">prototype</span>.<span class="variable">get</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>;
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, <span class="keyword">null</span>, <span class="keyword">function</span> (<span class="variable">err</span>, <span class="variable">response</span>) {
+		<span class="keyword">if</span> (!<span class="variable">err</span>) {
+			<span class="variable">self</span>.<span class="variable">body</span> = <span class="variable">response</span>;
+		}
+
+		<span class="variable">callback</span>.<span class="variable">apply</span>(<span class="variable">self</span>, <span class="variable">arguments</span>);
+	});
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Save the document's current state to the server</p>
+
+<ul><li><code>PUT /db/doc</code> <strong>(w/ id)</strong></li><li><code>POST /db</code>    <strong>(w/o id)</strong></li></ul>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, doc</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Document</span>.<span class="variable">prototype</span>.<span class="variable">save</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>;
+
+	<span class="this">this</span>.<span class="variable">req</span>(<span class="this">this</span>.<span class="variable">id</span> ? &<span class="variable">quot</span>;<span class="variable">put</span>&<span class="variable">quot</span>; : &<span class="variable">quot</span>;<span class="variable">post</span>&<span class="variable">quot</span>;, <span class="keyword">null</span>, <span class="this">this</span>.<span class="variable">body</span>, <span class="keyword">function</span> (<span class="variable">err</span>, <span class="variable">response</span>) {
+		<span class="keyword">if</span> (!<span class="variable">err</span>) {
+			<span class="keyword">if</span> (!<span class="variable">self</span>.<span class="variable">id</span>) {
+				<span class="variable">self</span>.<span class="variable">id</span> = <span class="variable">self</span>.<span class="variable">body</span>.<span class="variable">_id</span> = <span class="variable">response</span>.<span class="variable">id</span>;
+				<span class="variable">self</span>.<span class="variable">urlObj</span>.<span class="variable">pathname</span> += <span class="variable">response</span>.<span class="variable">id</span>;
+			}
+			<span class="variable">self</span>.<span class="variable">body</span>.<span class="variable">_rev</span> = <span class="variable">response</span>.<span class="variable">rev</span>;
+		}
+
+		<span class="variable">callback</span>.<span class="variable">apply</span>(<span class="variable">self</span>, <span class="variable">arguments</span>);
+	});
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Delete the document from the server</p>
+
+<p><code>DELETE /db/doc</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, doc</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Document</span>.<span class="variable">prototype</span>.<span class="variable">del</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>,
+		<span class="variable">options</span> = { <span class="variable">headers</span>: { &<span class="variable">quot</span>;<span class="keyword">if</span>-<span class="variable">match</span>&<span class="variable">quot</span>;: <span class="this">this</span>.<span class="variable">body</span>.<span class="variable">_rev</span> } }; <span class="comment">// use &quot;If-Match&quot; instead of URL param</span>
+
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">del</span>&<span class="variable">quot</span>;, <span class="keyword">null</span>, <span class="variable">options</span>, <span class="keyword">function</span> (<span class="variable">err</span>, <span class="variable">response</span>) {
+		<span class="keyword">if</span> (!<span class="variable">err</span>) {
+			<span class="variable">self</span>.<span class="variable">body</span> = <span class="variable">false</span>;
+		}
+
+		<span class="variable">callback</span>.<span class="variable">apply</span>(<span class="variable">self</span>, <span class="variable">arguments</span>);
+	});
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Export to CommonJS </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">Document</span>;
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/request.js"><a href="#">request</a></h2></td><td>lib/request.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;),
+	<span class="variable">url</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">url</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Pass along a request to the underlying Client object, using the current objects urlObj as the base </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">req</span> = <span class="keyword">function</span> () {
+	<span class="keyword">var</span> <span class="variable">args</span> = <span class="variable">_</span>.<span class="variable">toArray</span>(<span class="variable">arguments</span>),
+		<span class="variable">method</span> = <span class="variable">args</span>.<span class="variable">shift</span>().<span class="variable">toLowerCase</span>();
+
+	<span class="keyword">if</span> (<span class="variable">args</span>.<span class="variable">length</span> &<span class="variable">gt</span>; <span class="number integer">1</span>) {
+		<span class="variable">args</span>[<span class="number integer">0</span>] = <span class="variable">modifyUrl</span>(<span class="this">this</span>.<span class="variable">urlObj</span>, <span class="variable">args</span>[<span class="number integer">0</span>]);
+	} <span class="keyword">else</span> {
+		<span class="variable">args</span>.<span class="variable">unshift</span>(<span class="this">this</span>.<span class="variable">urlObj</span>);
+	}
+
+	<span class="this">this</span>.<span class="variable">client</span>[<span class="variable">method</span>].<span class="variable">apply</span>(<span class="this">this</span>.<span class="variable">client</span>, <span class="variable">args</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Enable debug mode for the client object (not very useful externally right now)</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>bool</em>  [status]  If passed, will use this to set the flag, otherwise it defaults to true</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">debug</span> = <span class="keyword">function</span> (<span class="variable">status</span>) {
+	<span class="this">this</span>.<span class="variable">client</span>.<span class="variable">debug</span> = <span class="keyword">typeof</span> <span class="variable">status</span> === &<span class="variable">quot</span>;<span class="variable">undefined</span>&<span class="variable">quot</span>; ? <span class="variable">true</span> : !!<span class="variable">status</span>;
+};
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/server.js"><a href="#">server</a></h2></td><td>lib/server.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module Dependencies </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Client</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">client</span>&<span class="variable">quot</span>;),
+	<span class="class">Database</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">database</span>&<span class="variable">quot</span>;),
+	<span class="variable">qs</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">querystring</span>&<span class="variable">quot</span>;),
+	<span class="variable">url</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">url</span>&<span class="variable">quot</span>;),
+	<span class="variable">_</span> = <span class="variable">require</span>(&<span class="variable">quot</span>;<span class="variable">underscore</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>class</strong>: <em>Document</em></li></ul>
+
+<p>Handles interaction at the server level
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">Server</span>(<span class="variable">host</span>, <span class="variable">port</span>) {
+	<span class="comment">// use this as the basis for our urlObj</span>
+	<span class="keyword">var</span> <span class="variable">urlObj</span> = <span class="variable">url</span>.<span class="variable">parse</span>(&<span class="variable">quot</span>;<span class="variable">http</span>:<span class="comment">//localhost:5984/&quot;);</span>
+
+	<span class="comment">// if host provided, augment the urlObj</span>
+	<span class="keyword">if</span> (<span class="variable">host</span>) {
+		<span class="variable">urlObj</span>.<span class="variable">host</span> = <span class="variable">host</span>;
+	}
+
+	<span class="comment">// if port provided, augment the urlObj</span>
+	<span class="keyword">if</span> (<span class="variable">port</span>) {
+		<span class="variable">urlObj</span>.<span class="variable">port</span> = <span class="variable">port</span>;
+	}
+
+	<span class="this">this</span>.<span class="variable">urlObj</span> = <span class="variable">urlObj</span>; <span class="comment">// add a public reference</span>
+
+	<span class="this">this</span>.<span class="variable">client</span> = <span class="keyword">new</span> <span class="class">Client</span>(); <span class="comment">// create a client for each server</span>
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<ul><li><strong>augments</strong>: <em>Server</em></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">_</span>.<span class="variable">extend</span>(<span class="class">Server</span>.<span class="variable">prototype</span>, <span class="variable">require</span>(&<span class="variable">quot</span>;./<span class="variable">request</span>&<span class="variable">quot</span>;));</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get basic information about the server</p>
+
+<p><code>GET /</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">info</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get a list of all the databases on the server</p>
+
+<p><code>GET /_all_dbs</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, dbs</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">allDbs</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_all_dbs</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get information about all the active tasks currently running on the server</p>
+
+<p><code>GET /_active_tasks</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, tasks</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">activeTasks</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_active_tasks</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get the text of the server's log file</p>
+
+<p><code>GET /_log</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>object</em>  query       Query arguments to be passed</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">log</span> = <span class="keyword">function</span> (<span class="variable">query</span>, <span class="variable">callback</span>) {
+	<span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable">query</span> === &<span class="variable">quot</span>;<span class="keyword">function</span>&<span class="variable">quot</span>;) {
+		<span class="variable">callback</span> = <span class="variable">query</span>;
+		<span class="variable">query</span> = <span class="keyword">null</span>;
+	}
+
+	<span class="keyword">if</span> (!<span class="variable">query</span>) {
+		<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_log</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+	} <span class="keyword">else</span> {
+		<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, {
+			<span class="variable">pathname</span>: &<span class="variable">quot</span>;<span class="variable">_log</span>&<span class="variable">quot</span>;,
+			<span class="variable">query</span>: <span class="variable">query</span>
+		}, <span class="variable">callback</span>);
+	}
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Restarts the server process</p>
+
+<p><code>GET /_restart</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">restart</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">post</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_restart</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Restarts the server process</p>
+
+<p><code>GET /_restart</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">stats</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_stats</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Get a list of generated UUIDs from the server</p>
+
+<p><code>GET /_uuids</code></p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>number</em>  [count]     Number of UUIDs to be returned (default: 1)</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, uuids</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">uuids</span> = <span class="keyword">function</span> (<span class="variable">count</span>, <span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>;
+
+	<span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable">count</span> === &<span class="variable">quot</span>;<span class="keyword">function</span>&<span class="variable">quot</span>;) {
+		<span class="variable">callback</span> = <span class="variable">count</span>;
+		<span class="variable">count</span> = <span class="number integer">1</span>;
+	}
+
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, {
+		<span class="variable">pathname</span>: &<span class="variable">quot</span>;<span class="variable">_uuids</span>&<span class="variable">quot</span>;,
+		<span class="variable">query</span>: { <span class="variable">count</span>: <span class="variable">count</span> || <span class="number integer">5</span> }
+	}, <span class="keyword">function</span> (<span class="variable">err</span>, <span class="variable">response</span>) {
+		<span class="variable">callback</span>.<span class="variable">call</span>(<span class="variable">self</span>, <span class="keyword">null</span>, <span class="variable">response</span>.<span class="variable">uuids</span>);
+	});
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Specify a username/password to send to the server with each request (uses HTTP Basic auth)</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string</em>  user  Username (either server admin or <code>_users</code> user)</p></li><li><p><strong>param</strong>: <em>string</em>  pass  Password</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">setUser</span> = <span class="keyword">function</span> (<span class="variable">user</span>, <span class="variable">pass</span>) {
+	<span class="this">this</span>.<span class="variable">client</span>.<span class="variable">user</span> = {
+		<span class="variable">name</span>:     <span class="variable">user</span>,
+		<span class="variable">password</span>: <span class="variable">pass</span>
+	};
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Attempt a login against the server itself</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string</em>  user        Username</p></li><li><p><strong>param</strong>: <em>string</em>  pass        Password</p></li><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">login</span> = <span class="keyword">function</span> (<span class="variable">user</span>, <span class="variable">pass</span>, <span class="variable">callback</span>) {
+	<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>, <span class="variable">body</span>, <span class="variable">options</span>;
+
+	<span class="variable">body</span> = {
+		<span class="variable">name</span>: <span class="variable">user</span>,
+		<span class="variable">password</span>: <span class="variable">pass</span>
+	};
+
+	<span class="variable">options</span> = {
+		<span class="variable">headers</span>: {
+			&<span class="variable">quot</span>;<span class="variable">content</span>-<span class="variable">type</span>&<span class="variable">quot</span>;: &<span class="variable">quot</span>;<span class="variable">application</span>/<span class="variable">x</span>-<span class="variable">www</span>-<span class="variable">form</span>-<span class="variable">urlencoded</span>&<span class="variable">quot</span>;
+		}
+	};
+
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">post</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_session</span>&<span class="variable">quot</span>;, <span class="variable">body</span>, <span class="variable">options</span>, <span class="keyword">function</span> (<span class="variable">err</span>, <span class="variable">response</span>) {
+		<span class="keyword">if</span> (!<span class="variable">err</span>) {
+			<span class="variable">self</span>.<span class="variable">client</span>.<span class="variable">user</span> = {
+				<span class="variable">ctx</span>:      <span class="variable">_</span>.<span class="variable">clone</span>(<span class="variable">response</span>),
+				<span class="variable">name</span>:     <span class="variable">user</span>,
+				<span class="variable">password</span>: <span class="variable">pass</span>
+			};
+		}
+
+		<span class="variable">callback</span>.<span class="variable">apply</span>(<span class="variable">self</span>, <span class="variable">arguments</span>);
+	});
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Logout (destroy the session)</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">logout</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">del</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_session</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Check the status of the current session</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>function</em>  callback  Callback to be performed (arguments: <code>err, response</code>)</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">session</span> = <span class="keyword">function</span> (<span class="variable">callback</span>) {
+	<span class="this">this</span>.<span class="variable">req</span>(&<span class="variable">quot</span>;<span class="variable">get</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="variable">_session</span>&<span class="variable">quot</span>;, <span class="variable">callback</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Returns a new Database object</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>string</em>  name  The Database name</p></li><li><p><strong>return</strong>: <em>object</em>       A new Database object</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Server</span>.<span class="variable">prototype</span>.<span class="variable">db</span> = <span class="keyword">function</span> (<span class="variable">name</span>) {
+	<span class="keyword">return</span> <span class="keyword">new</span> <span class="class">Database</span>(<span class="this">this</span>, <span class="variable">name</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Export to CommonJS </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">Server</span>;
+</code></pre>
+</td>
+</tr>	</body>
+</html></tbody></table>

@@ -1,0 +1,20 @@
+{
+  "author": "Dominic Barnes <contact@dominicbarnes.us> (http://dominicbarnes.us)",
+  "name": "couchdb-api",
+  "description": "An async wrapper for the CouchDB API, following Node.JS conventions",
+  "version": "0.1.0",
+  "homepage": "http://dominicbarnes.us/node-couchdb-api",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominicbarnes/node-couchdb-api.git"
+  },
+  "main": "index",
+  "scripts": {
+    "test": "nodeunit ./test/run"
+  },
+  "engines": {
+    "node": "0.4"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
