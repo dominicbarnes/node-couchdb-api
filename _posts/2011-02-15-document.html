@@ -1,0 +1,19 @@
+---
+title: Document
+categories: [api, database]
+layout: api
+
+slug: doc
+---
+
+<p>Retrieves a Document object within the database's namespace.</p>
+
+{% highlight javascript %}
+// if you already know your document's _id
+var doc = db.doc("my-doc-id");
+
+// if you are creating a new document (without an _id specified)
+var doc = db.doc();
+{% endhighlight %}
+
+<p><a href="/node-couchdb-api/document.html">Document API Documentation</a></p>

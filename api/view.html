@@ -1,0 +1,56 @@
+---
+layout: default
+title: View API
+category: namespace
+description: The following API calls are all centered around a CouchDB design document itself.
+---
+
+<h2>View API <a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html" target="_blank" class="info">official documentation</a></h2>
+
+<div id="toc">
+	<h3>Table of Contents</h3>
+	<ol>
+		<li><a href="#intro">Introduction</a></li>
+		{% for action in site.categories.view reversed %}
+			<li><a href="#{{ action.slug }}" class="{% unless action.http %}sync{% endunless %}">{{ action.title }}</a></li>
+		{% endfor %}
+	</ol>
+</div>
+
+<div id="intro" class="action">
+	<h3>
+		Introduction
+		<a href="#{{ action.slug }}" class="linkback">&para;</a>
+	</h3>
+	<p>The code below is all you need to get started with single CouchDB design document.</p>
+
+{% highlight javascript %}
+var couchdb = require("couchdb-api");
+
+/** default values: "localhost", 5984 **/
+var server = couchdb.srv(host, port);
+
+var db = server.db("my-database");
+
+var ddoc = db.ddoc("my-design-document");
+
+var view = ddoc.view("my-view");
+{% endhighlight %}
+</div>
+
+{% for action in site.categories.view reversed %}
+	<div id="{{ action.slug }}" class="action {% unless action.http %}sync{% endunless %}">
+		<h3>
+			<a href="/node-couchdb-api{{ action.url }}">{{ action.title }}</a>
+			<a href="#{{ action.slug }}" class="linkback">&para;</a>
+		</h3>
+		{% if action.http %}
+			<code>{{ action.http | join: ', ' }}</code>
+		{% endif %}
+		{% if action.doc %}
+			<a href="{{ action.doc }}" target="_blank" class="info">official documentation</a>
+		{% endif %}
+		{{ action.content }}
+		<a href="#" class="info">Back to Top</a>
+	</div>
+{% endfor %}

@@ -1,0 +1,17 @@
+---
+title: Information
+categories: [api, database]
+layout: api
+
+slug: info
+http: GET /db
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db_get
+---
+
+<p>Returns basic meta information about the database.</p>
+
+{% highlight javascript %}
+db.info(function (err, response) {
+	// your code here...
+});
+{% endhighlight %}

@@ -1,0 +1,27 @@
+---
+title: Show Function
+categories: [api, designdocument]
+layout: api
+
+slug: show
+---
+
+<p>Returns the contents of the specified <code>show</code> function. (<b>not</b> a rendered document)</p>
+<p>In order to get the results of a show function on a specific document, use the <a href="/node-couchdb-api/api/document.html#show">Document API</a>.</p>
+<p>Also acts as a setter if you pass the contents of the show function as the second parameter.</p>
+<p><b>NOTE:</b> You must use the <code>save()</code> method in order to send your changes to the database.</p>
+
+{% highlight javascript %}
+var show = ddoc.show("my-show-function");
+// show => "function (doc, req) { ... }"
+
+// creating a new list function (or replacing an existing one)
+ddoc.show("my-show-function", function (doc, req) {
+	return "output";
+});
+
+// need to save these view views to the database
+ddoc.save(function (err, response) {
+	// your new views are now available...
+});
+{% endhighlight %}

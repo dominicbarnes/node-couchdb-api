@@ -1,0 +1,20 @@
+---
+title: Query
+categories: [api, view]
+layout: api
+
+slug: query
+http: GET /db/_design/ddoc/_view/view
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-view-viewname_get
+---
+
+<p>Queries an arbitrary view, allows for querystring parameters via the first argument.</p>
+<p><b>Protip:</b> If you want to specifically get the results of either the map or reduce function for a view, use the <a href="#map"><code>map</code></a> and <a href="#reduce"><code>reduce</code></a> methods.</p>
+
+{% highlight javascript %}
+// specify querystring parameters (optional)
+var query = { include_docs: true };
+view.query(query, function (err, response) {
+	// your code here...
+});
+{% endhighlight %}

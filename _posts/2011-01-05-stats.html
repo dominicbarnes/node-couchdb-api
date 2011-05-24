@@ -1,0 +1,17 @@
+---
+title: Statistics
+categories: [api, server]
+layout: api
+
+slug: stats
+http: GET /_stats
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_stats_get
+---
+
+<p>Returns server statistics.</p>
+
+{% highlight javascript %}
+server.stats(function (err, stats) {
+	// your code here...
+});
+{% endhighlight %}

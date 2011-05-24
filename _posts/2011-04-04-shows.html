@@ -1,0 +1,19 @@
+---
+title: Show Functions
+categories: [api, designdocument]
+layout: api
+
+slug: shows
+---
+
+<p>Returns a list of <code>show</code> functions in this design document.</p>
+<p>This is essentially shorthand for <code>ddoc.body.shows</code>. It also initializes the object if it isn't already there.</p>
+<p><b>Protip:</b> If you add functions to the returned object, they will be sent to database if you call <code>ddoc.save()</code>.</p>
+
+{% highlight javascript %}
+var shows = ddoc.shows();
+
+// shows => {
+//    test: "function (doc, req) { ... }"
+// }
+{% endhighlight %}

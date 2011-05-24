@@ -1,0 +1,18 @@
+---
+title: Reduce
+categories: [api, view]
+layout: api
+
+slug: reduce
+http: GET /db/_design/ddoc/_view/view
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-view-viewname_get
+---
+
+<p>Queries the reduce function of the view, allows for querystring parameters via the first argument.</p>
+<p>This essentially acts as shorthand for <a href="#query"><code>query</code></a> and appends <code>reduce=true</code> to the URL.</p>
+
+{% highlight javascript %}
+view.reduce(function (err, response) {
+	// your code here...
+});
+{% endhighlight %}

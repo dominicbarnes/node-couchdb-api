@@ -1,0 +1,17 @@
+---
+title: All Databases
+categories: [api, server]
+layout: api
+
+slug: all-dbs
+http: GET /_all_dbs
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_all-dbs_get
+---
+
+<p>Returns a list of all the available databases on this server.</p>
+
+{% highlight javascript %}
+server.allDbs(function (err, dbs) {
+	// your code here...
+});
+{% endhighlight %}

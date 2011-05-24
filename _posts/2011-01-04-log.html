@@ -1,0 +1,44 @@
+---
+title: Log
+categories: [api, server]
+layout: api
+
+slug: log
+http: GET /_log
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_log_get
+---
+
+<p>Returns the contents of the server's log file.</p>
+
+<h4>Additional Arguments *</h4>
+<table>
+	<thead>
+		<tr>
+			<th>name</th>
+			<th>data type</th>
+			<th>comments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>query</td>
+			<td>object</td>
+			<td>
+				Querystring parameters to add to the request uri.<br />
+				(see <a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_log_get" target="_blank">CouchDB documentation</a> for specifics)
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p><small>* callback is always assumed to be the last argument. See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more details regarding callbacks.</small></p>
+
+{% highlight javascript %}
+var query = {
+	bytes: 1000, // default
+	offset: 0    // default
+};
+
+server.log(query, function (err, log) {
+	// your code here...
+});
+{% endhighlight %}

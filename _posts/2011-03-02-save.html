@@ -1,0 +1,20 @@
+---
+title: Create/Update
+categories: [api, document]
+layout: api
+
+slug: save
+http: [ 'PUT /db/doc', 'POST /db' ]
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db_post
+---
+
+<p>Will either create a new document (if it doesn't already exist) or it will update the existing document. The existence is determined by the presence of an `_id` attribute.</p>
+
+{% highlight javascript %}
+doc.body.foo = "bar";
+doc.body.hello = "world";
+
+doc.save(function (err, response) {
+	// your code here...
+});
+{% endhighlight %}

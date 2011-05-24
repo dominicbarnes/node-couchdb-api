@@ -1,0 +1,17 @@
+---
+title: Ensure Full Commit
+categories: [api, database]
+layout: api
+
+slug: ensure-full-commit
+http: POST /db/_ensure_full_commit
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-ensure-full-commit_post
+---
+
+<p>Forces all recent writes to be written to disk immediately.</p>
+
+{% highlight javascript %}
+db.ensureFullCommit(function (err, result) {
+	// your code here...
+});
+{% endhighlight %}

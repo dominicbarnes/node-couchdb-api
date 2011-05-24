@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.0</priority>
+	</url>
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/demos.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.0</priority>
+	</url>
+
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/view/reduce.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/view/map.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/view/query.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/val.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/update.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/updates.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/list.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/lists.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/show.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/shows.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/view.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/views.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/designdocument/info.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/document/delete.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/document/save.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/document/read.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/document.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/ensure-full-commit.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/view-cleanup.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/compact.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/changes.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/drop.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/create.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/database/info.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/uuids.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/restart.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/stats.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/log.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/active-tasks.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/all-dbs.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+	<url>
+		<loc>http://dominicbarnes.us/node-couchdb-api/api/server/info.html</loc>
+		<lastmod>2011-05-24T18:31:38-05:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
+	
+</urlset>

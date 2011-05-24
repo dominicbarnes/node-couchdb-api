@@ -1,0 +1,42 @@
+---
+title: Compact
+categories: [api, database]
+layout: api
+
+slug: compact
+http: [ 'POST /db/_compact', 'POST /db/_compact/ddoc' ]
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-compact_post
+---
+
+<p>Run a compaction on the database itself, or the view indexes for a specified design document.</p>
+
+<h4>Additional Arguments *</h4>
+<table>
+	<thead>
+		<tr>
+			<th>name</th>
+			<th>data type</th>
+			<th>comments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>ddoc</td>
+			<td>string</td>
+			<td><b><i>Optional</i></b> A design document to compact</td>
+		</tr>
+	</tbody>
+</table>
+<p><small>* callback is always assumed to be the last argument. See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more details regarding callbacks.</small></p>
+
+{% highlight javascript %}
+// compact the whole database
+db.compact(function (err, result) {
+	// your code here...
+});
+
+// compact only this design document
+db.compact("my-design-doc", function (err, result) {
+	// your code here...
+});
+{% endhighlight %}

@@ -1,0 +1,17 @@
+---
+title: Active Tasks
+categories: [api, server]
+layout: api
+
+slug: active-tasks
+http: GET /_active_tasks
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_active-tasks_get
+---
+
+<p>Returns information about the tasks currently running on the server.</p>
+
+{% highlight javascript %}
+server.activeTasks(function (err, tasks) {
+	// your code here...
+});
+{% endhighlight %}

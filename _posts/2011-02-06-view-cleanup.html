@@ -1,0 +1,17 @@
+---
+title: View Cleanup
+categories: [api, database]
+layout: api
+
+slug: view-cleanup
+http: POST /db/_view_cleanup
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-view-cleanup_post
+---
+
+<p>Clears out the view output cache.</p>
+
+{% highlight javascript %}
+db.viewCleanup(function (err, result) {
+	// your code here...
+});
+{% endhighlight %}
