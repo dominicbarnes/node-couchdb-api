@@ -6,7 +6,7 @@ It uses callbacks that follow node.js conventions and aims to be as expressive a
 
 ## Installation
 
-`Coming soon to NPM`
+`$ npm install couchdb-api`
 
 ## Usage
 
