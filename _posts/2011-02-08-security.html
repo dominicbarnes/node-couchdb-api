@@ -1,0 +1,35 @@
+---
+title: Security
+categories: [api, database]
+layout: api
+
+slug: security
+http: GET /db/_security, PUT /db/_security
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-security_get
+---
+
+<p>Gets/sets the <code>_security</code> object for the database.</p>
+
+{% highlight javascript %}
+// get the current security object
+db.security(function (err, response) {
+	// your code here...
+});
+
+
+var obj = {
+   "admins" : {
+      "roles" : [],
+      "names" : [ "mc", "slp" ]
+   },
+   "readers" : {
+      "roles" : [],
+      "names" : [ "tim", "brian" ]
+   }
+};
+
+// set a new security object
+db.security(obj, function (err, response) {
+	// your code here...
+});
+{% endhighlight %}

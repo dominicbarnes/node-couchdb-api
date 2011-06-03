@@ -1,0 +1,62 @@
+---
+title: Replicate
+categories: [api, server]
+layout: api
+
+slug: replicate
+http: POST /_replicate
+doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_replicate_post
+---
+
+<p>Replicate a database to another database.</p>
+
+<h4>Additional Arguments *</h4>
+<table>
+	<thead>
+		<tr>
+			<th>name</th>
+			<th>data type</th>
+			<th>comments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>source</td>
+			<td>string|Database</td>
+			<td>The source database; can be a string name, a string url or a <code>Database</code> object.</td>
+		</tr>
+		<tr>
+			<td>target</td>
+			<td>string|Database</td>
+			<td>The target database; can be a string name, a string url or a <code>Database</code> object.</td>
+		</tr>
+		<tr>
+			<td>opts *</td>
+			<td>object</td>
+			<td>
+				<b>Optional</b> Parameters for the replication command<br />
+				(see <a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_replicate_post" target="_blank">CouchDB documentation</a> for specifics)
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p><small>* callback is always assumed to be the last argument. See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more details regarding callbacks.</small></p>
+
+{% highlight javascript %}
+// using named (local) databases, replicate /test1 -> /test2
+server.replicate("test1", "test2", function (err, response) {
+	// your code here...
+});
+
+// using db objects, replicate /test -> remote.com:5984/test
+var local = server.db("test"),
+	remote = couchdb.srv("remote.com").db("test");
+server.replicate(local, remote, function (err, response) {
+	// your code here...
+});
+
+// other options
+server.replicate("test1", "test2", { create_target: true }, function (err, response) {
+	// your code here...
+});
+{% endhighlight %}
