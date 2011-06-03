@@ -2,6 +2,8 @@ var config = require("../config"),
 	couchdb = require("../../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port),
 	db = server.db(config.name("db")),
+	db2 = server.db(config.name("db")),
+	db3 = server.db(config.name("db")),
 	_ = require("underscore");
 
 module.exports = {
@@ -69,12 +71,65 @@ module.exports = {
 				}
 				test.done();
 			});
+		},
+		replicate: {
+			object: function (test) {
+				db.replicate(db2, { create_target: true }, function (err, response) {
+					test.ifError(err);
+					test.ok(response.ok);
+
+					db2.info(function (err, response) {
+						test.ifError(err);
+						test.done();
+					});
+				});
+			},
+			string: function (test) {
+				db.push(db3.name, { create_target: true }, function (err, response) {
+					test.ifError(err);
+					test.ok(response.ok);
+
+					db3.info(function (err, response) {
+						test.ifError(err);
+						test.done();
+					});
+				});
+			},
+			pull: function (test) {
+				db3.pull(db2, function (err, response) {
+					test.ifError(err);
+					test.ok(response.ok);
+					test.done();
+				});
+			}
+		},
+		security: function (test) {
+			db.security(function (err, response) {
+				test.ifError(err);
+				test.ok(response);
+				test.done();
+			});
+		},
+		tempView: function (test) {
+			var map = function (doc) {
+				emit(null, doc);
+			};
+
+			db.tempView(map, function (err, response) {
+				test.ifError(err);
+				test.ok(response.rows);
+				test.done();
+			});
 		}
 	},
 
 	tearDown: function (test) {
 		db.drop(function (err, response) {
-			test.done();
+			db2.drop(function (err, response) {
+				db3.drop(function (err, response) {
+					test.done();
+				});
+			});
 		});
 	}
 };
