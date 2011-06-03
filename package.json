@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "underscore": ""
+  },
+  "devDependencies": {
+    "nodeunit": ""
   }
 }
