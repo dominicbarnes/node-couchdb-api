@@ -33,4 +33,4 @@ It uses callbacks that follow node.js conventions and aims to be as expressive a
 		// if you chose a non-existant db, you'd get { error: "not_found", reason: "no_db_file" } in place of `err`
     });
 
-I'll have a much more detailed API reference in the very near future. For now, refer to the generated documentation in `doc/`, as well as the source itself. (including the test cases in `test/run`)
+Refer to [my website](http://dominicbarnes.us/node-couchdb-api/) for documentation and resources.
