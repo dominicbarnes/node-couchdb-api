@@ -1,6 +1,7 @@
 var config = require("../config"),
 	couchdb = require("../../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port),
+	testusername = "testuser",
 	_ = require("underscore");
 
 module.exports = {
@@ -91,6 +92,26 @@ module.exports = {
 					finish = true;
 				}
 			});
+		},
+		register: function (test) {
+			server.register(testusername, "password", function (err, response) {
+				test.ifError(err);
+				server.db("_users").doc(response.id).get(function (err, doc) {
+					test.ifError(err);
+					test.equal(doc.name, testusername);
+					test.done();
+				});
+			});
 		}
+	},
+
+	tearDown: function (test) {
+		var user = server.db("_users").doc("org.couchdb.user:" + testusername);
+
+		user.get(function (err, doc) {
+			user.del(function (err, response) {
+				test.done();
+			});
+		});
 	}
 };
