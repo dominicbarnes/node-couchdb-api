@@ -14,6 +14,10 @@ var doc = db.doc("my-doc-id");
 
 // if you are creating a new document (without an _id specified)
 var doc = db.doc();
+
+// if you want to initialize your document's body, pass an object (with or without _id specified)
+var doc = db.doc({ _id: "some-id", foo: "bar" });
+var doc = db.doc({ foo: "bar" });
 {% endhighlight %}
 
 <p><a href="/node-couchdb-api/api/document.html">Document API Documentation</a></p>

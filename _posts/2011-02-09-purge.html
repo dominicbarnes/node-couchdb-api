@@ -11,7 +11,14 @@ doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation
 <p>Executes a <code>purge</code> command on the database. (removes references to <i>deleted</i> documents)</p>
 
 {% highlight javascript %}
-db.purge(function (err, response) {
+// you must specify specific _ids and _revs to delete
+// use an object, each key is an _id, and the corresponding value is an array of _revs
+var docs = {
+	"id":  ["rev1", "rev2"],
+	"id2": ["rev1", "rev2"]
+};
+
+db.purge(docs, function (err, response) {
 	// your code here...
 });
 {% endhighlight %}
