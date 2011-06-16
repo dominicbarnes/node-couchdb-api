@@ -41,6 +41,7 @@ module.exports = {
 
 			ddoc.view(view_map_name, function (doc) { emit(doc._id, null); });
 			ddoc.view(view_reduce_name, function (doc) { emit(doc._id, null); }, "_count");
+			ddoc.list("test", function (head, req) { provides("html", function () { return "test successful"; }); });
 			ddoc.save(save);
 		});
 	},
@@ -81,6 +82,16 @@ module.exports = {
 				test.ifError(err);
 				if (response) {
 					test.equal(response.rows[0].value, doc_count);
+				}
+				test.done();
+			});
+		},
+		list: function (test) {
+			test.expect(2);
+			view_map.list("test", function (err, response) {
+				test.ifError(err);
+				if (response) {
+					test.equal(response, "test successful");
 				}
 				test.done();
 			});
