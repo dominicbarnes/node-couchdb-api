@@ -120,6 +120,39 @@ module.exports = {
 				test.ok(response.rows);
 				test.done();
 			});
+		},
+		documents: {
+			normal: function (test) {
+				test.ok(db.doc);
+				test.done();
+			},
+			design: function (test) {
+				test.ok(db.ddoc);
+				test.ok(db.designDoc);
+				test.strictEqual(db.ddoc, db.designDoc);
+				test.done();
+			},
+			local: function (test) {
+				test.ok(db.ldoc);
+				test.ok(db.localDoc);
+				test.strictEqual(db.ldoc, db.localDoc);
+				test.done();
+			},
+			bulk: function (test) {
+				var docs = [
+					{ foo: "bar" },
+					{ hello: "world" },
+					{ bah: "humbug" }
+				];
+
+				db.bulkDocs(docs, function (err, response) {
+					test.ifError(err);
+					if (response) {
+						test.equal(response.length, docs.length);
+					}
+					test.done();
+				});
+			}
 		}
 	},
 
