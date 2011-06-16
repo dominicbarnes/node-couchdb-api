@@ -16,5 +16,8 @@ module.exports = {
 
 	srv: function (host, port) {
 		return new this.Server(host, port);
+	},
+	db: function (name) {
+		return this.srv().db(name);
 	}
 };
