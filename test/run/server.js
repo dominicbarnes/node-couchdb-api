@@ -93,14 +93,43 @@ module.exports = {
 				}
 			});
 		},
+		userDoc: {
+			"No Options": function (test) {
+				var user = server.userDoc(testusername, "bar");
+				test.equal(user._id, "org.couchdb.user:" + testusername);
+				test.equal(user.name, testusername);
+				test.ok(user.salt);
+				test.ok(user.password_sha);
+				test.ok(user.roles);
+				test.equal(user.type, "user");
+				test.done();
+			},
+			"Options with Salt": function (test) {
+				var user = server.userDoc(testusername, "bar", { salt: "my secret" });
+				test.equal(user._id, "org.couchdb.user:" + testusername);
+				test.equal(user.name, testusername);
+				test.equal(user.salt, "my secret");
+				test.ok(user.password_sha);
+				test.ok(user.roles);
+				test.equal(user.type, "user");
+				test.done();
+			},
+			"Options with Roles": function (test) {
+				var user = server.userDoc(testusername, "bar", { roles: ["user", "test"] });
+				test.equal(user._id, "org.couchdb.user:" + testusername);
+				test.equal(user.name, testusername);
+				test.ok(user.salt);
+				test.ok(user.password_sha);
+				test.equal(user.roles.length, 2);
+				test.equal(user.type, "user");
+				test.done();
+			}
+		},
 		register: function (test) {
 			server.register(testusername, "password", function (err, response) {
 				test.ifError(err);
-				server.db("_users").doc(response.id).get(function (err, doc) {
-					test.ifError(err);
-					test.equal(doc.name, testusername);
-					test.done();
-				});
+				if (response) test.ok(response.ok);
+				test.done();
 			});
 		}
 	},
