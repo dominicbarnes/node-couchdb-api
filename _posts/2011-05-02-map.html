@@ -10,6 +10,7 @@ doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation
 
 <p>Queries the map function of the view, allows for querystring parameters via the first argument.</p>
 <p>This essentially acts as shorthand for <a href="#query"><code>query</code></a> and appends <code>reduce=false</code> to the URL.</p>
+<p><b>NOTE:</b> Do not use this function if you know in advance that you have a "map-only" view, it will throw an error since <code>reduce</code> is an invalid query param for a non-reduce view. (use <a href="#query">query</a> instead)</p>
 
 {% highlight javascript %}
 view.map(function (err, response) {
