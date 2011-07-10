@@ -1,0 +1,21 @@
+---
+title: Property
+categories: [api, document]
+layout: api
+
+slug: prop
+---
+
+<p>Shorthand for getting/setting a shallow property on a Document.</p>
+<p><b>NOTE:</b> This is chainable if you are setting a property, not if you are getting a property.</p>
+<p><b>ANOTHER NOTE:</b> If you are wanting to remove a property or set a deeper property, use the "long-hand" method. (<code>doc.body</code>)</p>
+
+{% highlight javascript %}
+doc.prop("foo", "bar");
+// same as
+doc.body.foo = "bar";
+
+doc.prop("foo")
+// same as
+doc.body.foo
+{% endhighlight %}
