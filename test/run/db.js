@@ -8,7 +8,6 @@ var config = require("../config"),
 
 module.exports = {
 	setUp: function (test) {
-		test.expect(2);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}

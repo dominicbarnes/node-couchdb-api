@@ -110,7 +110,6 @@ module.exports = {
 	},
 
 	tearDown: function (test) {
-		test.expect(2);
 		db.drop(function (err, response) {
 			test.ifError(err);
 			if (response) {
