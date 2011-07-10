@@ -15,6 +15,40 @@ allowing you to leverage the flexibility of CouchDB in your application with eas
 This is **not** an ORM for CouchDB, it's simply a JavaScript API to perform
 requests against the CouchDB HTTP API easily.
 
+## Getting Started
+
+### Installation
+
+`npm install couchdb-api`
+
+### Usage
+
+    var couchdb = require("couchdb-api");
+
+    var srv = couchdb.srv();
+
+    // GET -> http://localhost:5984/
+    srv.info(function (err, response) {
+        // err      => null
+        // response => { couchdb: "Welcome"; version: "1.0.1" }
+    });
+
+    var db = srv.db("my-db");
+
+    // GET -> http://localhost:5984/my-db
+    db.info(function (err, response) {
+        // err      => null
+        // response => { ...db info... }
+    });
+
+    var doc = db.doc("my-doc");
+
+    // GET -> http://localhost:5984/my-db/my-doc
+    doc.read(function (err, body) {
+        // err  => null
+        // body => { ...document body... }
+    });
+
 ## API Objects
 
  * [Server](/node-couchdb-api/api/server.html)
