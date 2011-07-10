@@ -23,58 +23,58 @@ module.exports = {
 
 	suite: {
 		info: function (test) {
-			test.expect(2);
-			db.info(function (err, response) {
+			var ret = db.info(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(db.name, response.db_name);
 				}
 				test.done();
 			});
+			test.strictEqual(db, ret);
 		},
 		changes: function (test) {
-			test.expect(2);
-			db.changes({}, function (err, response) {
+			var ret = db.changes({}, function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response);
 				}
 				test.done();
 			});
+			test.strictEqual(db, ret);
 		},
 		compact: function (test) {
-			test.expect(2);
-			db.compact(function (err, response) {
+			var ret = db.compact(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
 				test.done();
 			});
+			test.strictEqual(db, ret);
 		},
 		viewCleanup: function(test) {
-			test.expect(2);
-			db.viewCleanup(function (err, response) {
+			var ret = db.viewCleanup(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
 				test.done();
 			});
+			test.strictEqual(db, ret);
 		},
 		ensureFullCommit: function (test) {
-			test.expect(2);
-			db.ensureFullCommit(function (err, response) {
+			var ret = db.ensureFullCommit(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
 				test.done();
 			});
+			test.strictEqual(db, ret);
 		},
 		replicate: {
 			object: function (test) {
-				db.replicate(db2, { create_target: true }, function (err, response) {
+				var ret = db.replicate(db2, { create_target: true }, function (err, response) {
 					test.ifError(err);
 					test.ok(response.ok);
 
@@ -83,9 +83,10 @@ module.exports = {
 						test.done();
 					});
 				});
+				test.strictEqual(db, ret);
 			},
 			string: function (test) {
-				db.push(db3.name, { create_target: true }, function (err, response) {
+				var ret = db.push(db3.name, { create_target: true }, function (err, response) {
 					test.ifError(err);
 					test.ok(response.ok);
 
@@ -94,32 +95,37 @@ module.exports = {
 						test.done();
 					});
 				});
+				test.strictEqual(db, ret);
 			},
 			pull: function (test) {
-				db3.pull(db2, function (err, response) {
+				var ret = db3.pull(db2, function (err, response) {
 					test.ifError(err);
 					test.ok(response.ok);
 					test.done();
 				});
+				test.strictEqual(db3, ret);
 			}
 		},
 		security: function (test) {
-			db.security(function (err, response) {
+			var ret = db.security(function (err, response) {
 				test.ifError(err);
 				test.ok(response);
 				test.done();
 			});
+			test.strictEqual(db, ret);
 		},
 		tempView: function (test) {
 			var map = function (doc) {
 				emit(null, doc);
 			};
 
-			db.tempView(map, function (err, response) {
+			var ret = db.tempView(map, function (err, response) {
 				test.ifError(err);
 				test.ok(response.rows);
 				test.done();
 			});
+
+			test.strictEqual(db, ret);
 		},
 		documents: {
 			normal: function (test) {
@@ -145,13 +151,15 @@ module.exports = {
 					{ bah: "humbug" }
 				];
 
-				db.bulkDocs(docs, function (err, response) {
+				var ret = db.bulkDocs(docs, function (err, response) {
 					test.ifError(err);
 					if (response) {
 						test.equal(response.length, docs.length);
 					}
 					test.done();
 				});
+
+				test.strictEqual(db, ret);
 			}
 		}
 	},

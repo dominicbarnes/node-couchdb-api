@@ -48,58 +48,58 @@ module.exports = {
 
 	suite: {
 		query: function (test) {
-			test.expect(2);
-			view_map.query(function (err, response) {
+			var ret = view_map.query(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(response.total_rows, doc_count);
 				}
 				test.done();
 			});
+			test.strictEqual(view_map, ret);
 		},
 		querystring: function (test) {
-			view_map.query({ include_docs: true }, function (err, response) {
+			var ret = view_map.query({ include_docs: true }, function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.rows[0].doc);
 				}
 				test.done();
 			});
+			test.strictEqual(view_map, ret);
 		},
 		map: function (test) {
-			test.expect(2);
-			view_reduce.map(function (err, response) {
+			var ret = view_reduce.map(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(response.total_rows, doc_count);
 				}
 				test.done();
 			});
+			test.strictEqual(view_reduce, ret);
 		},
 		reduce: function (test) {
-			test.expect(2);
-			view_reduce.reduce(function (err, response) {
+			var ret = view_reduce.reduce(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(response.rows[0].value, doc_count);
 				}
 				test.done();
 			});
+			test.strictEqual(view_reduce, ret);
 		},
 		list: function (test) {
-			test.expect(2);
-			view_map.list("test", function (err, response) {
+			var ret = view_map.list("test", function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(response, "test successful");
 				}
 				test.done();
 			});
+			test.strictEqual(view_map, ret);
 		}
 	},
 
 	tearDown: function (test) {
-		test.expect(2);
 		db.drop(function (err, response) {
 			test.ifError(err);
 			if (response) {

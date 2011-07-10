@@ -14,84 +14,83 @@ module.exports = {
 
 	suite: {
 		info: function (test) {
-			test.expect(2);
-			server.info(function (err, response) {
+			var ret = server.info(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(response.couchdb, "Welcome");
 				}
 				test.done();
 			});
+			test.strictEqual(server, ret);
 		},
 		allDbs: function (test) {
-			test.expect(2);
-			server.allDbs(function (err, response) {
+			var ret = server.allDbs(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(_.isArray(response));
 				}
 				test.done();
 			});
+			test.strictEqual(server, ret);
 		},
 		activeTasks: function (test) {
-			test.expect(2);
-			server.activeTasks(function (err, response) {
+			var ret = server.activeTasks(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(_.isArray(response));
 				}
 				test.done();
 			});
+			test.strictEqual(server, ret);
 		},
 		log: function (test) {
-			test.expect(2);
-			server.log(function (err, response, headers) {
+			var ret = server.log(function (err, response, headers) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response);
 				}
 				test.done();
 			});
+			test.strictEqual(server, ret);
 		},
 		stats: function (test) {
-			test.expect(2);
-			server.stats(function (err, response) {
+			var ret = server.stats(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.couchdb);
 				}
 				test.done();
 			});
+			test.strictEqual(server, ret);
 		},
 		uuids: function (test) {
 			var finish = false;
-			test.expect(4);
 
-			server.uuids(function (err, uuids) {
-				test.ifError(err);
-				if (uuids) {
-					test.equal(uuids.length, 1);
-				}
+			server
+				.uuids(function (err, uuids) {
+					test.ifError(err);
+					if (uuids) {
+						test.equal(uuids.length, 1);
+					}
 
-				if (finish) {
-					test.done();
-				} else {
-					finish = true;
-				}
-			});
+					if (finish) {
+						test.done();
+					} else {
+						finish = true;
+					}
+				})
+				.uuids(10, function (err, uuids) {
+					test.ifError(err);
+					if (uuids) {
+						test.equal(uuids.length, 10);
+					}
 
-			server.uuids(10, function (err, uuids) {
-				test.ifError(err);
-				if (uuids) {
-					test.equal(uuids.length, 10);
-				}
-
-				if (finish) {
-					test.done();
-				} else {
-					finish = true;
-				}
-			});
+					if (finish) {
+						test.done();
+					} else {
+						finish = true;
+					}
+				});
 		},
 		userDoc: {
 			"No Options": function (test) {
@@ -126,11 +125,12 @@ module.exports = {
 			}
 		},
 		register: function (test) {
-			server.register(testusername, "password", function (err, response) {
+			var ret = server.register(testusername, "password", function (err, response) {
 				test.ifError(err);
 				if (response) test.ok(response.ok);
 				test.done();
 			});
+			test.strictEqual(server, ret);
 		}
 	},
 
