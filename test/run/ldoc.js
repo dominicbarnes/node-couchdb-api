@@ -7,7 +7,6 @@ var config = require("../config"),
 
 module.exports = {
 	setUp: function (test) {
-		test.expect(4);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
@@ -25,16 +24,16 @@ module.exports = {
 			});
 		});
 	},
-	suite: function (test) {
-		test.expect(2);
-		ldoc.get(function (err, response) {
-			test.ifError(err);
-			test.ok(response);
-			test.done();
-		});
+	suite: {
+		get: function (test) {
+			ldoc.get(function (err, response) {
+				test.ifError(err);
+				test.ok(response);
+				test.done();
+			});
+		}
 	},
 	tearDown: function (test) {
-		test.expect(2);
 		db.drop(function (err, response) {
 			test.ifError(err);
 			if (response) {

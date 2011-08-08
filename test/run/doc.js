@@ -9,7 +9,6 @@ var config = require("../config"),
 
 module.exports = {
 	setUp: function (test) {
-		test.expect(4);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
@@ -36,7 +35,6 @@ module.exports = {
 	suite: {
 		"API Test": {
 			"Save": function (test) {
-				test.expect(2);
 				doc_api.body.hello = "world";
 				doc_api.save(function (err, response) {
 					test.ifError(err);
@@ -48,7 +46,6 @@ module.exports = {
 				});
 			},
 			"Get/Read": function (test) {
-				test.expect(2);
 				doc_api.get(function (err, doc) {
 					test.ifError(err);
 					if (doc) {
@@ -66,8 +63,16 @@ module.exports = {
 					test.done();
 				});
 			},
+			"Prop": function (test) {
+				var ret = doc_api.prop("foo", "bar");
+				test.strictEqual(doc_api, ret);
+
+				test.equal(doc_api.body.foo, "bar");
+				test.equal(doc_api.body.foo, doc_api.prop("foo"));
+
+				test.done();
+			},
 			"Delete": function (test) {
-				test.expect(2);
 				doc_api.del(function (err, response) {
 					test.ifError(err);
 					if (response) {
@@ -76,7 +81,7 @@ module.exports = {
 					}
 					test.done();
 				});
-			}
+			},
 			/* I keep getting "function_clause" errors trying to use _purge, CouchDB bug perhaps?
 			"DB Purge": function (test) {
 				var docs = {};
@@ -129,7 +134,6 @@ module.exports = {
 	},
 
 	tearDown: function (test) {
-		test.expect(2);
 		db.drop(function (err, response) {
 			test.ifError(err);
 			if (response) {

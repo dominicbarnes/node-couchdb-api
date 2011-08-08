@@ -4,7 +4,7 @@ module.exports = {
 	conn: {
 		host:     "localhost",
 		port:     5984,
-		party:    false,
+		party:    true,
 		name:     "admin",
 		password: "M@tte0s"
 	},
