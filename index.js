@@ -8,7 +8,7 @@ module.exports = {
 	LocalDocument: require("./lib/localdoc"),
 	View: require("./lib/view"),
 
-	/*
+	/* TODO: parse URL into resource object
 	get: function (url) {
 		url = url.parse(url);
 	},

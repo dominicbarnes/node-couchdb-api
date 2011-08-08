@@ -1,4 +1,2 @@
-node_modules/underscore
-node_modules/hashlib
-node_modules/.bin
-node_modules/nodeunit
+node_modules/
+lib/attachment.js
