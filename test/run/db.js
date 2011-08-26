@@ -1,6 +1,6 @@
 var config = require("../config"),
 	couchdb = require("../../index"),
-	server = couchdb.srv(config.conn.host, config.conn.port),
+	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	db2 = server.db(config.name("db")),
 	db3 = server.db(config.name("db")),
@@ -8,6 +8,7 @@ var config = require("../config"),
 
 module.exports = {
 	setUp: function (test) {
+		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
@@ -120,7 +121,9 @@ module.exports = {
 
 			var ret = db.tempView(map, function (err, response) {
 				test.ifError(err);
-				test.ok(response.rows);
+				if (response) {
+					test.ok(response.rows);
+				}
 				test.done();
 			});
 

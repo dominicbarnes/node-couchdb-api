@@ -1,12 +1,13 @@
 var config = require("../config"),
 	couchdb = require("../../index"),
-	server = couchdb.srv(config.conn.host, config.conn.port),
+	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	ldoc = db.ldoc(config.name("ldoc")),
 	_ = require("underscore");
 
 module.exports = {
 	setUp: function (test) {
+		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}

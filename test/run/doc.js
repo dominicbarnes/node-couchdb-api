@@ -1,6 +1,6 @@
 var config = require("../config"),
 	couchdb = require("../../index"),
-	server = couchdb.srv(config.conn.host, config.conn.port),
+	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	doc_id = config.name("doc"),
 	doc_api = db.doc(doc_id),
@@ -9,6 +9,7 @@ var config = require("../config"),
 
 module.exports = {
 	setUp: function (test) {
+		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
@@ -81,7 +82,7 @@ module.exports = {
 					}
 					test.done();
 				});
-			},
+			}
 			/* I keep getting "function_clause" errors trying to use _purge, CouchDB bug perhaps?
 			"DB Purge": function (test) {
 				var docs = {};

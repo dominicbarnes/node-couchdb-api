@@ -1,13 +1,16 @@
 var counter = {};
 
 module.exports = {
+	// NOTE: assumes "Admin Party"
 	conn: {
 		host:     "localhost",
 		port:     5984,
 		party:    true,
-		name:     "admin",
-		password: "M@tte0s"
+		name:     null,
+		password: null,
+		ssl:      false
 	},
+	log_level: "warn",
 	name: function (type) {
 		counter[type] = counter[type] || 0;
 		return "test_" + type + "_" + counter[type]++;

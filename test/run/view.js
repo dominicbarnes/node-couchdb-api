@@ -1,6 +1,6 @@
 var config = require("../config"),
 	couchdb = require("../../index"),
-	server = couchdb.srv(config.conn.host, config.conn.port),
+	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	ddoc = db.ddoc(config.name("ddoc")),
 	doc_count = 10,
@@ -26,6 +26,8 @@ module.exports = {
 		}
 
 		test.expect(4 + (2 * doc_count));
+
+		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
