@@ -121,7 +121,9 @@ module.exports = {
 
 			var ret = db.tempView(map, function (err, response) {
 				test.ifError(err);
-				test.ok(response.rows);
+				if (response) {
+					test.ok(response.rows);
+				}
 				test.done();
 			});
 
