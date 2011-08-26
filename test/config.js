@@ -10,6 +10,7 @@ module.exports = {
 		password: null,
 		ssl:      false
 	},
+	log_level: "warn",
 	name: function (type) {
 		counter[type] = counter[type] || 0;
 		return "test_" + type + "_" + counter[type]++;
