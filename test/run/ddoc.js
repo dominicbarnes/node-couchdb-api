@@ -33,7 +33,7 @@ module.exports = {
 			var ret = ddoc.info(function (err, response) {
 				test.ifError(err);
 				if (response) {
-					test.equal(ddoc.id, response.name);
+					test.equal(ddoc.name, response.name);
 				}
 				test.done();
 			});
