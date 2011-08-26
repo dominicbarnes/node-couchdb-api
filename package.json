@@ -18,9 +18,8 @@
   },
   "dependencies": {
     "underscore": "1.1",
-    "hashlib":    "1"
-  },
-  "devDependencies": {
-    "nodeunit": "0.5"
+    "hashlib":    "1",
+    "vargs":      "0.1",
+    "colorize":   "0.1"
   }
 }
