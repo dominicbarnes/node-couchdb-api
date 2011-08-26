@@ -27,11 +27,11 @@ description: The following API calls are all centered around a CouchDB server it
 {% highlight javascript %}
 var couchdb = require("couchdb-api");
 
-/** default values: "localhost", 5984 **/
-var server = couchdb.srv(host, port);
+/** default values: "localhost", 5984, false **/
+var server = couchdb.srv(host, port, ssl);
 
 // or you can use the bare constructor...
-var server = new couchdb.Server(host, port);
+var server = new couchdb.Server(host, port, ssl);
 {% endhighlight %}
 </div>
 
