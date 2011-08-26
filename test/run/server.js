@@ -1,11 +1,12 @@
 var config = require("../config"),
 	couchdb = require("../../index"),
-	server = couchdb.srv(config.conn.host, config.conn.port),
+	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	testusername = "testuser",
 	_ = require("underscore");
 
 module.exports = {
 	setUp: function (test) {
+		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
@@ -127,7 +128,9 @@ module.exports = {
 		register: function (test) {
 			var ret = server.register(testusername, "password", function (err, response) {
 				test.ifError(err);
-				if (response) test.ok(response.ok);
+				if (response) {
+					test.ok(response.ok);
+				}
 				test.done();
 			});
 			test.strictEqual(server, ret);
