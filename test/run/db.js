@@ -32,15 +32,39 @@ module.exports = {
 			});
 			test.strictEqual(db, ret);
 		},
-		changes: function (test) {
-			var ret = db.changes({}, function (err, response) {
-				test.ifError(err);
-				if (response) {
-					test.ok(response);
-				}
-				test.done();
-			});
-			test.strictEqual(db, ret);
+		changes: {
+			query: function (test) {
+				var ret = db.changes({}, function (err, response) {
+					test.ifError(err);
+					if (response) {
+						test.ok(response);
+					}
+					test.done();
+				});
+				test.strictEqual(db, ret);
+			},
+			stream: function (test) {
+				var ret = db.changes({ timeout: 250, feed: "continuous" }, function (err, stream) {
+					test.ifError(err);
+
+					if (stream) {
+						var changes = 0;
+						stream.on("change", function (change) {
+							changes++;
+						});
+
+						stream.on("end", function () {
+							test.equal(changes, 2);
+							test.done();
+						});
+
+						db.doc({ foo: "bar" }).save(function () {});
+						db.doc({ hello: "world" }).save(function () {});
+					}
+				});
+
+				test.strictEqual(db, ret);
+			}
 		},
 		compact: function (test) {
 			var ret = db.compact(function (err, response) {
