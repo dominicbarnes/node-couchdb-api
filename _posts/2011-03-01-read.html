@@ -1,9 +1,9 @@
 ---
-title: Read
+title: Get
 categories: [api, document]
 layout: api
 
-slug: read
+slug: get
 http: GET /db/doc
 doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db-doc_get
 ---
@@ -11,7 +11,7 @@ doc: http://techzone.couchbase.com/sites/default/files/uploads/all/documentation
 <p>Returns the contents of the specified document.</p>
 
 {% highlight javascript %}
-doc.read(function (err, response) {
+doc.get(function (err, response) {
 	// you can access the document body through `response`
 	//    or `doc.body` (outer variable in closure)
 });
