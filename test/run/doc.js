@@ -21,7 +21,7 @@ module.exports = {
 
 			var ddoc = db.ddoc("test");
 			ddoc.show("test", function (doc, req) {
-				return { body: doc._id };
+				return doc._id;
 			});
 			ddoc.save(function () {
 				test.ifError(err);
@@ -131,6 +131,37 @@ module.exports = {
 				test.equal(doc.body.foo, "bar");
 				test.done();
 			}
+		},
+
+		"GetURL Test": function (test) {
+			var conn = config.conn;
+
+			var expectedUrl = "http";
+			if (conn.ssl) expectedUrl += "s";
+			expectedUrl += "://" + conn.host + ":" + conn.port + "/" + db.name + "/" + doc_api.id;
+
+			test.equal(doc_api.url(), expectedUrl);
+			test.done();
+		},
+
+		"Etag Cache Test": function (test) {
+			var doc = db.doc({ cache: "test" });
+
+			doc.save(function (err, result) {
+				doc.get(function (err, result, response) {
+					// test to make sure this response ended up in the cache
+					test.equal(doc.client.cache[doc.url()].etag, response.headers.etag);
+
+					doc.get(function (err, result, response) {
+						// test to make sure CouchDB returned the expected HTTP Status Code
+						test.equal(response.statusCode, 304);
+
+						// TODO: test for empty body of response object? (just to be sure)
+
+						test.done();
+					});
+				});
+			});
 		}
 	},
 
