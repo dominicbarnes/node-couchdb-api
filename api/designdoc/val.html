@@ -1,0 +1,112 @@
+<!DOCTYPE html SYSTEM>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+<meta charset="utf-8" />
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+
+<title>Validation Function</title>
+<meta name="description" content="" />
+<meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
+
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- Homepage CSS -->
+<link href="/node-couchdb-api/css/style.css" rel="stylesheet" media="screen, projection" type="text/css" />
+
+</head>
+
+<body>
+
+<a href="http://github.com/dominicbarnes/node-couchdb-api"><img src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" style="position: fixed; top: 0; right: 0; border: 0; z-index: 10001" /></a>
+
+<div class="topbar">
+	<div class="fill">
+		<div class="container">
+			<a href="/node-couchdb-api/index.html" class="brand">Dominic Barnes</a>
+			<ul class="nav">
+				<li><a href="http://dominicbarnes.us/">Home</a></li>
+				<li><a href="http://dominicbarnes.us/about.html">About</a></li>
+				<li><a href="http://dominicbarnes.us/contact.html">Contact</a></li>
+				<li><a href="http://dominicbarnes.us/jWizard">jWizard</a></li>
+				<li class="active"><a href="/node-couchdb-api/">node-couchdb-api</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+	<div class="content">
+		<div class="page-header">
+			<h1><a href="/node-couchdb-api/">node-couchdb-api</a> <small>The CouchDB API Wrapper for Node.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span10">
+				
+<h2>Validation Function</h2>
+
+<p>Gets/sets the <code>validate_doc_update</code> function for this design document (shorthand for <code>ddoc.body.validate_doc_update</code>)</p>
+
+<div class="CodeRay">
+<pre><span class="keyword">var</span> val = ddoc.val();
+<span class="comment">// val =&gt; &quot;function (newDoc, savedDoc, userCtx) { ... }&quot;</span>
+
+ddoc.val(<span class="keyword">function</span> (newDoc, savedDoc, userCtx) {
+   <span class="keyword">throw</span>({ <span class="key">forbidden</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span> });
+});
+
+<span class="comment">// need to save these view views to the database</span>
+ddoc.save(<span class="keyword">function</span> (err, response) {
+   <span class="comment">// your new views are now available...</span>
+});
+
+</pre>
+</div>
+
+
+<br />
+
+
+<p><a href="/node-couchdb-api/api/designdoc/">&laquo; Back to Design Document Documentation</a></p>
+
+
+			</div>
+			<div class="span4">
+            <h3>Installation</h3>
+            <pre>npm install couchdb-api</pre>
+
+				<h3><a href="/node-couchdb-api/api">API Documentation</a></h3>
+            <ul>
+				
+					<li><a href="/node-couchdb-api/api/database/">Database</a></li>
+				
+					<li><a href="/node-couchdb-api/api/designdoc/">Design Document</a></li>
+				
+					<li><a href="/node-couchdb-api/api/document/">Document</a></li>
+				
+					<li><a href="/node-couchdb-api/api/server/">Server</a></li>
+				
+					<li><a href="/node-couchdb-api/api/view/">View</a></li>
+				
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		</footer><p>&copy; Dominic Barnes 2011</p>
+	
+
+</div> <!-- /container -->
+
+<!-- scripts -->
+<!--<script defer src="js/script.js"></script>-->
+<!-- end scripts-->
+
+</body>
+
+</html>

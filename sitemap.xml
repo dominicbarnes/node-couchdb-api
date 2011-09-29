@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+      <url>
+         <loc>/node-couchdb-api/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/callbacks.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/debug.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/features.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/structure.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/bulk-docs.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/changes.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/compact.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/create.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/design-document.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/document.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/drop.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/ensure-full-commit.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/info.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/local-document.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/pull.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/purge.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/push.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/replicate.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/security.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/temp-view.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/database/view-cleanup.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/info.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/list.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/show.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/update.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/val.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/view.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/designdoc/views.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/document/delete.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/document/get.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/document/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/document/prop.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/document/save.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/document/show.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/active-tasks.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/all-dbs.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/info.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/log.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/replicate.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/restart.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/stats.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/server/uuids.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/view/</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/view/list.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/view/map.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/view/query.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>/node-couchdb-api/api/view/reduce.html</loc>
+         <lastmod>2011-09-29</lastmod>
+
+         
+
+         
+      </url>
+   
+</urlset>
