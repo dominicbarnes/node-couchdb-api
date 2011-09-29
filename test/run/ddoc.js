@@ -41,7 +41,7 @@ module.exports = {
 		},
 		views: function (test) {
 			test.ifError(ddoc.body.views); // make sure views doesn't exist on our new doc
-			var views = ddoc.views();      // initialize the array and return the reference
+			var views = ddoc.view();       // initialize the array and return the reference
 
 			var viewName = config.name("view");
 			var ret = ddoc.view(viewName, noop);  // add a new view
@@ -60,7 +60,7 @@ module.exports = {
 		},
 		shows: function (test) {
 			test.ifError(ddoc.body.shows); // make sure shows doesn't exist on our new doc
-			var shows = ddoc.shows();      // initialize the array and return the reference
+			var shows = ddoc.show();       // initialize the array and return the reference
 
 			var showName = config.name("show");
 			test.ifError(shows[showName]);       // make sure shows doesn't exist on our new doc
@@ -74,7 +74,7 @@ module.exports = {
 		},
 		lists: function (test) {
 			test.ifError(ddoc.body.lists); // make sure lists doesn't exist on our new doc
-			var lists = ddoc.lists();      // initialize the array and return the reference
+			var lists = ddoc.list();       // initialize the array and return the reference
 
 			var listName = config.name("list");
 			test.ifError(lists[listName]);       // make sure lists doesn't exist on our new doc
@@ -88,7 +88,7 @@ module.exports = {
 		},
 		updates: function (test) {
 			test.ifError(ddoc.body.updates); // make sure updates doesn't exist on our new doc
-			var updates = ddoc.updates();    // initialize the array and return the reference
+			var updates = ddoc.update();     // initialize the array and return the reference
 
 			var updateName = config.name("list");
 			test.ifError(updates[updateName]);       // make sure updates doesn't exist on our new doc
