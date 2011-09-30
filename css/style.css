@@ -336,7 +336,7 @@ div.content{background-color:#fff;padding:20px;margin:0 -20px;-webkit-border-rad
 .page-header{background-color:#f5f5f5;padding:20px 20px 10px;margin:-20px -20px 20px;}
 .page-header a{color:black;}
 div.content .span10,div.content .span4{min-height:500px;}
-div.content .span4{margin-left:0;padding-left:19px;border-left:1px solid #eee;}
+div.content .span4{margin-left:0;padding-left:19px;}
 .topbar .btn{border:0;}
 .CodeRay{background-color:#f2f2f2;border:1px solid silver;color:black;}
 .CodeRay pre{margin:0px;}
