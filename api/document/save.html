@@ -48,12 +48,43 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Save</h2>
+<h2>Save <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db_post" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>PUT /db/doc or POST /db</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db_post" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Will either create a new document (if it doesn't already exist) or it will update the existing document.
-The existence is determined by the presence of an <code>_id</code> attribute.</p>
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>save</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Will either create a new document (if it doesn't already exist) or it will update the existing document.
+The existence is determined by the presence of an `_id` attribute.
+</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               
+                  <code>PUT /db/doc</code>
+               
+                  <code>POST /db</code>
+               
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+
 
 <div class="CodeRay">
 <pre>doc.body.foo = <span class="string"><span class="delimiter">&quot;</span><span class="content">bar</span><span class="delimiter">&quot;</span></span>;
@@ -102,6 +133,8 @@ doc.save(<span class="keyword">function</span> (err, response) {
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

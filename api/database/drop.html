@@ -48,14 +48,40 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Drop</h2>
+<h2>Drop <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db_delete" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>DELETE /db</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db_delete" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Creates the database with the same name as the one specified in this object</p>
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>drop</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Creates the database with the same name as the one specified in this object</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               <code>DELETE /db</code>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+
 
 <div class="CodeRay">
-<pre>db.create(<span class="keyword">function</span> (err, result) {
+<pre>db.drop(<span class="keyword">function</span> (err, result) {
    <span class="comment">// your code here...</span>
 });
 
@@ -98,6 +124,8 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

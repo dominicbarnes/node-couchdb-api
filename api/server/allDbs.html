@@ -8,7 +8,7 @@
 <meta charset="utf-8" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 
-<title>Ensure Full Commit - node-couchdb-api</title>
+<title>All Databases - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -48,14 +48,40 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Ensure Full Commit</h2>
+<h2>All Databases <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-misc.html#couchbase-api-misc_all-dbs_get" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>POST /db/_ensure_full_commit</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-ensure-full-commit_post" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Forces all recent writes to be written to disk immediately</p>
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>allDbs</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Returns a list of all the available databases on this server.</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               <code>GET /_all_dbs</code>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+
 
 <div class="CodeRay">
-<pre>db.ensureFullCommit(<span class="keyword">function</span> (err, result) {
+<pre>server.allDbs(<span class="keyword">function</span> (err, dbs) {
    <span class="comment">// your code here...</span>
 });
 
@@ -66,7 +92,7 @@
 <br />
 
 
-<p><a href="/node-couchdb-api/api/database/">&laquo; Back to Database Documentation</a></p>
+<p><a href="/node-couchdb-api/api/server/">&laquo; Back to Server Documentation</a></p>
 
 
 			</div>
@@ -98,6 +124,8 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

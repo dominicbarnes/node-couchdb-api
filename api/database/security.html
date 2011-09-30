@@ -48,11 +48,41 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Security</h2>
+<h2>Security <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-security_get" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>GET /db/_security, PUT /db/_security</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-security_get" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Gets/sets the <code>_security</code> object for the database</p>
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>security</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Gets/sets the `_security` object for the database</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               
+                  <code>GET /db/_security</code>
+               
+                  <code>PUT /db/_security</code>
+               
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+
 
 <div class="CodeRay">
 <pre><span class="comment">// get the current security object</span>
@@ -115,6 +145,8 @@ db.security(obj, <span class="keyword">function</span> (err, response) {
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

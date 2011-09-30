@@ -48,13 +48,37 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Changes Feed</h2>
+<h2>Changes Feed <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-changes_get" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>GET /db/_changes</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-changes_get" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Query the database's <code>_changes</code> feed.</p>
 
-<h3>Additional args</h3>
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>changes</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Query the database's `_changes` feed.</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               <code>GET /db/_changes</code>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+<h3>Arguments</h3>
 
 <table>
    <thead>
@@ -82,6 +106,12 @@
             </td>
          </tr>
       
+      <tr>
+         <td>callback</td>
+         <td><code>function</code></td>
+         <td></td>
+         <td>See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more information</td>
+      </tr>
    </tbody>
 </table>
 
@@ -139,6 +169,8 @@ db.changes(query, <span class="keyword">function</span> (err, log) {
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

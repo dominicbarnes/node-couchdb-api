@@ -48,12 +48,31 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>List Function(s)</h2>
+<h2>List Function(s) <small><a href="" target="_blank">Official Documentation</a></small></h2>
 
-<p>Get/set list function(s) in this design document</p>
+<br />
+
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>list</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Get/set list function(s) in this design document</td>
+   </tr>
+   
+   
+</table>
+
+
+
 
 <div class="CodeRay">
-<pre><span class="keyword">var</span> lists = ddoc.lists();
+<pre><span class="keyword">var</span> lists = ddoc.list();
 <span class="comment">// lists =&gt; {</span>
 <span class="comment">//    &quot;my-list-function&quot;: &quot;function (head, req) { ... }&quot;,</span>
 <span class="comment">//    ...</span>
@@ -111,6 +130,8 @@ ddoc.save(<span class="keyword">function</span> (err, response) {
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

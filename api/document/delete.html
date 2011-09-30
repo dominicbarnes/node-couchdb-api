@@ -48,11 +48,37 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Delete</h2>
+<h2>Delete <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db-doc_delete" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>DELETE /db/doc</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db-doc_delete" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Will delete the document from the database</p>
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>del</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Will delete the document from the database</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               <code>DELETE /db/doc</code>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+
 
 <div class="CodeRay">
 <pre>doc.del(<span class="keyword">function</span> (err, response) {
@@ -98,6 +124,8 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

@@ -62,6 +62,10 @@ the HTTP requests and responses. All requests are routed through here,
 and responses are automatically handled before being sent back to the
 calling objects.</p>
 
+<p>Every <a href="/node-couchdb-api/api/callbacks.html">callback</a> executes in the context of the
+<code>Client</code> object that handled the request. Also, the 3rd parameter to each
+callback is the <code>HttpResponse</code> object from the request. (if available)</p>
+
 <div class="CodeRay">
 <pre><span class="keyword">var</span> server = couchdb.srv();  <span class="comment">// a new Client object is initialized here</span>
 server.client;               <span class="comment">// voila!</span>
@@ -88,6 +92,9 @@ included with each instance. For example, a <code>Database</code> object will ha
 <code>server</code> property. A <code>Document</code> object will have a <code>db</code> property and a <code>server</code>
 property. Feel free to inspect the objects as well, there's plenty to see
 and use there!</p>
+
+<br />
+
 
 <p><a href="/node-couchdb-api/api">&laquo; Back to API Documentation</a></p>
 
@@ -120,6 +127,8 @@ and use there!</p>
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

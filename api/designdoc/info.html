@@ -48,11 +48,37 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Information</h2>
+<h2>Information <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-info_get" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>GET /db/_design/ddoc</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-info_get" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Returns information about the design document and it's views</p>
+
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>info</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Returns information about the design document and it's views</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               <code>GET /db/_design/ddoc</code>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+
 
 <div class="CodeRay">
 <pre>ddoc.info(<span class="keyword">function</span> (err, info) {
@@ -98,6 +124,8 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

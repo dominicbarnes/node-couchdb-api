@@ -48,13 +48,37 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Query</h2>
+<h2>Query <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-view-viewname_get" target="_blank">Official Documentation</a></small></h2>
 
-<p><code>GET /db/_design/ddoc/_view/view</code> <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-view-viewname_get" target="_blank">Official Documentation</a></small></p>
+<br />
 
-<p>Queries an arbitrary view</p>
 
-<h3>Additional args</h3>
+
+
+<table>
+    <tr>
+        <th width="100">Method</th>
+        <td>query</td>
+    </tr>
+   <tr>
+      <th>Description</th>
+      <td>Queries an arbitrary view</td>
+   </tr>
+   
+   
+      <tr>
+         <th>HTTP</th>
+         <td>
+            
+               <code>GET /db/_design/ddoc/_view/view</code>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+<h3>Arguments</h3>
 
 <table>
    <thead>
@@ -84,6 +108,12 @@
             </td>
          </tr>
       
+      <tr>
+         <td>callback</td>
+         <td><code>function</code></td>
+         <td></td>
+         <td>See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more information</td>
+      </tr>
    </tbody>
 </table>
 
@@ -136,6 +166,8 @@ view.query(query, <span class="keyword">function</span> (err, response) {
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);

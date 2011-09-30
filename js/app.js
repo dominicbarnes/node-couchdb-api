@@ -1,0 +1,1 @@
+jQuery(function(a){a("html").toggleClass("no-js js"),a(".api-list tbody").delegate("tr","click",function(){window.location=a(this).find("a").first().attr("href")})})

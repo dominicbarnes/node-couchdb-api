@@ -60,30 +60,215 @@
 </div>
 
 
-
-
 <br />
 
 
-<ul>
-<li><a href="/node-couchdb-api/api/database/bulk-docs.html">Bulk Documents</a> <code>POST /db/_bulk_docs</code></li>
-<li><a href="/node-couchdb-api/api/database/changes.html">Changes Feed</a> <code>GET /db/_changes</code></li>
-<li><a href="/node-couchdb-api/api/database/compact.html">Compact</a> <code>POST /db/_compact or POST /db/_compact/ddoc</code></li>
-<li><a href="/node-couchdb-api/api/database/create.html">Create</a> <code>PUT /db</code></li>
-<li><a href="/node-couchdb-api/api/database/design-document.html">Design Document</a></li>
-<li><a href="/node-couchdb-api/api/database/document.html">Document</a></li>
-<li><a href="/node-couchdb-api/api/database/drop.html">Drop</a> <code>DELETE /db</code></li>
-<li><a href="/node-couchdb-api/api/database/ensure-full-commit.html">Ensure Full Commit</a> <code>POST /db/_ensure_full_commit</code></li>
-<li><a href="/node-couchdb-api/api/database/info.html">Information</a> <code>GET /db</code></li>
-<li><a href="/node-couchdb-api/api/database/local-document.html">Local Document</a></li>
-<li><a href="/node-couchdb-api/api/database/pull.html">Pull</a> <code>POST /_replicate</code></li>
-<li><a href="/node-couchdb-api/api/database/purge.html">Purge</a> <code>POST /db/_purge</code></li>
-<li><a href="/node-couchdb-api/api/database/push.html">Push</a> <code>POST /_replicate</code></li>
-<li><a href="/node-couchdb-api/api/database/replicate.html">Replicate</a> <code>POST /_replicate</code></li>
-<li><a href="/node-couchdb-api/api/database/security.html">Security</a> <code>GET /db/_security, PUT /db/_security</code></li>
-<li><a href="/node-couchdb-api/api/database/temp-view.html">Temporary View</a> <code>POST /db/_temp_view</code></li>
-<li><a href="/node-couchdb-api/api/database/view-cleanup.html">View Cleanup</a> <code>POST /db/_view_cleanup</code></li>
-</ul>
+
+
+<table class="api-list zebra-striped">
+   <thead>
+      <tr>
+         <th>Title</th>
+         <th>Method</th>
+         <th>HTTP</th>
+      </tr>
+   </thead>
+   <tbody>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/bulkDocs.html" title="Performs a bulk operation">Bulk Documents</a></td>
+            <td>bulkDocs</td>
+            <td>
+               
+                  
+                     <code>POST /db/_bulk_docs</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/changes.html" title="Query the database's `_changes` feed.">Changes Feed</a></td>
+            <td>changes</td>
+            <td>
+               
+                  
+                     <code>GET /db/_changes</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/compact.html" title="Run a compaction on the database itself, or the view indexes for a specified design document">Compact</a></td>
+            <td>compact</td>
+            <td>
+               
+                  
+                     <ul class="unstyled" style="margin-bottom: 0;">
+                        
+                           <li><code>POST /db/_compact</code></li>
+                        
+                           <li><code>POST /db/_compact/ddoc</code></li>
+                        
+                     </ul>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/create.html" title="Creates the database with the same name as the one specified in this object.">Create</a></td>
+            <td>create</td>
+            <td>
+               
+                  
+                     <code>PUT /db</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/designDoc.html" title="Retrieves a `DesignDocument` object from this database's namespace">Design Document</a></td>
+            <td>designDoc</td>
+            <td>
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/doc.html" title="Retrieves a `Document` object within this database's namespace">Document</a></td>
+            <td>doc</td>
+            <td>
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/drop.html" title="Creates the database with the same name as the one specified in this object">Drop</a></td>
+            <td>drop</td>
+            <td>
+               
+                  
+                     <code>DELETE /db</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/ensureFullCommit.html" title="Forces all recent writes to be written to disk immediately">Ensure Full Commit</a></td>
+            <td>ensureFullCommit</td>
+            <td>
+               
+                  
+                     <code>POST /db/_ensure_full_commit</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/info.html" title="Returns basic meta information about the database">Information</a></td>
+            <td>info</td>
+            <td>
+               
+                  
+                     <code>GET /db</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/localDoc.html" title="Retrieves a `LocalDocument` object from this database's namespace">Local Document</a></td>
+            <td>localDoc</td>
+            <td>
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/pull.html" title="Replicate another database into this database">Pull</a></td>
+            <td>pull</td>
+            <td>
+               
+                  
+                     <code>POST /_replicate</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/purge.html" title="Executes a `purge` command on the database. (removes references to a _deleted_ document)">Purge</a></td>
+            <td>purge</td>
+            <td>
+               
+                  
+                     <code>POST /db/_purge</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/replicate.html" title="Replicates the current database to another database">Replicate</a></td>
+            <td>replicate</td>
+            <td>
+               
+                  
+                     <code>POST /_replicate</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/security.html" title="Gets/sets the `_security` object for the database">Security</a></td>
+            <td>security</td>
+            <td>
+               
+                  
+                     <ul class="unstyled" style="margin-bottom: 0;">
+                        
+                           <li><code>GET /db/_security</code></li>
+                        
+                           <li><code>PUT /db/_security</code></li>
+                        
+                     </ul>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/tempView.html" title="Executes a temporary view against the current database">Temporary View</a></td>
+            <td>tempView</td>
+            <td>
+               
+                  
+                     <code>POST /db/_temp_view</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/database/viewCleanup.html" title="Clears out the view output cache">View Cleanup</a></td>
+            <td>viewCleanup</td>
+            <td>
+               
+                  
+                     <code>POST /db/_view_cleanup</code>
+                  
+               
+            </td>
+         </tr>
+      
+   </tbody>
+</table>
 
 
 <p><a href="/node-couchdb-api/api/">&laquo; Back to API Documentation</a></p>
@@ -117,6 +302,8 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="/node-couchdb-api/js/app.js" type="text/javascript"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-19054604-1']);
