@@ -8,7 +8,7 @@
 <meta charset="utf-8" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 
-<title>Security - node-couchdb-api</title>
+<title>Get - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Security <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-security_get" target="_blank">Official Documentation</a></small></h2>
+<h2>Get <small><a href="http://www.couchbase.org/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db-doc-attachment_get" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -58,11 +58,11 @@
 <table>
     <tr>
         <th width="100">Method</th>
-        <td>security</td>
+        <td>get</td>
     </tr>
    <tr>
       <th>Description</th>
-      <td>Gets/sets the `_security` object for the database</td>
+      <td>Returns the contents of the specified attachment</td>
    </tr>
    
    
@@ -70,11 +70,7 @@
          <th>HTTP</th>
          <td>
             
-               
-                  <code>GET /db/_security</code>
-               
-                  <code>PUT /db/_security</code>
-               
+               <code>GET /db/doc/attachment</code>
             
          </td>
       </tr>
@@ -82,29 +78,58 @@
 </table>
 
 
+<h3>Arguments</h3>
+
+<table>
+   <thead>
+      <tr>
+         <th>Name</th>
+         <th>Type</th>
+         <th>Default</th>
+         <th>Comments</th>
+      </tr>
+   </thead>
+   <tbody>
+      
+         <tr>
+            <td>
+               stream
+               
+                  <span class="label notice">Optional</span>
+               
+            </td>
+            <td><code>boolean</code></td>
+            <td>false</td>
+            <td>
+               <p>If left out, (or falsy) entire response will be contsructed before running callback.</p>
+<p><b>Always use streaming</b> when you have large files.</p>
+
+               
+            </td>
+         </tr>
+      
+      <tr>
+         <td>callback</td>
+         <td><code>function</code></td>
+         <td></td>
+         <td>See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more information</td>
+      </tr>
+   </tbody>
+</table>
+
+
 
 
 <div class="CodeRay">
-<pre><span class="comment">// get the current security object</span>
-db.security(<span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
+<pre>attachment.get(<span class="keyword">function</span> (err, content) {
+  <span class="comment">// err     =&gt; errors (if any)</span>
+  <span class="comment">// content =&gt; entire contents of file</span>
 });
 
-<span class="keyword">var</span> obj = {
-   <span class="key"><span class="delimiter">&quot;</span><span class="content">admins</span><span class="delimiter">&quot;</span></span> : {
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> : [],
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">names</span><span class="delimiter">&quot;</span></span> : [ <span class="string"><span class="delimiter">&quot;</span><span class="content">mc</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">slp</span><span class="delimiter">&quot;</span></span> ]
-   },
-   <span class="key"><span class="delimiter">&quot;</span><span class="content">readers</span><span class="delimiter">&quot;</span></span> : {
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> : [],
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">names</span><span class="delimiter">&quot;</span></span> : [ <span class="string"><span class="delimiter">&quot;</span><span class="content">tim</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">brian</span><span class="delimiter">&quot;</span></span> ]
-   }
-};
-
-<span class="comment">// set a new security object</span>
-db.security(obj, <span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
-});
+attachment.get(<span class="predefined-constant">true</span>, <span class="keyword">function</span> (err, stream) {
+  <span class="comment">// err    =&gt; errors (if any)</span>
+  <span class="comment">// stream =&gt; ReadableStream of source attachment</span>
+})
 
 </pre>
 </div>
@@ -113,7 +138,7 @@ db.security(obj, <span class="keyword">function</span> (err, response) {
 <br />
 
 
-<p><a href="/node-couchdb-api/api/database/">&laquo; Back to Database Documentation</a></p>
+<p><a href="/node-couchdb-api/api/attachment/">&laquo; Back to Attachment Documentation</a></p>
 
 
 			</div>

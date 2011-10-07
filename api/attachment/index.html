@@ -8,7 +8,7 @@
 <meta charset="utf-8" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 
-<title>Security - node-couchdb-api</title>
+<title>Attachment - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,74 +47,89 @@
 		</div>
 		<div class="row">
 			<div class="span10">
-				
-<h2>Security <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-security_get" target="_blank">Official Documentation</a></small></h2>
-
-<br />
-
-
-
-
-<table>
-    <tr>
-        <th width="100">Method</th>
-        <td>security</td>
-    </tr>
-   <tr>
-      <th>Description</th>
-      <td>Gets/sets the `_security` object for the database</td>
-   </tr>
-   
-   
-      <tr>
-         <th>HTTP</th>
-         <td>
-            
-               
-                  <code>GET /db/_security</code>
-               
-                  <code>PUT /db/_security</code>
-               
-            
-         </td>
-      </tr>
-   
-</table>
-
-
-
+				<h2>Attachment API <small><a href="http://www.couchbase.org/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db-doc_get-attachments">Official Documentation</a></small></h2>
 
 <div class="CodeRay">
-<pre><span class="comment">// get the current security object</span>
-db.security(<span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
-});
+<pre><span class="keyword">var</span> couchdb = require(<span class="string"><span class="delimiter">&quot;</span><span class="content">couchdb-api</span><span class="delimiter">&quot;</span></span>);
 
-<span class="keyword">var</span> obj = {
-   <span class="key"><span class="delimiter">&quot;</span><span class="content">admins</span><span class="delimiter">&quot;</span></span> : {
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> : [],
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">names</span><span class="delimiter">&quot;</span></span> : [ <span class="string"><span class="delimiter">&quot;</span><span class="content">mc</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">slp</span><span class="delimiter">&quot;</span></span> ]
-   },
-   <span class="key"><span class="delimiter">&quot;</span><span class="content">readers</span><span class="delimiter">&quot;</span></span> : {
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> : [],
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">names</span><span class="delimiter">&quot;</span></span> : [ <span class="string"><span class="delimiter">&quot;</span><span class="content">tim</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">brian</span><span class="delimiter">&quot;</span></span> ]
-   }
-};
+<span class="comment">/** default values: &quot;localhost&quot;, 5984 **/</span>
+<span class="keyword">var</span> server = couchdb.srv(host, port);
 
-<span class="comment">// set a new security object</span>
-db.security(obj, <span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
-});
+<span class="keyword">var</span> db = server.db(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-database</span><span class="delimiter">&quot;</span></span>);
 
+<span class="keyword">var</span> doc = db.doc(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-document</span><span class="delimiter">&quot;</span></span>);
+
+<span class="keyword">var</span> attachment = doc.attachment(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-file.txt</span><span class="delimiter">&quot;</span></span>);
 </pre>
 </div>
 
 
+
+
 <br />
 
 
-<p><a href="/node-couchdb-api/api/database/">&laquo; Back to Database Documentation</a></p>
 
+
+<table class="api-list zebra-striped">
+   <thead>
+      <tr>
+         <th>Title</th>
+         <th>Method</th>
+         <th>HTTP</th>
+      </tr>
+   </thead>
+   <tbody>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/attachment/delete.html" title="Will delete the attachment from the document">Delete</a></td>
+            <td>del</td>
+            <td>
+               
+                  
+                     <code>DELETE /db/doc/attachment</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/attachment/get.html" title="Returns the contents of the specified attachment">Get</a></td>
+            <td>get</td>
+            <td>
+               
+                  
+                     <code>GET /db/doc/attachment</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/attachment/save.html" title="Will either create a new attachment (if it doesn't already exist) or it will update the existing attachment.">Save</a></td>
+            <td>save</td>
+            <td>
+               
+                  
+                     <code>PUT /db/doc/attachment</code>
+                  
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td><a href="/node-couchdb-api/api/attachment/setBody.html" title="Sets the contents and mime type for the attachment">Set Body</a></td>
+            <td>setBody</td>
+            <td>
+               
+            </td>
+         </tr>
+      
+   </tbody>
+</table>
+
+
+<p><a href="/node-couchdb-api/api/">&laquo; Back to API Documentation</a></p>
 
 			</div>
 			<div class="span4">

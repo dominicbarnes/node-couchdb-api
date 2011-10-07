@@ -30,7 +30,7 @@
    
       <url>
          <loc>http://dominicbarnes.us/node-couchdb-api/api/features.html</loc>
-         <lastmod>2011-09-29</lastmod>
+         <lastmod>2011-10-07</lastmod>
 
          
 
@@ -39,7 +39,7 @@
    
       <url>
          <loc>http://dominicbarnes.us/node-couchdb-api/api/</loc>
-         <lastmod>2011-09-29</lastmod>
+         <lastmod>2011-10-07</lastmod>
 
          
 
@@ -48,7 +48,52 @@
    
       <url>
          <loc>http://dominicbarnes.us/node-couchdb-api/api/structure.html</loc>
-         <lastmod>2011-09-30</lastmod>
+         <lastmod>2011-10-07</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>http://dominicbarnes.us/node-couchdb-api/api/attachment/delete.html</loc>
+         <lastmod>2011-10-07</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>http://dominicbarnes.us/node-couchdb-api/api/attachment/get.html</loc>
+         <lastmod>2011-10-07</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>http://dominicbarnes.us/node-couchdb-api/api/attachment/</loc>
+         <lastmod>2011-10-07</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>http://dominicbarnes.us/node-couchdb-api/api/attachment/save.html</loc>
+         <lastmod>2011-10-07</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>http://dominicbarnes.us/node-couchdb-api/api/attachment/setBody.html</loc>
+         <lastmod>2011-10-07</lastmod>
 
          
 
@@ -328,6 +373,15 @@
       <url>
          <loc>http://dominicbarnes.us/node-couchdb-api/api/document/show.html</loc>
          <lastmod>2011-09-30</lastmod>
+
+         
+
+         
+      </url>
+   
+      <url>
+         <loc>http://dominicbarnes.us/node-couchdb-api/api/localdoc/</loc>
+         <lastmod>2011-10-07</lastmod>
 
          
 

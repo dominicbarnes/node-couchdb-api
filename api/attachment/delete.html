@@ -8,7 +8,7 @@
 <meta charset="utf-8" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 
-<title>Security - node-couchdb-api</title>
+<title>Delete - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Security <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-security_get" target="_blank">Official Documentation</a></small></h2>
+<h2>Delete <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-dbdoc.html#couchbase-api-dbdoc_db-doc_delete" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -58,11 +58,11 @@
 <table>
     <tr>
         <th width="100">Method</th>
-        <td>security</td>
+        <td>del</td>
     </tr>
    <tr>
       <th>Description</th>
-      <td>Gets/sets the `_security` object for the database</td>
+      <td>Will delete the attachment from the document</td>
    </tr>
    
    
@@ -70,11 +70,7 @@
          <th>HTTP</th>
          <td>
             
-               
-                  <code>GET /db/_security</code>
-               
-                  <code>PUT /db/_security</code>
-               
+               <code>DELETE /db/doc/attachment</code>
             
          </td>
       </tr>
@@ -85,25 +81,9 @@
 
 
 <div class="CodeRay">
-<pre><span class="comment">// get the current security object</span>
-db.security(<span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
-});
-
-<span class="keyword">var</span> obj = {
-   <span class="key"><span class="delimiter">&quot;</span><span class="content">admins</span><span class="delimiter">&quot;</span></span> : {
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> : [],
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">names</span><span class="delimiter">&quot;</span></span> : [ <span class="string"><span class="delimiter">&quot;</span><span class="content">mc</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">slp</span><span class="delimiter">&quot;</span></span> ]
-   },
-   <span class="key"><span class="delimiter">&quot;</span><span class="content">readers</span><span class="delimiter">&quot;</span></span> : {
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> : [],
-      <span class="key"><span class="delimiter">&quot;</span><span class="content">names</span><span class="delimiter">&quot;</span></span> : [ <span class="string"><span class="delimiter">&quot;</span><span class="content">tim</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">brian</span><span class="delimiter">&quot;</span></span> ]
-   }
-};
-
-<span class="comment">// set a new security object</span>
-db.security(obj, <span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
+<pre>attachment.del(<span class="keyword">function</span> (err, response) {
+  <span class="comment">// err      =&gt; errors (if any)</span>
+  <span class="comment">// response =&gt; response from server</span>
 });
 
 </pre>
@@ -113,7 +93,7 @@ db.security(obj, <span class="keyword">function</span> (err, response) {
 <br />
 
 
-<p><a href="/node-couchdb-api/api/database/">&laquo; Back to Database Documentation</a></p>
+<p><a href="/node-couchdb-api/api/attachment/">&laquo; Back to Attachment Documentation</a></p>
 
 
 			</div>
