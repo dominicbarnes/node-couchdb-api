@@ -67,14 +67,25 @@ module.exports = {
 			}
 		},
 		get: {
-			full: function (test) {
-				attachments.string.get(function (err, content) {
-					test.ifError(err);
-					if (content) {
-						test.ok(content);
-					}
-					test.done();
-				});
+			full: {
+				string: function (test) {
+					attachments.string.get(function (err, content) {
+						test.ifError(err);
+						if (content) {
+							test.equal("this is my plaintext attachment", content);
+						}
+						test.done();
+					});
+				},
+				binary: function (test) {
+					attachments.stream.get(function (err, content) {
+						test.ifError(err);
+						if (content) {
+							test.ok(content);
+						}
+						test.done();
+					});
+				}
 			},
 			stream: function (test) {
 				var source = __dirname + "/../couchdb-logo.png",
