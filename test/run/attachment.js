@@ -17,12 +17,7 @@ module.exports = {
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
-		db.recreate(function (err, result) {
-			test.ifError(err);
-			if (result) {
-				test.ok(result.ok);
-			}
-
+		db.create(function (err, result) {
 			doc.save(function (err, result) {
 				test.ifError(err);
 				if (result) {
@@ -82,28 +77,34 @@ module.exports = {
 				});
 			},
 			stream: function (test) {
-				attachments.stream.get(true, function (err, content) {
-					var testFile = fs.createWriteStream(__dirname + "/../test.png", { encoding: "binary" });
+				var source = __dirname + "/../couchdb-logo.png",
+					target = __dirname + "/../test.png",
+					stream = fs.createWriteStream(target);
 
+				attachments.stream.get(true, function (err, content) {
 					test.ifError(err);
 					if (content) {
-						content.pipe(testFile);
+						content.pipe(stream);
 						content.on("end", function () {
-							test.done();
+							fs.stat(source, function (err, sourceStats) {
+								fs.stat(target, function (err, targetStats) {
+									test.equal(sourceStats.size, targetStats.size);
+									fs.unlink(target, test.done);
+								});
+							});
 						});
 					} else {
 						test.done();
 					}
 				});
 			}
-		},
+		}/*,
 		remove: function (test) {
 			test.done();
-		}
+		}*/
 	},
 
 	tearDown: function (test) {
-		/*
 		db.drop(function (err, result) {
 			test.ifError(err);
 			if (result) {
@@ -111,7 +112,5 @@ module.exports = {
 			}
 			test.done();
 		});
-		*/
-		test.done();
 	}
 };
