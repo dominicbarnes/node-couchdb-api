@@ -62,7 +62,7 @@
     </tr>
    <tr>
       <th>Description</th>
-      <td>Query the database's `_changes` feed.</td>
+      <td>Query the database's <code>_changes</code> feed.</td>
    </tr>
    
    
@@ -99,11 +99,13 @@
             <td><code>hash</code></td>
             <td></td>
             <td>
-               Query string parameters to add to the request uri
+               <p>Query string parameters to add to the request uri.</p>
+<p>If <code>feed: "continuous"</code> is included in your hash, then the <code>changes</code> parameter will be sent as a <code>ReadableStream</code> that will emit a <code>change</code> event after every list of changes sent back from the database.
+
                
                   <br /><small>(<a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-changes_get">See Official Documentation</a>)</small>
                
-            </td>
+            </p></td>
          </tr>
       
       <tr>
@@ -122,12 +124,24 @@
 <pre><span class="comment">// this is only a small subset of possible querystring values</span>
 <span class="comment">//    see the official API documentation for further details</span>
 <span class="keyword">var</span> query = {
-   <span class="key">feed</span>:         <span class="string"><span class="delimiter">&quot;</span><span class="content">normal</span><span class="delimiter">&quot;</span></span>, <span class="comment">// default</span>
-   <span class="key">include_docs</span>: <span class="predefined-constant">false</span>     <span class="comment">// default</span>
+  <span class="key">feed</span>:         <span class="string"><span class="delimiter">&quot;</span><span class="content">normal</span><span class="delimiter">&quot;</span></span>, <span class="comment">// default</span>
+  <span class="key">include_docs</span>: <span class="predefined-constant">false</span>     <span class="comment">// default</span>
 };
 
-db.changes(query, <span class="keyword">function</span> (err, log) {
-   <span class="comment">// your code here...</span>
+db.changes(query, <span class="keyword">function</span> (err, changes) {
+  <span class="comment">// err     =&gt; errors (if any)</span>
+  <span class="comment">// changes =&gt; hash</span>
+});
+
+<span class="comment">// to watch a stream of changes</span>
+query.feed = <span class="string"><span class="delimiter">&quot;</span><span class="content">continuous</span><span class="delimiter">&quot;</span></span>;
+
+db.changes(query, <span class="keyword">function</span> (err, changes) {
+  <span class="comment">// err     =&gt; errors (if any)</span>
+  <span class="comment">// changes =&gt; ReadableStream</span>
+  changes.on(<span class="string"><span class="delimiter">&quot;</span><span class="content">change</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (change) {
+    <span class="comment">// handle your changes here</span>
+  });
 });
 
 </pre>
