@@ -153,10 +153,10 @@ module.exports = {
 					test.equal(doc.client.cache[doc.url()].etag, response.headers.etag);
 
 					doc.get(function (err, result, response) {
-						// test to make sure CouchDB returned the expected HTTP Status Code
+						// test to make sure CouchDB returned the expected HTTP Status Code and Content-Length
 						test.equal(response.statusCode, 304);
-
-						// TODO: test for empty body of response object? (just to be sure)
+						test.equal(response.headers["content-length"], 0);
+						test.equal(result.cache, "test");
 
 						test.done();
 					});
