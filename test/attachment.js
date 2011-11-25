@@ -1,4 +1,4 @@
-var config = require("../config"),
+var config = require("./assets/config"),
 	couchdb = require("../../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
@@ -56,7 +56,7 @@ module.exports = {
 			},
 			stream: function (test) {
 				attachments.stream
-					.setBody("image/png", fs.createReadStream(__dirname + "/../couchdb-logo.png"))
+					.setBody("image/png", fs.createReadStream(__dirname + "/assets/couchdb-logo.png"))
 					.save(function (err, result) {
 						test.ifError(err);
 						if (result) {
@@ -88,8 +88,8 @@ module.exports = {
 				}
 			},
 			stream: function (test) {
-				var source = __dirname + "/../couchdb-logo.png",
-					target = __dirname + "/../test.png",
+				var source = __dirname + "/assets/couchdb-logo.png",
+					target = __dirname + "/assets/test.png",
 					stream = fs.createWriteStream(target);
 
 				attachments.stream.get(true, function (err, content) {

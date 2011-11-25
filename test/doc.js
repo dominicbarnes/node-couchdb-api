@@ -1,4 +1,4 @@
-var config = require("../config"),
+var config = require("./assets/config"),
 	couchdb = require("../../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
