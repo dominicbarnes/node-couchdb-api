@@ -1,5 +1,5 @@
 var config = require("./assets/config"),
-	couchdb = require("../../index"),
+	couchdb = require("../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	testusername = "testuser",
     test = require("assert"),
@@ -13,9 +13,18 @@ module.exports = {
 		}
 		done();
 	},
+    after: function (done) {
+		var user = server.db("_users").doc("org.couchdb.user:" + testusername);
 
-	server: {
-		info: function (done) {
+		user.get(function (err, doc) {
+			user.del(function (err, response) {
+				done();
+			});
+		});
+	},
+
+	"Server": {
+		"Information": function (done) {
 			var ret = server.info(function (err, response) {
 				test.ifError(err);
 				if (response) {
@@ -25,7 +34,7 @@ module.exports = {
 			});
 			test.strictEqual(server, ret);
 		},
-		allDbs: function (done) {
+		"All Databases": function (done) {
 			var ret = server.allDbs(function (err, response) {
 				test.ifError(err);
 				if (response) {
@@ -35,7 +44,7 @@ module.exports = {
 			});
             test.strictEqual(server, ret);
 		},
-		activeTasks: function (done) {
+		"Active Tasks": function (done) {
 			var ret = server.activeTasks(function (err, response) {
 				test.ifError(err);
 				if (response) {
@@ -45,7 +54,7 @@ module.exports = {
 			});
 			test.strictEqual(server, ret);
 		},
-		log: function (done) {
+		"Log": function (done) {
 			var ret = server.log(function (err, response, headers) {
 				test.ifError(err);
 				if (response) {
@@ -55,7 +64,7 @@ module.exports = {
 			});
 			test.strictEqual(server, ret);
 		},
-		stats: function (done) {
+		"Stats": function (done) {
 			var ret = server.stats(function (err, response) {
 				test.ifError(err);
 				if (response) {
@@ -65,7 +74,7 @@ module.exports = {
 			});
 			test.strictEqual(server, ret);
 		},
-		uuids: function (done) {
+		"UUIDs": function (done) {
 			var finish = false;
 
 			server
@@ -94,7 +103,7 @@ module.exports = {
 					}
 				});
 		},
-		userDoc: {
+		"User Document": {
 			"No Options": function (done) {
 				var user = server.userDoc(testusername, "bar");
 				test.equal(user._id, "org.couchdb.user:" + testusername);
@@ -126,7 +135,7 @@ module.exports = {
 				done();
 			}
 		},
-		register: function (done) {
+		"Register": function (done) {
 			var ret = server.register(testusername, "password", function (err, response) {
 				test.ifError(err);
 				if (response) {
@@ -136,15 +145,5 @@ module.exports = {
 			});
 			test.strictEqual(server, ret);
 		}
-	},
-
-	after: function (done) {
-		var user = server.db("_users").doc("org.couchdb.user:" + testusername);
-
-		user.get(function (err, doc) {
-			user.del(function (err, response) {
-				done();
-			});
-		});
 	}
 };

@@ -1,46 +1,33 @@
 var config = require("./assets/config"),
-	couchdb = require("../../index"),
+	couchdb = require("../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	ldoc = db.ldoc(config.name("ldoc")),
+    test = require("assert"),
 	_ = require("underscore");
 
 module.exports = {
-	setUp: function (test) {
+	before: function (done) {
 		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
 		db.create(function (err, response) {
-			test.ifError(err);
-			if (response) {
-				test.ok(response.ok);
-			}
-			ldoc.save(function (err, response) {
-				test.ifError(err);
-				if (response) {
-					test.ok(response.ok);
-				}
-				test.done();
-			});
+			ldoc.save(done);
 		});
 	},
-	suite: {
-		get: function (test) {
+
+    after: function (done) {
+		db.drop(done);
+	},
+
+	"Local Document": {
+		"Get": function (done) {
 			ldoc.get(function (err, response) {
 				test.ifError(err);
 				test.ok(response);
-				test.done();
+				done();
 			});
 		}
-	},
-	tearDown: function (test) {
-		db.drop(function (err, response) {
-			test.ifError(err);
-			if (response) {
-				test.ok(response.ok);
-			}
-			test.done();
-		});
 	}
 };
