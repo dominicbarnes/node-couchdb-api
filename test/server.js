@@ -1,70 +1,80 @@
-var config = require("../config"),
-	couchdb = require("../../index"),
+var config = require("./assets/config"),
+	couchdb = require("../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	testusername = "testuser",
+    test = require("assert"),
 	_ = require("underscore");
 
 module.exports = {
-	setUp: function (test) {
+	before: function (done) {
 		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
-		test.done();
+		done();
+	},
+    after: function (done) {
+		var user = server.db("_users").doc("org.couchdb.user:" + testusername);
+
+		user.get(function (err, doc) {
+			user.del(function (err, response) {
+				done();
+			});
+		});
 	},
 
-	suite: {
-		info: function (test) {
+	"Server": {
+		"Information": function (done) {
 			var ret = server.info(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(response.couchdb, "Welcome");
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(server, ret);
 		},
-		allDbs: function (test) {
+		"All Databases": function (done) {
 			var ret = server.allDbs(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(_.isArray(response));
 				}
-				test.done();
+				done();
 			});
-			test.strictEqual(server, ret);
+            test.strictEqual(server, ret);
 		},
-		activeTasks: function (test) {
+		"Active Tasks": function (done) {
 			var ret = server.activeTasks(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(_.isArray(response));
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(server, ret);
 		},
-		log: function (test) {
+		"Log": function (done) {
 			var ret = server.log(function (err, response, headers) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(server, ret);
 		},
-		stats: function (test) {
+		"Stats": function (done) {
 			var ret = server.stats(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.couchdb);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(server, ret);
 		},
-		uuids: function (test) {
+		"UUIDs": function (done) {
 			var finish = false;
 
 			server
@@ -75,7 +85,7 @@ module.exports = {
 					}
 
 					if (finish) {
-						test.done();
+						done();
 					} else {
 						finish = true;
 					}
@@ -87,14 +97,14 @@ module.exports = {
 					}
 
 					if (finish) {
-						test.done();
+						done();
 					} else {
 						finish = true;
 					}
 				});
 		},
-		userDoc: {
-			"No Options": function (test) {
+		"User Document": {
+			"No Options": function (done) {
 				var user = server.userDoc(testusername, "bar");
 				test.equal(user._id, "org.couchdb.user:" + testusername);
 				test.equal(user.name, testusername);
@@ -102,9 +112,9 @@ module.exports = {
 				test.ok(user.password_sha);
 				test.ok(user.roles);
 				test.equal(user.type, "user");
-				test.done();
+				done();
 			},
-			"Options with Salt": function (test) {
+			"Options with Salt": function (done) {
 				var user = server.userDoc(testusername, "bar", { salt: "my secret" });
 				test.equal(user._id, "org.couchdb.user:" + testusername);
 				test.equal(user.name, testusername);
@@ -112,9 +122,9 @@ module.exports = {
 				test.ok(user.password_sha);
 				test.ok(user.roles);
 				test.equal(user.type, "user");
-				test.done();
+				done();
 			},
-			"Options with Roles": function (test) {
+			"Options with Roles": function (done) {
 				var user = server.userDoc(testusername, "bar", { roles: ["user", "test"] });
 				test.equal(user._id, "org.couchdb.user:" + testusername);
 				test.equal(user.name, testusername);
@@ -122,28 +132,18 @@ module.exports = {
 				test.ok(user.password_sha);
 				test.equal(user.roles.length, 2);
 				test.equal(user.type, "user");
-				test.done();
+				done();
 			}
 		},
-		register: function (test) {
+		"Register": function (done) {
 			var ret = server.register(testusername, "password", function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(server, ret);
 		}
-	},
-
-	tearDown: function (test) {
-		var user = server.db("_users").doc("org.couchdb.user:" + testusername);
-
-		user.get(function (err, doc) {
-			user.del(function (err, response) {
-				test.done();
-			});
-		});
 	}
 };

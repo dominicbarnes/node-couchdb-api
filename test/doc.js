@@ -1,41 +1,36 @@
-var config = require("../config"),
-	couchdb = require("../../index"),
+var config = require("./assets/config"),
+	couchdb = require("../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	doc_id = config.name("doc"),
 	doc_api = db.doc(doc_id),
 	doc_revs = [],
+    test = require("assert"),
 	_ = require("underscore");
 
 module.exports = {
-	setUp: function (test) {
+	before: function (done) {
 		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
 		db.create(function (err, response) {
-			test.ifError(err);
-			if (response) {
-				test.ok(response.ok);
-			}
-
 			var ddoc = db.ddoc("test");
 			ddoc.show("test", function (doc, req) {
 				return doc._id;
 			});
-			ddoc.save(function () {
-				test.ifError(err);
-				if (response) {
-					test.ok(response.ok);
-				}
-				test.done();
-			});
+
+			ddoc.save(done);
 		});
 	},
 
-	suite: {
+	after: function (done) {
+		db.drop(done);
+	},
+
+	"Document": {
 		"API Test": {
-			"Save": function (test) {
+			"Save": function (done) {
 				doc_api.body.hello = "world";
 				doc_api.save(function (err, response) {
 					test.ifError(err);
@@ -43,97 +38,96 @@ module.exports = {
 						doc_revs.push(response.rev);
 						test.ok(response.ok);
 					}
-					test.done();
+					done();
 				});
 			},
-			"Get/Read": function (test) {
+			"Get/Read": function (done) {
 				doc_api.get(function (err, doc) {
 					test.ifError(err);
 					if (doc) {
 						test.equal(doc.hello, "world");
 					}
-					test.done();
+					done();
 				});
 			},
-			"Show": function (test) {
+			"Show": function (done) {
 				doc_api.show("test/test", function (err, response) {
 					test.ifError(err);
 					if (response) {
-						test.equals(response, doc_id);
+						test.equal(response, doc_id);
 					}
-					test.done();
+					done();
 				});
 			},
-			"Prop": function (test) {
+			"Prop": function (done) {
 				var ret = doc_api.prop("foo", "bar");
 				test.strictEqual(doc_api, ret);
 
 				test.equal(doc_api.body.foo, "bar");
 				test.equal(doc_api.body.foo, doc_api.prop("foo"));
 
-				test.done();
+				done();
 			},
-			"Delete": function (test) {
+			"Delete": function (done) {
 				doc_api.del(function (err, response) {
 					test.ifError(err);
 					if (response) {
 						doc_revs.push(response.rev);
 						test.ok(response.ok);
 					}
-					test.done();
+					done();
 				});
 			}
 			/* I keep getting "function_clause" errors trying to use _purge, CouchDB bug perhaps?
-			"DB Purge": function (test) {
+			"DB Purge": function (done) {
 				var docs = {};
 				docs[doc_id] = doc_revs;
 
 				doc_api.db.purge(docs, function (err, response) {
-					console.log(docs, err, response);
 					test.ifError(err);
 					if (response) {
 						test.ok(response.ok);
 					}
-					test.done();
+					done();
 				});
 			}
 			*/
 		},
 		"Init Test": {
-			"No ID and no Body Defined": function (test) {
+			"No ID and no Body Defined": function (done) {
 				var doc = db.doc();
 
 				test.equal(doc.id,       null);
 				test.equal(doc.body._id, null);
-				test.done();
+				done();
 			},
-			"String ID Only": function (test) {
+			"String ID Only": function (done) {
 				var doc_id = config.name("doc"),
 					doc = db.doc(doc_id);
 
 				test.equal(doc_id, doc.id);
 				test.equal(doc_id, doc.body._id);
-				test.done();
+				done();
 			},
-			"Body with _id Defined": function (test) {
+			"Body with _id Defined": function (done) {
 				var doc_id = config.name("doc"),
 					doc = db.doc({ _id: doc_id });
 
 				test.equal(doc_id, doc.id);
 				test.equal(doc_id, doc.body._id);
-				test.done();
+				done();
 			},
-			"Body with no _id": function (test) {
+			"Body with no _id": function (done) {
 				var doc = db.doc({ foo: "bar" });
 
 				test.equal(doc.id,       null);
 				test.equal(doc.body._id, null);
 				test.equal(doc.body.foo, "bar");
-				test.done();
+				done();
 			}
 		},
 
-		"GetURL Test": function (test) {
+		"GetURL Test": function (done) {
 			var conn = config.conn;
 
 			var expectedUrl = "http";
@@ -141,10 +135,10 @@ module.exports = {
 			expectedUrl += "://" + conn.host + ":" + conn.port + "/" + db.name + "/" + doc_api.id;
 
 			test.equal(doc_api.url(), expectedUrl);
-			test.done();
+			done();
 		},
 
-		"Etag Cache Test": function (test) {
+		"Etag Cache Test": function (done) {
 			var doc = db.doc({ cache: "test" });
 
 			doc.save(function (err, result) {
@@ -158,20 +152,10 @@ module.exports = {
 						test.equal(response.headers["content-length"], 0);
 						test.equal(result.cache, "test");
 
-						test.done();
+						done();
 					});
 				});
 			});
 		}
-	},
-
-	tearDown: function (test) {
-		db.drop(function (err, response) {
-			test.ifError(err);
-			if (response) {
-				test.ok(response.ok);
-			}
-			test.done();
-		});
 	}
 };

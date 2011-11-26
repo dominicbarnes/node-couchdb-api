@@ -1,49 +1,52 @@
-var config = require("../config"),
-	couchdb = require("../../index"),
+var config = require("./assets/config"),
+	couchdb = require("../index"),
 	server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
 	db = server.db(config.name("db")),
 	db2 = server.db(config.name("db")),
 	db3 = server.db(config.name("db")),
+    test = require("assert"),
 	_ = require("underscore");
 
 module.exports = {
-	setUp: function (test) {
+	before: function (done) {
 		server.debug(config.log_level);
 		if (!config.conn.party) {
 			server.setUser(config.conn.name, config.conn.password);
 		}
-		db.create(function (err, response) {
-			test.ifError(err);
-			if (response) {
-				test.ok(response.ok);
-			}
-			test.done();
+		db.create(done);
+	},
+
+	after: function (done) {
+		db.drop(function () {
+			db2.drop(function () {
+				db3.drop(done);
+			});
 		});
 	},
 
-	suite: {
-		info: function (test) {
+	"Database": {
+		"Information": function (done) {
 			var ret = db.info(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.equal(db.name, response.db_name);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(db, ret);
 		},
-		changes: {
-			query: function (test) {
+		"Changes API": {
+			"Static Query": function (done) {
 				var ret = db.changes({}, function (err, response) {
 					test.ifError(err);
 					if (response) {
 						test.ok(response);
 					}
-					test.done();
+					done();
 				});
 				test.strictEqual(db, ret);
 			},
-			stream: function (test) {
+			"Stream": function (done) {
 				var ret = db.changes({ timeout: 250, feed: "continuous" }, function (err, stream) {
 					test.ifError(err);
 
@@ -55,7 +58,7 @@ module.exports = {
 
 						stream.on("end", function () {
 							test.equal(changes, 2);
-							test.done();
+							done();
 						});
 
 						db.doc({ foo: "bar" }).save(function () {});
@@ -66,79 +69,79 @@ module.exports = {
 				test.strictEqual(db, ret);
 			}
 		},
-		compact: function (test) {
+		"Compaction": function (done) {
 			var ret = db.compact(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(db, ret);
 		},
-		viewCleanup: function(test) {
+		"View Cleanup": function(done) {
 			var ret = db.viewCleanup(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(db, ret);
 		},
-		ensureFullCommit: function (test) {
+		"Ensure Full Commit": function (done) {
 			var ret = db.ensureFullCommit(function (err, response) {
 				test.ifError(err);
 				if (response) {
 					test.ok(response.ok);
 				}
-				test.done();
+				done();
 			});
 			test.strictEqual(db, ret);
 		},
-		replicate: {
-			object: function (test) {
+		"Replication": {
+			"Using db objects": function (done) {
 				var ret = db.replicate(db2, { create_target: true }, function (err, response) {
 					test.ifError(err);
 					test.ok(response.ok);
 
 					db2.info(function (err, response) {
 						test.ifError(err);
-						test.done();
+						done();
 					});
 				});
 				test.strictEqual(db, ret);
 			},
-			string: function (test) {
+			"Using string name": function (done) {
 				var ret = db.push(db3.name, { create_target: true }, function (err, response) {
 					test.ifError(err);
 					test.ok(response.ok);
 
 					db3.info(function (err, response) {
 						test.ifError(err);
-						test.done();
+						done();
 					});
 				});
 				test.strictEqual(db, ret);
 			},
-			pull: function (test) {
+			"Pull from another database": function (done) {
 				var ret = db3.pull(db2, function (err, response) {
 					test.ifError(err);
 					test.ok(response.ok);
-					test.done();
+					done();
 				});
 				test.strictEqual(db3, ret);
 			}
 		},
-		security: function (test) {
+		"Security Object": function (done) {
 			var ret = db.security(function (err, response) {
 				test.ifError(err);
 				test.ok(response);
-				test.done();
+				done();
 			});
 			test.strictEqual(db, ret);
 		},
-		tempView: function (test) {
+		"Temporary View": function (done) {
 			var map = function (doc) {
 				emit(null, doc);
 			};
@@ -148,29 +151,29 @@ module.exports = {
 				if (response) {
 					test.ok(response.rows);
 				}
-				test.done();
+				done();
 			});
 
 			test.strictEqual(db, ret);
 		},
-		documents: {
-			normal: function (test) {
+		"Documents": {
+			"Normal": function (done) {
 				test.ok(db.doc);
-				test.done();
+				done();
 			},
-			design: function (test) {
+			"Design": function (done) {
 				test.ok(db.ddoc);
 				test.ok(db.designDoc);
 				test.strictEqual(db.ddoc, db.designDoc);
-				test.done();
+				done();
 			},
-			local: function (test) {
+			"Local": function (done) {
 				test.ok(db.ldoc);
 				test.ok(db.localDoc);
 				test.strictEqual(db.ldoc, db.localDoc);
-				test.done();
+				done();
 			},
-			bulk: function (test) {
+			"Bulk API": function (done) {
 				var docs = [
 					{ foo: "bar" },
 					{ hello: "world" },
@@ -182,21 +185,11 @@ module.exports = {
 					if (response) {
 						test.equal(response.length, docs.length);
 					}
-					test.done();
+					done();
 				});
 
 				test.strictEqual(db, ret);
 			}
 		}
-	},
-
-	tearDown: function (test) {
-		db.drop(function (err, response) {
-			db2.drop(function (err, response) {
-				db3.drop(function (err, response) {
-					test.done();
-				});
-			});
-		});
 	}
 };
