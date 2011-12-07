@@ -1,0 +1,27 @@
+{
+    "predef":   [ "_", "provides" ],
+
+    "browser":  false,
+    "devel":    true,
+    "jquery":   false,
+    "node":     true,
+    "couch":    true,
+
+    "bitwise":  true,
+    "curly":    true,
+    "eqeqeq":   true,
+    "forin":    true,
+    "immed":    false,
+    "latedef":  true,
+    "newcap":   true,
+    "noarg":    true,
+    "noempty":  true,
+    "nonow":    true,
+    "plusplus": false,
+    "undef":    true,
+    "strict":   false,
+    "trailing": true,
+
+    "white":    true,
+    "indent":   4
+}
