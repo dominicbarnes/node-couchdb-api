@@ -84,7 +84,7 @@ db.info(<span class="keyword">function</span> (err, response) {
 <span class="keyword">var</span> doc = db.doc(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-doc</span><span class="delimiter">&quot;</span></span>);
 
 <span class="comment">// GET -&gt; http://localhost:5984/my-db/my-doc</span>
-doc.read(<span class="keyword">function</span> (err, body) {
+doc.get(<span class="keyword">function</span> (err, body) {
     <span class="comment">// err  =&gt; null</span>
     <span class="comment">// body =&gt; { ...document body... }</span>
 });
