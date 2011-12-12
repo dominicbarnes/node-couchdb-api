@@ -62,12 +62,21 @@ module.exports = {
                 test.strictEqual(view_map, ret);
             },
             "Keys": function (done) {
+<<<<<<< HEAD
                 var ret = view_map.query(null, ["test_doc_3", "test_doc_4"], function (err, result, res) {
                     test.ifError(err);
                     if (result) {
                         test.equal(result.rows.length, 2);
                         test.equal(result.rows[0].id, "test_doc_3");
                         test.equal(result.rows[1].id, "test_doc_4");
+=======
+                var ret = view_map.query(null, ["test_doc_1", "test_doc_3"], function (err, response) {
+                    test.ifError(err);
+                    if (response) {
+                        test.equal(response.rows.length, 2);
+                        test.equal(response.rows[0].id, "test_doc_1");
+                        test.equal(response.rows[1].id, "test_doc_3");
+>>>>>>> c9e484fd23c6a65948f189d093229955fe1dbf90
                     }
                     done();
                 });
