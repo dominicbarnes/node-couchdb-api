@@ -35,10 +35,11 @@ module.exports = {
         },
         "Views": function (done) {
             test.ifError(ddoc.body.views); // make sure views doesn't exist on our new doc
-            var views = ddoc.views();      // initialize the array and return the reference
 
-            var viewName = config.name("view");
-            var ret = ddoc.view(viewName, noop);  // add a new view
+            var views = ddoc.views(),      // initialize the array and return the reference
+                viewName = config.name("view"),
+                ret = ddoc.view(viewName, noop);  // add a new view
+
             test.ok(views[viewName].map);         // make sure the map function is defined
             test.ifError(views[viewName].reduce); // make sure the reduce function is not defined
             test.strictEqual(ddoc, ret);          // test to make sure this is chainable
@@ -54,11 +55,10 @@ module.exports = {
         },
         "Shows": function (done) {
             test.ifError(ddoc.body.shows); // make sure shows doesn't exist on our new doc
-            var shows = ddoc.shows();      // initialize the array and return the reference
-
-            var showName = config.name("show");
+            var shows = ddoc.shows(),      // initialize the array and return the reference
+                showName = config.name("show"),
+                ret = ddoc.show(showName, noop); // add a new show function
             test.ifError(shows[showName]);       // make sure shows doesn't exist on our new doc
-            var ret = ddoc.show(showName, noop); // add a new show function
             test.ok(shows[showName]);            // test for existance
             test.strictEqual(ddoc, ret);         // test to make sure this is chainable
 
@@ -68,11 +68,10 @@ module.exports = {
         },
         "Lists": function (done) {
             test.ifError(ddoc.body.lists); // make sure lists doesn't exist on our new doc
-            var lists = ddoc.lists();      // initialize the array and return the reference
-
-            var listName = config.name("list");
+            var lists = ddoc.lists(),      // initialize the array and return the reference
+                listName = config.name("list"),
+                ret = ddoc.list(listName, noop); // add a new list function
             test.ifError(lists[listName]);       // make sure lists doesn't exist on our new doc
-            var ret = ddoc.list(listName, noop); // add a new list function
             test.ok(lists[listName]);            // test for existance
             test.strictEqual(ddoc, ret);         // test to make sure this is chainable
 
@@ -82,11 +81,10 @@ module.exports = {
         },
         "Update Handlers": function (done) {
             test.ifError(ddoc.body.updates); // make sure updates doesn't exist on our new doc
-            var updates = ddoc.updates();    // initialize the array and return the reference
-
-            var updateName = config.name("list");
+            var updates = ddoc.updates(),    // initialize the array and return the reference
+                updateName = config.name("list"),
+                ret = ddoc.update(updateName, noop); // add a new update handler
             test.ifError(updates[updateName]);       // make sure updates doesn't exist on our new doc
-            var ret = ddoc.update(updateName, noop); // add a new update handler
             test.ok(updates[updateName]);            // test for existance
             test.strictEqual(ddoc, ret);             // test to make sure this is chainable
 

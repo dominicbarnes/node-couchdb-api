@@ -144,9 +144,8 @@ module.exports = {
         "Temporary View": function (done) {
             var map = function (doc) {
                 emit(null, doc);
-            };
-
-            var ret = db.tempView(map, function (err, response) {
+            },
+            ret = db.tempView(map, function (err, response) {
                 test.ifError(err);
                 if (response) {
                     test.ok(response.rows);
@@ -178,9 +177,8 @@ module.exports = {
                     { foo: "bar" },
                     { hello: "world" },
                     { bah: "humbug" }
-                ];
-
-                var ret = db.bulkDocs(docs, function (err, response) {
+                ],
+                ret = db.bulkDocs(docs, function (err, response) {
                     test.ifError(err);
                     if (response) {
                         test.equal(response.length, docs.length);
