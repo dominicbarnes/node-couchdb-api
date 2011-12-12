@@ -56,20 +56,26 @@
 
 <table>
     <tr>
-        <th width="100">Method</th>
+        <td width="100"><b>Method</b></td>
         <td>query</td>
     </tr>
    <tr>
-      <th>Description</th>
+      <td><b>Description</b></td>
       <td>Queries an arbitrary view</td>
    </tr>
    
    
       <tr>
-         <th>HTTP</th>
+         <td><b>HTTP</b></td>
          <td>
             
-               <code>GET /db/_design/ddoc/_view/view</code>
+                <ul class="unstyled">
+                    
+                        <li><code>GET /db/_design/ddoc/_view/view</code></li>
+                    
+                        <li><code>POST /db/_design/ddoc/_view/view</code></li>
+                    
+                </ul>
             
          </td>
       </tr>
@@ -100,9 +106,24 @@
             <td><code>hash</code></td>
             <td></td>
             <td>
-               Query string parameters
+               Query string parameters. If only 1 of the optional args is used, this takes precedence
                
                   <br /><small>(<a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-design.html#couchbase-api-design_db-design-designdoc-view-viewname_get">See Official Documentation</a>)</small>
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td>
+               data
+               
+                  <span class="label notice">Optional</span>
+               
+            </td>
+            <td><code>mixed</code></td>
+            <td></td>
+            <td>
+               If an <code>Array</code>, it will become the list of <code>keys</code>. Otherwise, (<code>String</code>, <code>Hash</code>, etc) this will become the full request body.
                
             </td>
          </tr>
@@ -120,9 +141,16 @@
 
 
 <div class="CodeRay">
-<pre><span class="comment">// specify querystring parameters (optional)</span>
-<span class="keyword">var</span> query = { <span class="key">include_docs</span>: <span class="predefined-constant">true</span> };
-view.query(query, <span class="keyword">function</span> (err, response) {
+<pre><span class="comment">// execute with no opts</span>
+view.query(<span class="keyword">function</span> (err, result) {
+   <span class="comment">// your code here...</span>
+});
+<span class="comment">// specify querystring parameters (optional)</span>
+view.query({ <span class="key">include_docs</span>: <span class="predefined-constant">true</span> }, <span class="keyword">function</span> (err, result) {
+   <span class="comment">// your code here...</span>
+});
+<span class="comment">// specify specific keys via POST body (query must be explicitly set, or these opts will go as a querystring)</span>
+view.query({ <span class="key">include_docs</span>: <span class="predefined-constant">true</span> }, [<span class="string"><span class="delimiter">&quot;</span><span class="content">id1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">id2</span><span class="delimiter">&quot;</span></span>], <span class="keyword">function</span> (err, result) {
    <span class="comment">// your code here...</span>
 });
 
