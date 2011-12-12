@@ -50,25 +50,38 @@ module.exports = {
     },
 
     "View": {
-        "Basic Query": function (done) {
-            var ret = view_map.query(function (err, response) {
-                test.ifError(err);
-                if (response) {
-                    test.equal(response.total_rows, doc_count);
-                }
-                done();
-            });
-            test.strictEqual(view_map, ret);
-        },
-        "Query with Options": function (done) {
-            var ret = view_map.query({ include_docs: true }, function (err, response) {
-                test.ifError(err);
-                if (response) {
-                    test.ok(response.rows[0].doc);
-                }
-                done();
-            });
-            test.strictEqual(view_map, ret);
+        "Query": {
+            "Basic": function (done) {
+                var ret = view_map.query(function (err, response) {
+                    test.ifError(err);
+                    if (response) {
+                        test.equal(response.total_rows, doc_count);
+                    }
+                    done();
+                });
+                test.strictEqual(view_map, ret);
+            },
+            "Keys": function (done) {
+                var ret = view_map.query(null, ["test_doc_3", "test_doc_4"], function (err, result, res) {
+                    test.ifError(err);
+                    if (result) {
+                        test.equal(result.rows.length, 2);
+                        test.equal(result.rows[0].id, "test_doc_3");
+                        test.equal(result.rows[1].id, "test_doc_4");
+                    }
+                    done();
+                });
+            },
+            "Options": function (done) {
+                var ret = view_map.query({ include_docs: true }, function (err, response) {
+                    test.ifError(err);
+                    if (response) {
+                        test.ok(response.rows[0].doc);
+                    }
+                    done();
+                });
+                test.strictEqual(view_map, ret);
+            }
         },
         "Specify Map": function (done) {
             var ret = view_reduce.map(function (err, response) {

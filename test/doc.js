@@ -128,9 +128,9 @@ module.exports = {
         },
 
         "GetURL Test": function (done) {
-            var conn = config.conn;
+            var conn = config.conn,
+                expectedUrl = "http";
 
-            var expectedUrl = "http";
             if (conn.ssl) {
                 expectedUrl += "s";
             }
