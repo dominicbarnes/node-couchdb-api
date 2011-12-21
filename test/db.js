@@ -1,17 +1,19 @@
-var config = require("./assets/config"),
-    couchdb = require("../index"),
-    server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
-    db = server.db(config.name("db")),
-    db2 = server.db(config.name("db")),
-    db3 = server.db(config.name("db")),
+var _ = require("underscore"),
     test = require("assert"),
-    _ = require("underscore");
+    config = require("./config"),
+    couchdb = require("../"),
+    server = couchdb.srv(config.host, config.port, config.ssl),
+    db = server.db("test_db_1"),
+    db2 = server.db("test_db_2"),
+    db3 = server.db("test_db_3");
 
 module.exports = {
     before: function (done) {
-        server.debug(config.log_level);
-        if (!config.conn.party) {
-            server.setUser(config.conn.name, config.conn.password);
+        [db, db2, db3].forEach(function (db) {
+            db.server.debug = db.debug = config.debug;
+        });
+        if (!config.party) {
+            server.setUser(config.user, config.pass);
         }
         db.create(done);
     },
@@ -47,6 +49,13 @@ module.exports = {
                 test.strictEqual(db, ret);
             },
             "Stream": function (done) {
+                function check(err, result) {
+                    test.ifError(err);
+                    if (result) {
+                        test.ok(result.ok);
+                    }
+                }
+
                 var ret = db.changes({ timeout: 250, feed: "continuous" }, function (err, stream) {
                     test.ifError(err);
 
@@ -61,8 +70,8 @@ module.exports = {
                             done();
                         });
 
-                        db.doc({ foo: "bar" }).save(function () {});
-                        db.doc({ hello: "world" }).save(function () {});
+                        db.doc({ foo: "bar" }).save(check);
+                        db.doc({ hello: "world" }).save(check);
                     }
                 });
 

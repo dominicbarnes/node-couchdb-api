@@ -1,27 +1,27 @@
-var config = require("./assets/config"),
-    couchdb = require("../index"),
-    server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
-    db = server.db(config.name("db")),
-    ddoc = db.ddoc(config.name("ddoc")),
-    doc_count = 10,
-    view_map_name = config.name("view_map"),
-    view_map = ddoc.view(view_map_name),
-    view_reduce_name = config.name("view_reduce"),
-    view_reduce = ddoc.view(view_reduce_name),
+var _ = require("underscore"),
     test = require("assert"),
-    _ = require("underscore");
+    config = require("./config"),
+    couchdb = require("../"),
+    server = couchdb.srv(config.host, config.port, config.ssl),
+    db = server.db("test_db_1"),
+    ddoc = db.ddoc("test_ddoc_1"),
+    doc_count = 10,
+    view_map_name = "test_view_map_1",
+    view_map = ddoc.view(view_map_name),
+    view_reduce_name = "test_view_reduce_1",
+    view_reduce = ddoc.view(view_reduce_name);
 
 module.exports = {
     before: function (done) {
         var save = _.after(doc_count + 1, done);
 
-        server.debug(config.log_level);
-        if (!config.conn.party) {
-            server.setUser(config.conn.name, config.conn.password);
+        server.debug = config.debug;
+        if (!config.party) {
+            server.setUser(config.user, config.pass);
         }
         db.create(function (err, response) {
             for (var x = 0; x < doc_count; x++) {
-                db.doc(config.name("doc")).save(save);
+                db.doc().save(save);
             }
 
             ddoc.view(view_map_name, function (doc) {

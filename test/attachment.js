@@ -1,22 +1,22 @@
-var config = require("./assets/config"),
-    couchdb = require("../index"),
-    server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
-    db = server.db(config.name("db")),
-    doc = db.doc(config.name("doc")),
+var _ = require("underscore"),
     test = require("assert"),
-    _ = require("underscore"),
+    config = require("./config"),
+    couchdb = require("../"),
+    server = couchdb.srv(config.host, config.port, config.ssl),
+    db = server.db("test_db_1"),
+    doc = db.doc("test_doc_1"),
+    fs = require("fs"),
     attachments = {
-        string: doc.attachment(config.name("attachment")),
-        buffer: doc.attachment(config.name("attachment")),
-        stream: doc.attachment(config.name("attachment"))
-    },
-    fs = require("fs");
+        string: doc.attachment("test_attachment_string"),
+        buffer: doc.attachment("test_attachment_buffer"),
+        stream: doc.attachment("test_attachment_stream")
+    };
 
 module.exports = {
     before: function (done) {
-        server.debug(config.log_level);
-        if (!config.conn.party) {
-            server.setUser(config.conn.name, config.conn.password);
+        server.debug = config.debug;
+        if (!config.party) {
+            server.setUser(config.user, config.pass);
         }
         db.create(function (err, result) {
             doc.save(done);

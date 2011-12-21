@@ -1,25 +1,21 @@
-var config = require("./assets/config"),
-    couchdb = require("../index"),
-    server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
-    testusername = "testuser",
+var _ = require("underscore"),
     test = require("assert"),
-    _ = require("underscore");
+    config = require("./config"),
+    couchdb = require("../"),
+    server = couchdb.srv(config.host, config.port, config.ssl),
+    testusername = "testuser";
 
 module.exports = {
     before: function (done) {
-        server.debug(config.log_level);
-        if (!config.conn.party) {
-            server.setUser(config.conn.name, config.conn.password);
+        server.debug = config.debug;
+        if (!config.party) {
+            server.setUser(config.user, config.pass);
         }
         done();
     },
     after: function (done) {
-        var user = server.db("_users").doc("org.couchdb.user:" + testusername);
-
-        user.get(function (err, doc) {
-            user.del(function (err, response) {
-                done();
-            });
+        server.db("_users").doc("org.couchdb.user:" + testusername).get(function (err, body) {
+            this.del(done);
         });
     },
 
@@ -38,7 +34,7 @@ module.exports = {
             var ret = server.allDbs(function (err, response) {
                 test.ifError(err);
                 if (response) {
-                    test.ok(_.isArray(response));
+                    test.ok(Array.isArray(response));
                 }
                 done();
             });
@@ -48,7 +44,7 @@ module.exports = {
             var ret = server.activeTasks(function (err, response) {
                 test.ifError(err);
                 if (response) {
-                    test.ok(_.isArray(response));
+                    test.ok(Array.isArray(response));
                 }
                 done();
             });
@@ -75,33 +71,22 @@ module.exports = {
             test.strictEqual(server, ret);
         },
         "UUIDs": function (done) {
-            var finish = false;
+            var finish = _.after(2, done);
 
-            server
-                .uuids(function (err, uuids) {
-                    test.ifError(err);
-                    if (uuids) {
-                        test.equal(uuids.length, 1);
-                    }
-
-                    if (finish) {
-                        done();
-                    } else {
-                        finish = true;
-                    }
-                })
-                .uuids(10, function (err, uuids) {
-                    test.ifError(err);
-                    if (uuids) {
-                        test.equal(uuids.length, 10);
-                    }
-
-                    if (finish) {
-                        done();
-                    } else {
-                        finish = true;
-                    }
-                });
+            server.uuids(function (err, uuids) {
+                test.ifError(err);
+                if (uuids) {
+                    test.equal(uuids.length, 1);
+                }
+                finish();
+            })
+            .uuids(10, function (err, uuids) {
+                test.ifError(err);
+                if (uuids) {
+                    test.equal(uuids.length, 10);
+                }
+                finish();
+            });
         },
         "User Document": {
             "No Options": function (done) {

@@ -1,16 +1,16 @@
-var config = require("./assets/config"),
-    couchdb = require("../index"),
-    server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
-    db = server.db(config.name("db")),
-    ldoc = db.ldoc(config.name("ldoc")),
+var _ = require("underscore"),
     test = require("assert"),
-    _ = require("underscore");
+    config = require("./config"),
+    couchdb = require("../"),
+    server = couchdb.srv(config.host, config.port, config.ssl),
+    db = server.db("test_db_2"),
+    ldoc = db.ldoc("test_ldoc_1");
 
 module.exports = {
     before: function (done) {
-        server.debug(config.log_level);
-        if (!config.conn.party) {
-            server.setUser(config.conn.name, config.conn.password);
+        server.debug = config.debug;
+        if (!config.party) {
+            server.setUser(config.user, config.pass);
         }
         db.create(function (err, response) {
             ldoc.save(done);

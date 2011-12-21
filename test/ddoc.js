@@ -1,17 +1,17 @@
-var config = require("./assets/config"),
-    couchdb = require("../index"),
-    server = couchdb.srv(config.conn.host, config.conn.port, config.conn.ssl),
-    db = server.db(config.name("db")),
-    ddoc = db.ddoc(config.name("ddoc")),
-    noop = function () {},
+var _ = require("underscore"),
     test = require("assert"),
-    _ = require("underscore");
+    config = require("./config"),
+    couchdb = require("../"),
+    server = couchdb.srv(config.host, config.port, config.ssl),
+    db = server.db("test_db_1"),
+    ddoc = db.ddoc("test_ddoc_1"),
+    noop = function () {};
 
 module.exports = {
     before: function (done) {
-        server.debug(config.log_level);
-        if (!config.conn.party) {
-            server.setUser(config.conn.name, config.conn.password);
+        server.debug = config.debug;
+        if (!config.party) {
+            server.setUser(config.user, config.pass);
         }
         db.create(function (err, response) {
             ddoc.save(done);
@@ -37,14 +37,14 @@ module.exports = {
             test.ifError(ddoc.body.views); // make sure views doesn't exist on our new doc
 
             var views = ddoc.views(),      // initialize the array and return the reference
-                viewName = config.name("view"),
+                viewName = "test_view_1",
                 ret = ddoc.view(viewName, noop);  // add a new view
 
             test.ok(views[viewName].map);         // make sure the map function is defined
             test.ifError(views[viewName].reduce); // make sure the reduce function is not defined
             test.strictEqual(ddoc, ret);          // test to make sure this is chainable
 
-            viewName = config.name("view");
+            viewName = "test_view_2";
             ret = ddoc.view(viewName, noop, noop); // add a new view
             test.ok(views[viewName].map);          // make sure the map function is defined
             test.ok(views[viewName].reduce);       // make sure the reduce function is not defined
@@ -56,7 +56,7 @@ module.exports = {
         "Shows": function (done) {
             test.ifError(ddoc.body.shows); // make sure shows doesn't exist on our new doc
             var shows = ddoc.shows(),      // initialize the array and return the reference
-                showName = config.name("show"),
+                showName = "test_show_1",
                 ret = ddoc.show(showName, noop); // add a new show function
             test.ok(shows[showName]);            // test for existance
             test.strictEqual(ddoc, ret);         // test to make sure this is chainable
@@ -68,7 +68,7 @@ module.exports = {
         "Lists": function (done) {
             test.ifError(ddoc.body.lists); // make sure lists doesn't exist on our new doc
             var lists = ddoc.lists(),      // initialize the array and return the reference
-                listName = config.name("list"),
+                listName = "test_list_1",
                 ret = ddoc.list(listName, noop); // add a new list function
             test.ok(lists[listName]);            // test for existance
             test.strictEqual(ddoc, ret);         // test to make sure this is chainable
@@ -80,7 +80,7 @@ module.exports = {
         "Update Handlers": function (done) {
             test.ifError(ddoc.body.updates); // make sure updates doesn't exist on our new doc
             var updates = ddoc.updates(),    // initialize the array and return the reference
-                updateName = config.name("list"),
+                updateName = "test_list_2",
                 ret = ddoc.update(updateName, noop); // add a new update handler
             test.ok(updates[updateName]);            // test for existance
             test.strictEqual(ddoc, ret);             // test to make sure this is chainable

@@ -1,0 +1,9 @@
+{
+    "host":  "localhost",
+    "port":  5984,
+    "party": true,
+    "user":  null,
+    "pass":  null,
+    "ssl":   false,
+    "debug": "error"
+}
