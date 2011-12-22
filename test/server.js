@@ -3,7 +3,8 @@ var _ = require("underscore"),
     config = require("./config"),
     couchdb = require("../"),
     server = couchdb.srv(config.host, config.port, config.ssl),
-    testusername = "testuser";
+    testusername = "testuser",
+    testpassword = "password";
 
 module.exports = {
     before: function (done) {
@@ -21,50 +22,50 @@ module.exports = {
 
     "Server": {
         "Information": function (done) {
-            var ret = server.info(function (err, response) {
+            var ret = server.info(function (err, result) {
                 test.ifError(err);
-                if (response) {
-                    test.equal(response.couchdb, "Welcome");
+                if (result) {
+                    test.equal(result.couchdb, "Welcome");
                 }
                 done();
             });
             test.strictEqual(server, ret);
         },
         "All Databases": function (done) {
-            var ret = server.allDbs(function (err, response) {
+            var ret = server.allDbs(function (err, result) {
                 test.ifError(err);
-                if (response) {
-                    test.ok(Array.isArray(response));
+                if (result) {
+                    test.ok(Array.isArray(result));
                 }
                 done();
             });
             test.strictEqual(server, ret);
         },
         "Active Tasks": function (done) {
-            var ret = server.activeTasks(function (err, response) {
+            var ret = server.activeTasks(function (err, result) {
                 test.ifError(err);
-                if (response) {
-                    test.ok(Array.isArray(response));
+                if (result) {
+                    test.ok(Array.isArray(result));
                 }
                 done();
             });
             test.strictEqual(server, ret);
         },
         "Log": function (done) {
-            var ret = server.log(function (err, response, headers) {
+            var ret = server.log(function (err, result, headers) {
                 test.ifError(err);
-                if (response) {
-                    test.ok(response);
+                if (result) {
+                    test.ok(result);
                 }
                 done();
             });
             test.strictEqual(server, ret);
         },
         "Stats": function (done) {
-            var ret = server.stats(function (err, response) {
+            var ret = server.stats(function (err, result) {
                 test.ifError(err);
-                if (response) {
-                    test.ok(response.couchdb);
+                if (result) {
+                    test.ok(result.couchdb);
                 }
                 done();
             });
@@ -120,15 +121,56 @@ module.exports = {
                 done();
             }
         },
-        "Register": function (done) {
-            var ret = server.register(testusername, "password", function (err, response) {
-                test.ifError(err);
-                if (response) {
-                    test.ok(response.ok);
-                }
-                done();
-            });
-            test.strictEqual(server, ret);
+        "Auth": {
+            "Register": function (done) {
+                var ret = server.register(testusername, testpassword, function (err, result) {
+                    test.ifError(err);
+                    if (result) {
+                        test.ok(result.ok);
+                    }
+                    done();
+                });
+                test.strictEqual(server, ret);
+            },
+            "Login": function (done) {
+                var ret = server.login(testusername, testpassword, function (err, result) {
+                    test.ifError(err);
+                    if (result) {
+                        test.ok(result.ok);
+                        test.equal(result.name, testusername);
+                    }
+                    done();
+                });
+                test.strictEqual(server, ret);
+            },
+            "Check Session": function (done) {
+                var ret = server.session(function (err, result) {
+                    test.ifError(err);
+                    if (result) {
+                        test.ok(result.ok);
+                        test.equal(result.userCtx.name, testusername);
+                    }
+                    done();
+                });
+                test.strictEqual(server, ret);
+            },
+            "Logout": function (done) {
+                var ret = server.logout(function (err, result) {
+                    test.ifError(err);
+                    if (result) {
+                        test.ok(result.ok);
+                    }
+                    this.session(function (err, result) {
+                        test.ifError(err);
+                        if (result) {
+                            test.ok(result.ok);
+                            test.equal(result.userCtx.name, null);
+                        }
+                        done();
+                    });
+                });
+                test.strictEqual(server, ret);
+            }
         }
     }
 };

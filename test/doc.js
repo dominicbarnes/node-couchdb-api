@@ -3,8 +3,8 @@ var _ = require("underscore"),
     config = require("./config"),
     couchdb = require("../"),
     server = couchdb.srv(config.host, config.port, config.ssl),
-    db = server.db("test_db_0"),
-    doc_id = "test_doc_0",
+    db = server.db("test_db_doc"),
+    doc_id = "test_doc_1",
     doc_api = db.doc(doc_id),
     doc_revs = [];
 

@@ -5,5 +5,5 @@
     "user":  null,
     "pass":  null,
     "ssl":   false,
-    "debug": "error"
+    "debug": "warn"
 }

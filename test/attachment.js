@@ -3,7 +3,7 @@ var _ = require("underscore"),
     config = require("./config"),
     couchdb = require("../"),
     server = couchdb.srv(config.host, config.port, config.ssl),
-    db = server.db("test_db_1"),
+    db = server.db("test_db_attachment"),
     doc = db.doc("test_doc_1"),
     fs = require("fs"),
     attachments = {
@@ -24,7 +24,12 @@ module.exports = {
     },
 
     after: function (done) {
-        db.drop(done);
+        db.drop(function (err, result) {
+            if (err) {
+                console.error(err);
+            }
+            done();
+        });
     },
 
     "Attachment": {

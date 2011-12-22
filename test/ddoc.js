@@ -3,7 +3,7 @@ var _ = require("underscore"),
     config = require("./config"),
     couchdb = require("../"),
     server = couchdb.srv(config.host, config.port, config.ssl),
-    db = server.db("test_db_1"),
+    db = server.db("test_db_ddoc"),
     ddoc = db.ddoc("test_ddoc_1"),
     noop = function () {};
 

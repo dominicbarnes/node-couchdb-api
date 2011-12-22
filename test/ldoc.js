@@ -3,7 +3,7 @@ var _ = require("underscore"),
     config = require("./config"),
     couchdb = require("../"),
     server = couchdb.srv(config.host, config.port, config.ssl),
-    db = server.db("test_db_2"),
+    db = server.db("test_db_ldoc"),
     ldoc = db.ldoc("test_ldoc_1");
 
 module.exports = {
@@ -18,7 +18,12 @@ module.exports = {
     },
 
     after: function (done) {
-        db.drop(done);
+        db.drop(function (err, result) {
+            if (err) {
+                console.error(err);
+            }
+            done();
+        });
     },
 
     "Local Document": {
