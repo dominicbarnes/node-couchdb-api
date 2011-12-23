@@ -132,9 +132,19 @@
 
 
 <div class="CodeRay">
-<pre>
+<pre><span class="keyword">var</span> docs = [
+    { <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Dominic</span><span class="delimiter">&quot;</span></span>, <span class="key">type</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">person</span><span class="delimiter">&quot;</span></span> },
+    { <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Joanie</span><span class="delimiter">&quot;</span></span>, <span class="key">type</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">person</span><span class="delimiter">&quot;</span></span> },
+    { <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Speedy</span><span class="delimiter">&quot;</span></span>, <span class="key">type</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">turtle</span><span class="delimiter">&quot;</span></span> }
+];
+db.bulkDocs(docs, <span class="string"><span class="delimiter">&quot;</span><span class="content">all-or-nothing</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (err, result) {
+    <span class="comment">// do stuff...</span>
+});
+
 </pre>
 </div>
+
+
 
 
 <br />

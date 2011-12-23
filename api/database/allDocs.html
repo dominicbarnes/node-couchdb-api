@@ -135,9 +135,30 @@
 
 
 <div class="CodeRay">
-<pre>
+<pre><span class="comment">// get all</span>
+db.allDocs(<span class="keyword">function</span> (err, result) {
+    <span class="comment">// do stuff...</span>
+});
+
+<span class="comment">// specify document ids</span>
+db.allDocs([<span class="string"><span class="delimiter">&quot;</span><span class="content">my-doc-1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">my-doc-2</span><span class="delimiter">&quot;</span></span>], <span class="keyword">function</span> (err, result) {
+    <span class="comment">// do stuff...</span>
+});
+
+<span class="comment">// add query string params</span>
+db.allDocs({ <span class="key">include_docs</span>: <span class="predefined-constant">true</span> }, <span class="keyword">function</span> (err, result) {
+    <span class="comment">// do stuff...</span>
+});
+
+<span class="comment">// specify document ids and query string params</span>
+db.allDocs({ <span class="key">include_docs</span>: <span class="predefined-constant">true</span> }, [<span class="string"><span class="delimiter">&quot;</span><span class="content">my-doc-1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">my-doc-2</span><span class="delimiter">&quot;</span></span>], <span class="keyword">function</span> (err, result) {
+    <span class="comment">// do stuff...</span>
+});
+
 </pre>
 </div>
+
+
 
 
 <br />
