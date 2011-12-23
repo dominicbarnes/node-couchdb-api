@@ -1,24 +1,23 @@
 {
-  "author":      "Dominic Barnes <contact@dominicbarnes.us> (http://dominicbarnes.us)",
-  "name":        "couchdb-api",
-  "description": "An async wrapper for the CouchDB HTTP API, following Node.js conventions",
-  "keywords":    [ "couchdb", "async", "nosql", "api", "http", "couch", "rest" ],
-  "version":     "0.12.0",
-  "main":        "index",
-  "homepage":    "http://dominicbarnes.us/node-couchdb-api",
-  "repository": {
-    "type": "git",
-    "url":  "git://github.com/dominicbarnes/node-couchdb-api.git"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "engines": {
-    "node": "0.6"
-  },
-  "dependencies": {
-    "underscore": "",
-    "vargs":      "",
-    "colorize":   ""
-  }
+    "author":      "Dominic Barnes <contact@dominicbarnes.us> (http://dominicbarnes.us)",
+    "name":        "couchdb-api",
+    "description": "An async wrapper for the CouchDB HTTP API, following Node.js conventions",
+    "keywords":    [ "couchdb", "async", "nosql", "api", "http", "couch", "rest" ],
+    "version":     "1.0.0",
+    "main":        "index",
+    "homepage":    "http://dominicbarnes.us/node-couchdb-api",
+    "repository": {
+        "type": "git",
+        "url":  "git://github.com/dominicbarnes/node-couchdb-api.git"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
+    "engines": {
+        "node": "0.6"
+    },
+    "dependencies": {
+        "underscore": ">= 1",
+        "cli-color":  ">= 0.1"
+    }
 }
