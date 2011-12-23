@@ -7,7 +7,7 @@
 
 <meta charset="utf-8" />
 
-<title>Show Function(s) - node-couchdb-api</title>
+<title>Show Function - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Show Function(s) <small><a href="" target="_blank">Official Documentation</a></small></h2>
+<h2>Show Function <small><a href="" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -61,7 +61,7 @@
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Get/set show function(s) in this design document</td>
+      <td>Get/set a named show function</td>
    </tr>
    
    
@@ -71,24 +71,11 @@
 
 
 <div class="CodeRay">
-<pre><span class="keyword">var</span> shows = ddoc.show();
-<span class="comment">// shows =&gt; {</span>
-<span class="comment">//    &quot;my-show-function&quot;: &quot;function (doc, req) { ... }&quot;,</span>
-<span class="comment">//    ...</span>
-<span class="comment">// }</span>
+<pre><span class="comment">// set **Chainable**</span>
+ddoc.show(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-show-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (doc, req) { ... });
 
+<span class="comment">// get</span>
 <span class="keyword">var</span> show = ddoc.show(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-show-function</span><span class="delimiter">&quot;</span></span>);
-<span class="comment">// show =&gt; &quot;function (doc, req) { ... }&quot;</span>
-
-<span class="comment">// creating a new list function (or replacing an existing one)</span>
-ddoc.show(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-show-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (doc, req) {
-   <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>;
-});
-
-<span class="comment">// need to save these view views to the database</span>
-ddoc.save(<span class="keyword">function</span> (err, response) {
-   <span class="comment">// your new views are now available...</span>
-});
 
 </pre>
 </div>

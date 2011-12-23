@@ -51,11 +51,8 @@
 <div class="CodeRay">
 <pre><span class="keyword">var</span> couchdb = require(<span class="string"><span class="delimiter">&quot;</span><span class="content">couchdb-api</span><span class="delimiter">&quot;</span></span>);
 
-<span class="comment">/** default values: &quot;localhost&quot;, 5984, false **/</span>
-<span class="keyword">var</span> server = couchdb.srv(host, port, ssl);
-
-<span class="comment">// or you can use the bare constructor...</span>
-<span class="keyword">var</span> server = <span class="keyword">new</span> couchdb.Server(host, port, ssl);
+<span class="comment">/** default values: &quot;localhost&quot;, 5984, false, false **/</span>
+<span class="keyword">var</span> server = couchdb.srv(host, port, ssl, cache);
 </pre>
 </div>
 

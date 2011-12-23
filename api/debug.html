@@ -48,30 +48,30 @@
 			<div class="span10">
 				<h2>Debug / Log Mode</h2>
 
-<p>To enable console output, you need to set the log level on the <code>Client</code> object
-of your API object. (this object is shared/inherited from the base <code>Server</code> object)</p>
+<p>Each API object has it's own log level, but any objects created will
+inherit the debug level of their respective parent.</p>
 
-<p>There are 4 levels of debug output:</p>
+<p>There are 5 levels of logging:</p>
 
 <ol>
-<li>debug (cyan)</li>
-<li>info (green)</li>
-<li>warn (yellow)</li>
-<li>error (red)</li>
+<li>debug</li>
+<li>info</li>
+<li>warn</li>
+<li>error</li>
+<li>critical</li>
 </ol>
 
 
-<p>Use the <code>client.log()</code> method to set the log level for the client object.</p>
-
-<p>By passing <code>false</code> or <code>"none"</code> to this method, you can disable debug mode entirely as well.</p>
+<p>By passing <code>false</code> or <code>"none"</code> to this method, you can disable debug
+mode entirely as well.</p>
 
 <div class="CodeRay">
-<pre>server.client.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">debug</span><span class="delimiter">&quot;</span></span>);   <span class="comment">// output everything</span>
-server.client.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">info</span><span class="delimiter">&quot;</span></span>);    <span class="comment">// output useful information</span>
-server.client.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">warning</span><span class="delimiter">&quot;</span></span>); <span class="comment">// output warnings</span>
-server.client.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">error</span><span class="delimiter">&quot;</span></span>);   <span class="comment">// output errors</span>
-server.client.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">none</span><span class="delimiter">&quot;</span></span>);    <span class="comment">// output nothing (same as below)</span>
-server.client.log(<span class="predefined-constant">false</span>);     <span class="comment">// output nothing (same as above)</span>
+<pre>server.debug = <span class="string"><span class="delimiter">&quot;</span><span class="content">debug</span><span class="delimiter">&quot;</span></span>;     <span class="comment">// output everything</span>
+server.debug = <span class="string"><span class="delimiter">&quot;</span><span class="content">info</span><span class="delimiter">&quot;</span></span>;      <span class="comment">// output useful information</span>
+server.debug = <span class="string"><span class="delimiter">&quot;</span><span class="content">warning</span><span class="delimiter">&quot;</span></span>;   <span class="comment">// output warnings</span>
+server.debug = <span class="string"><span class="delimiter">&quot;</span><span class="content">error</span><span class="delimiter">&quot;</span></span>;     <span class="comment">// output couch/application errors</span>
+server.debug = <span class="string"><span class="delimiter">&quot;</span><span class="content">critical</span><span class="delimiter">&quot;</span></span>;  <span class="comment">// output HTTP errors</span>
+server.debug = <span class="predefined-constant">false</span>;       <span class="comment">// output nothing</span>
 </pre>
 </div>
 

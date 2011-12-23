@@ -56,39 +56,23 @@ references and discoverability.</p>
 
 <h3>The Client Object</h3>
 
-<p>Every API object has a common <code>Client</code> object that is the workhorse of
-the HTTP requests and responses. All requests are routed through here,
-and responses are automatically handled before being sent back to the
-calling objects.</p>
+<p>Every API object inherits from a HTTP client object that is the
+workhorse of HTTP requests and responses. All requests are routed
+through here, and responses are automatically handled before being sent
+back to the calling objects.</p>
 
 <p>Every <a href="/node-couchdb-api/api/callbacks.html">callback</a> executes in the context of the
 object that made the request. Also, the 3rd parameter to each
 callback is the <code>HttpResponse</code> object from the request. (if available)</p>
 
-<div class="CodeRay">
-<pre><span class="keyword">var</span> server = couchdb.srv();  <span class="comment">// a new Client object is initialized here</span>
-server.client;               <span class="comment">// voila!</span>
-
-<span class="keyword">var</span> db = server.db(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-db</span><span class="delimiter">&quot;</span></span>); <span class="comment">// the client object from `server` is inherited</span>
-db.client;                   <span class="comment">// same object as `server.client`</span>
-
-<span class="keyword">var</span> doc = db.doc(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-doc</span><span class="delimiter">&quot;</span></span>);  <span class="comment">// inherited from `db` (same as `server`)</span>
-doc.client;                  <span class="comment">// yup, it's the same object as `db.client`</span>
-</pre>
-</div>
-
-
-<h3>The API Objects</h3>
-
-<p>As mentioned before, each API object has a reference to a <code>Client</code> object,
-and inheritance is done from the <code>Server</code> object, down through the chain
-of namespaces.</p>
+<h3>The API Hierarchy</h3>
 
 <p><img src="/node-couchdb-api/images/API_Inheritance.png" alt="API Inheritance Graph" /></p>
 
 <p>As you descend into the inheritance chain, all the parent objects are also
-included with each instance. For example, a <code>Database</code> object will have a
-<code>server</code> property. A <code>Document</code> object will have a <code>db</code> property and a <code>server</code>
+included with each instance. For example, a <code>database</code> object will have a
+<code>server</code> property that references the object that initialized it.
+A <code>document</code> object will have a <code>db</code> property and a <code>server</code>
 property. Feel free to inspect the objects as well, there's plenty to see
 and use there!</p>
 

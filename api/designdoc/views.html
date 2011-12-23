@@ -7,7 +7,7 @@
 
 <meta charset="utf-8" />
 
-<title>Get/Set Views - node-couchdb-api</title>
+<title>Views - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Get/Set Views <small><a href="" target="_blank">Official Documentation</a></small></h2>
+<h2>Views <small><a href="" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -61,103 +61,29 @@
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Get/set view(s) in this design document</td>
+      <td>Get/set the views</td>
    </tr>
    
    
 </table>
 
 
-<h3>Arguments</h3>
-
-<table>
-   <thead>
-      <tr>
-         <th>Name</th>
-         <th>Type</th>
-         <th>Default</th>
-         <th>Comments</th>
-      </tr>
-   </thead>
-   <tbody>
-      
-         <tr>
-            <td>
-               name
-               
-            </td>
-            <td><code>string</code></td>
-            <td></td>
-            <td>
-               
-               
-            </td>
-         </tr>
-      
-         <tr>
-            <td>
-               map
-               
-                  <span class="label notice">Optional</span>
-               
-            </td>
-            <td><code>function|string</code></td>
-            <td></td>
-            <td>
-               
-               
-            </td>
-         </tr>
-      
-         <tr>
-            <td>
-               reduce
-               
-                  <span class="label notice">Optional</span>
-               
-            </td>
-            <td><code>function|string</code></td>
-            <td></td>
-            <td>
-               <span class="label success">Protip</span> <a href="http://wiki.apache.org/couchdb/Built-In_Reduce_Functions">Built-In Reduce Functions</a> are valid here (<code>_count</code>, <code>_sum</code>, <code>_stats</code>)
-               
-            </td>
-         </tr>
-      
-      <tr>
-         <td>callback</td>
-         <td><code>function</code></td>
-         <td></td>
-         <td>See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more information</td>
-      </tr>
-   </tbody>
-</table>
-
-
 
 
 <div class="CodeRay">
-<pre><span class="keyword">var</span> views = ddoc.views();
-<span class="comment">// views =&gt; {</span>
-<span class="comment">//    &quot;my-view&quot;: {</span>
-<span class="comment">//       &quot;map&quot;: &quot;function (doc) { ... }&quot;,</span>
-<span class="comment">//       &quot;reduce&quot;: &quot;_count&quot;</span>
-<span class="comment">//    }</span>
-<span class="comment">// }</span>
+<pre><span class="comment">// remove **Chainable**</span>
+ddoc.views(<span class="predefined-constant">null</span>);
 
-<span class="keyword">function</span> <span class="function">map</span>(doc) {
-   emit(doc._id, <span class="predefined-constant">null</span>);
-}
+<span class="comment">// set **Chainable**</span>
+ddoc.views({
+     <span class="key"><span class="delimiter">&quot;</span><span class="content">my-view</span><span class="delimiter">&quot;</span></span>: {
+         <span class="key"><span class="delimiter">&quot;</span><span class="content">map</span><span class="delimiter">&quot;</span></span>: <span class="keyword">function</span> (doc) { <span class="comment">/* ... */</span> },
+         <span class="key"><span class="delimiter">&quot;</span><span class="content">reduce</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">_count</span><span class="delimiter">&quot;</span></span>
+     }
+});
 
-<span class="keyword">function</span> <span class="function">reduce</span>(key, values, rereduce) {
-   <span class="keyword">return</span> values.length;
-}
-
-<span class="comment">// creating a new view (w/ only a map function)</span>
-ddoc.view(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-map-view</span><span class="delimiter">&quot;</span></span>, map);
-
-<span class="comment">// creating a new view (including a reduce function)</span>
-ddoc.view(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-reduce-view</span><span class="delimiter">&quot;</span></span>, map, reduce);
+<span class="comment">// get / initialize</span>
+<span class="keyword">var</span> views = ddoc.views();
 
 </pre>
 </div>

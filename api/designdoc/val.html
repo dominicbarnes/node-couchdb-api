@@ -71,17 +71,13 @@
 
 
 <div class="CodeRay">
-<pre><span class="keyword">var</span> val = ddoc.val();
-<span class="comment">// val =&gt; &quot;function (newDoc, savedDoc, userCtx) { ... }&quot;</span>
-
+<pre><span class="comment">// set **Chainable**</span>
 ddoc.val(<span class="keyword">function</span> (newDoc, savedDoc, userCtx) {
    <span class="keyword">throw</span>({ <span class="key">forbidden</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span> });
 });
 
-<span class="comment">// need to save these view views to the database</span>
-ddoc.save(<span class="keyword">function</span> (err, response) {
-   <span class="comment">// your new views are now available...</span>
-});
+<span class="comment">// get</span>
+<span class="keyword">var</span> val = ddoc.val();
 
 </pre>
 </div>

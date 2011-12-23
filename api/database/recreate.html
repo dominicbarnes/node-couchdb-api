@@ -7,7 +7,7 @@
 
 <meta charset="utf-8" />
 
-<title>List Function - node-couchdb-api</title>
+<title>Rereate - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>List Function <small><a href="" target="_blank">Official Documentation</a></small></h2>
+<h2>Rereate <small><a href="http://techzone.couchbase.com/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db_put" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -57,13 +57,28 @@
 <table>
     <tr>
         <td width="100"><b>Method</b></td>
-        <td>list</td>
+        <td>recreate</td>
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Get/set a named list function</td>
+      <td>Like create, but performs a drop first (does not bother checking for errors during drop)</td>
    </tr>
    
+   
+      <tr>
+         <td><b>HTTP</b></td>
+         <td>
+            
+                <ul class="unstyled">
+                    
+                        <li><code>DELETE /db</code></li>
+                    
+                        <li><code>PUT /db</code></li>
+                    
+                </ul>
+            
+         </td>
+      </tr>
    
 </table>
 
@@ -71,13 +86,9 @@
 
 
 <div class="CodeRay">
-<pre><span class="comment">// set **Chainable**</span>
-ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (head, req) {
-   <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>;
+<pre>db.recreate(<span class="keyword">function</span> (err, result) {
+   <span class="comment">// your code here...</span>
 });
-
-<span class="comment">// get</span>
-<span class="keyword">var</span> list = ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>);
 
 </pre>
 </div>
@@ -86,7 +97,7 @@ ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class=
 <br />
 
 
-<p><a href="/node-couchdb-api/api/designdoc/">&laquo; Back to Design Document Documentation</a></p>
+<p><a href="/node-couchdb-api/api/database/">&laquo; Back to Database Documentation</a></p>
 
 
 			</div>

@@ -71,13 +71,16 @@
 
 
 <div class="CodeRay">
-<pre><span class="comment">// set **Chainable**</span>
-ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (head, req) {
-   <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>;
+<pre><span class="comment">// remove **Chainable**</span>
+ddoc.lists(<span class="predefined-constant">null</span>);
+
+<span class="comment">// set **Chainable**</span>
+ddoc.lists({
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>: <span class="keyword">function</span> (head, req) { <span class="comment">/* ... */</span> })
 });
 
-<span class="comment">// get</span>
-<span class="keyword">var</span> list = ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>);
+<span class="comment">// get / initialize</span>
+<span class="keyword">var</span> lists = ddoc.lists();
 
 </pre>
 </div>

@@ -7,7 +7,7 @@
 
 <meta charset="utf-8" />
 
-<title>List Function - node-couchdb-api</title>
+<title>All Documents - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>List Function <small><a href="" target="_blank">Official Documentation</a></small></h2>
+<h2>All Documents <small><a href="http://www.couchbase.org/sites/default/files/uploads/all/documentation/couchbase-api-db.html#couchbase-api-db_db-all-docs_get" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -57,28 +57,85 @@
 <table>
     <tr>
         <td width="100"><b>Method</b></td>
-        <td>list</td>
+        <td>allDocs</td>
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Get/set a named list function</td>
+      <td>Queries the database for all of it's documents</td>
    </tr>
    
    
+      <tr>
+         <td><b>HTTP</b></td>
+         <td>
+            
+                <ul class="unstyled">
+                    
+                        <li><code>GET /db/_all_docs</code></li>
+                    
+                        <li><code>POST /db/_all_docs</code></li>
+                    
+                </ul>
+            
+         </td>
+      </tr>
+   
+</table>
+
+
+<h3>Arguments</h3>
+
+<table>
+   <thead>
+      <tr>
+         <th>Name</th>
+         <th>Type</th>
+         <th>Default</th>
+         <th>Comments</th>
+      </tr>
+   </thead>
+   <tbody>
+      
+         <tr>
+            <td>
+               query
+               
+            </td>
+            <td><code>hash</code></td>
+            <td></td>
+            <td>
+               Query-string arguments (same API as Views)
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td>
+               keys
+               
+            </td>
+            <td><code>array</code></td>
+            <td></td>
+            <td>
+               An array of document ids, this is useful for bulk-selecting several documents with known ids without a view.
+               
+            </td>
+         </tr>
+      
+      <tr>
+         <td>callback</td>
+         <td><code>function</code></td>
+         <td></td>
+         <td>See <a href="/node-couchdb-api/api/callbacks.html">this page</a> for more information</td>
+      </tr>
+   </tbody>
 </table>
 
 
 
 
 <div class="CodeRay">
-<pre><span class="comment">// set **Chainable**</span>
-ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (head, req) {
-   <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>;
-});
-
-<span class="comment">// get</span>
-<span class="keyword">var</span> list = ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>);
-
+<pre>
 </pre>
 </div>
 
@@ -86,7 +143,7 @@ ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class=
 <br />
 
 
-<p><a href="/node-couchdb-api/api/designdoc/">&laquo; Back to Design Document Documentation</a></p>
+<p><a href="/node-couchdb-api/api/database/">&laquo; Back to Database Documentation</a></p>
 
 
 			</div>

@@ -61,7 +61,7 @@
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Returns a `View` object from this design document.</td>
+      <td>Creates a `view` API object, or sets a named view</td>
    </tr>
    
    
@@ -94,6 +94,36 @@
             </td>
          </tr>
       
+         <tr>
+            <td>
+               map
+               
+                  <span class="label notice">Optional</span>
+               
+            </td>
+            <td><code>string|function</code></td>
+            <td></td>
+            <td>
+               
+               
+            </td>
+         </tr>
+      
+         <tr>
+            <td>
+               reduce
+               
+                  <span class="label notice">Optional</span>
+               
+            </td>
+            <td><code>string|function</code></td>
+            <td></td>
+            <td>
+               
+               
+            </td>
+         </tr>
+      
       <tr>
          <td>callback</td>
          <td><code>function</code></td>
@@ -107,7 +137,12 @@
 
 
 <div class="CodeRay">
-<pre><span class="keyword">var</span> view = ddoc.view(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-view</span><span class="delimiter">&quot;</span></span>);
+<pre><span class="comment">// set a named view (reduce optional)</span>
+ddoc.view(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-view</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (doc) { ... }, <span class="string"><span class="delimiter">&quot;</span><span class="content">_count</span><span class="delimiter">&quot;</span></span>)
+
+<span class="comment">// retrieve a view object for a named view</span>
+<span class="keyword">var</span> view = ddoc.view(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-view</span><span class="delimiter">&quot;</span></span>);
+
 </pre>
 </div>
 

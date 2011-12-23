@@ -49,7 +49,7 @@
 				<h2>Callbacks</h2>
 
 <p>Every HTTP request method in couchdb-api follows the same conventions,
-because they are all routed through the same <code>Client</code> object.</p>
+because they are all routed through the same request function.</p>
 
 <p>Every callback receives the same set of parameters and is given the same
 context. (the object itself that made the API call)</p>
@@ -91,7 +91,6 @@ context. (the object itself that made the API call)</p>
 server.info(<span class="keyword">function</span> (err, data, response) {
     <span class="comment">// err      =&gt; null</span>
     <span class="comment">// data     =&gt; { couchdb: &quot;welcome&quot;, version: &quot;1.0.1&quot; }</span>
-
     <span class="comment">// response =&gt; [HttpResponse Object]</span>
 });
 
@@ -101,7 +100,6 @@ server.info(<span class="keyword">function</span> (err, data, response) {
 db.info(<span class="keyword">function</span> (err, data, response) {
     <span class="comment">// err      =&gt; { error: &quot;not_found&quot;, reason: &quot;no_db_file&quot; }</span>
     <span class="comment">// data     =&gt; null</span>
-
     <span class="comment">// response =&gt; [HttpResponse Object]</span>
 });
 </pre>

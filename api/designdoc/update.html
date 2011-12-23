@@ -7,7 +7,7 @@
 
 <meta charset="utf-8" />
 
-<title>Update Handler(s) - node-couchdb-api</title>
+<title>Update Handler - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>Update Handler(s) <small><a href="" target="_blank">Official Documentation</a></small></h2>
+<h2>Update Handler <small><a href="" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -61,7 +61,7 @@
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Get/set update handler(s) in this design document</td>
+      <td>Get/set a named update handler</td>
    </tr>
    
    
@@ -71,24 +71,11 @@
 
 
 <div class="CodeRay">
-<pre><span class="keyword">var</span> updates = ddoc.update();
-<span class="comment">// updates =&gt; {</span>
-<span class="comment">//    &quot;my-update-function&quot;: &quot;function (doc, req) { ... }&quot;,</span>
-<span class="comment">//    ...</span>
-<span class="comment">// }</span>
+<pre><span class="comment">// set **Chainable**</span>
+ddoc.update(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-update-handler</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (doc, req) { ... });
 
-<span class="keyword">var</span> update = ddoc.update(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-update-function</span><span class="delimiter">&quot;</span></span>);
-<span class="comment">// update =&gt; &quot;function (doc, req) { ... }&quot;</span>
-
-<span class="comment">// creating a new update handler (or replacing an existing one)</span>
-ddoc.update(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-update-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (doc, req) {
-   <span class="keyword">return</span> [doc, <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>];
-});
-
-<span class="comment">// need to save these view views to the database</span>
-ddoc.save(<span class="keyword">function</span> (err, response) {
-   <span class="comment">// your new views are now available...</span>
-});
+<span class="comment">// get</span>
+<span class="keyword">var</span> update = ddoc.update(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-update-handler</span><span class="delimiter">&quot;</span></span>);
 
 </pre>
 </div>

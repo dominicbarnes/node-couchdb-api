@@ -95,10 +95,10 @@
                source
                
             </td>
-            <td><code>string|Database</code></td>
+            <td><code>string|object</code></td>
             <td></td>
             <td>
-               Can be a string name, a string url or a `Database` object.
+               Can be a string name, url or `database` object.
                
             </td>
          </tr>
@@ -108,17 +108,17 @@
                target
                
             </td>
-            <td><code>string|Database</code></td>
+            <td><code>string|object</code></td>
             <td></td>
             <td>
-               Can be a string name, a string url or a `Database` object.
+               Can be a string name, url or `database` object.
                
             </td>
          </tr>
       
          <tr>
             <td>
-               opts
+               options
                
                   <span class="label notice">Optional</span>
                
@@ -147,21 +147,21 @@
 
 <div class="CodeRay">
 <pre><span class="comment">// using named (local) databases, replicate /test1 -&gt; /test2</span>
-server.replicate(<span class="string"><span class="delimiter">&quot;</span><span class="content">test1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">test2</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (err, response) {
+server.replicate(<span class="string"><span class="delimiter">&quot;</span><span class="content">test1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">test2</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (err, result) {
    <span class="comment">// your code here...</span>
 });
 
 <span class="comment">// using db objects, replicate /test -&gt; remote.com:5984/test</span>
 <span class="keyword">var</span> local = server.db(<span class="string"><span class="delimiter">&quot;</span><span class="content">test</span><span class="delimiter">&quot;</span></span>),
-   remote = couchdb.srv(<span class="string"><span class="delimiter">&quot;</span><span class="content">remote.com</span><span class="delimiter">&quot;</span></span>).db(<span class="string"><span class="delimiter">&quot;</span><span class="content">test</span><span class="delimiter">&quot;</span></span>);
+    remote = couchdb.srv(<span class="string"><span class="delimiter">&quot;</span><span class="content">remote.com</span><span class="delimiter">&quot;</span></span>).db(<span class="string"><span class="delimiter">&quot;</span><span class="content">test</span><span class="delimiter">&quot;</span></span>);
 
-server.replicate(local, remote, <span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
+server.replicate(local, remote, <span class="keyword">function</span> (err, result) {
+    <span class="comment">// your code here...</span>
 });
 
 <span class="comment">// other options</span>
-server.replicate(<span class="string"><span class="delimiter">&quot;</span><span class="content">test1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">test2</span><span class="delimiter">&quot;</span></span>, { <span class="key">create_target</span>: <span class="predefined-constant">true</span> }, <span class="keyword">function</span> (err, response) {
-   <span class="comment">// your code here...</span>
+server.replicate(<span class="string"><span class="delimiter">&quot;</span><span class="content">test1</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">test2</span><span class="delimiter">&quot;</span></span>, { <span class="key">create_target</span>: <span class="predefined-constant">true</span> }, <span class="keyword">function</span> (err, result) {
+    <span class="comment">// your code here...</span>
 });
 
 </pre>

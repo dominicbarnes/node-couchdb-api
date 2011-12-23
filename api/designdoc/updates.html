@@ -7,7 +7,7 @@
 
 <meta charset="utf-8" />
 
-<title>List Function - node-couchdb-api</title>
+<title>Update Handlers - node-couchdb-api</title>
 <meta name="description" content="node-couchdb-api is a Node.js wrapper for the CouchDB HTTP API" />
 <meta name="keywords" content="couchdb, nodejs, javascript, api, http, nosql" />
 <meta name="author" content="Dominic Barnes <contact@dominicbarnes.us>" />
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="span10">
 				
-<h2>List Function <small><a href="" target="_blank">Official Documentation</a></small></h2>
+<h2>Update Handlers <small><a href="" target="_blank">Official Documentation</a></small></h2>
 
 <br />
 
@@ -57,11 +57,11 @@
 <table>
     <tr>
         <td width="100"><b>Method</b></td>
-        <td>list</td>
+        <td>updates</td>
     </tr>
    <tr>
       <td><b>Description</b></td>
-      <td>Get/set a named list function</td>
+      <td>Get/set the update handlers</td>
    </tr>
    
    
@@ -71,13 +71,16 @@
 
 
 <div class="CodeRay">
-<pre><span class="comment">// set **Chainable**</span>
-ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>, <span class="keyword">function</span> (head, req) {
-   <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>;
+<pre><span class="comment">// remove **Chainable**</span>
+ddoc.updates(<span class="predefined-constant">null</span>); <span class="comment">// or false</span>
+
+<span class="comment">// set **Chainable**</span>
+ddoc.updates({
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">my-update-handler</span><span class="delimiter">&quot;</span></span>: <span class="keyword">function</span> (doc, req) { <span class="comment">/* ... */</span> })
 });
 
-<span class="comment">// get</span>
-<span class="keyword">var</span> list = ddoc.list(<span class="string"><span class="delimiter">&quot;</span><span class="content">my-list-function</span><span class="delimiter">&quot;</span></span>);
+<span class="comment">// get / initialize</span>
+<span class="keyword">var</span> updates = ddoc.updates();
 
 </pre>
 </div>
