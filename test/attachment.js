@@ -102,7 +102,9 @@ module.exports = {
                         content.pipe(stream);
                         content.on("end", function () {
                             fs.stat(source, function (err, sourceStats) {
+                                test.ifError(err);
                                 fs.stat(target, function (err, targetStats) {
+                                    test.ifError(err);
                                     test.equal(sourceStats.size, targetStats.size);
                                     fs.unlink(target, test.done);
                                     done();

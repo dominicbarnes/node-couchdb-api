@@ -8,80 +8,76 @@ var _ = require("underscore"),
 
 module.exports = {
     before: function (done) {
-        server.debug = config.debug;
         if (!config.party) {
-            server.setUser(config.user, config.pass);
+            server.auth = config.user + ":" + config.pass;
         }
         done();
     },
     after: function (done) {
-        server.db("_users").doc("org.couchdb.user:" + testusername).get(function (err, body) {
-            this.del(done);
+        server.db("_users").doc("org.couchdb.user:" + testusername).get(function (err, body, res) {
+            this.del(function (err, body, res) {
+                done();
+            });
         });
     },
 
     "Server": {
         "Information": function (done) {
-            var ret = server.info(function (err, result) {
+            test.strictEqual(server, server.info(function (err, body, res) {
                 test.ifError(err);
-                if (result) {
-                    test.equal(result.couchdb, "Welcome");
+                if (!err) {
+                    test.equal(body.couchdb, "Welcome");
                 }
                 done();
-            });
-            test.strictEqual(server, ret);
+            }));
         },
         "All Databases": function (done) {
-            var ret = server.allDbs(function (err, result) {
+            test.strictEqual(server, server.allDbs(function (err, body, res) {
                 test.ifError(err);
-                if (result) {
-                    test.ok(Array.isArray(result));
+                if (body) {
+                    test.ok(Array.isArray(body));
                 }
                 done();
-            });
-            test.strictEqual(server, ret);
+            }));
         },
         "Active Tasks": function (done) {
-            var ret = server.activeTasks(function (err, result) {
+            test.strictEqual(server, server.activeTasks(function (err, body, res) {
                 test.ifError(err);
-                if (result) {
-                    test.ok(Array.isArray(result));
+                if (body) {
+                    test.ok(Array.isArray(body));
                 }
                 done();
-            });
-            test.strictEqual(server, ret);
+            }));
         },
         "Log": function (done) {
-            var ret = server.log(function (err, result, headers) {
+            test.strictEqual(server, server.log(function (err, body, res, headers) {
                 test.ifError(err);
-                if (result) {
-                    test.ok(result);
+                if (body) {
+                    test.ok(body);
                 }
                 done();
-            });
-            test.strictEqual(server, ret);
+            }));
         },
         "Stats": function (done) {
-            var ret = server.stats(function (err, result) {
+            test.strictEqual(server, server.stats(function (err, body, res) {
                 test.ifError(err);
-                if (result) {
-                    test.ok(result.couchdb);
+                if (body) {
+                    test.ok(body.couchdb);
                 }
                 done();
-            });
-            test.strictEqual(server, ret);
+            }));
         },
         "UUIDs": function (done) {
             var finish = _.after(2, done);
 
-            server.uuids(function (err, uuids) {
+            server.uuids(function (err, res, uuids) {
                 test.ifError(err);
                 if (uuids) {
                     test.equal(uuids.length, 1);
                 }
                 finish();
             })
-            .uuids(10, function (err, uuids) {
+            .uuids(10, function (err, res, uuids) {
                 test.ifError(err);
                 if (uuids) {
                     test.equal(uuids.length, 10);
@@ -123,53 +119,52 @@ module.exports = {
         },
         "Auth": {
             "Register": function (done) {
-                var ret = server.register(testusername, testpassword, function (err, result) {
+                test.strictEqual(server, server.register(testusername, testpassword, function (err, body, res) {
                     test.ifError(err);
-                    if (result) {
-                        test.ok(result.ok);
+                    if (body) {
+                        test.ok(body.ok);
                     }
                     done();
-                });
-                test.strictEqual(server, ret);
+                }));
             },
             "Login": function (done) {
-                var ret = server.login(testusername, testpassword, function (err, result) {
+                test.strictEqual(server, server.login(testusername, testpassword, function (err, body, res) {
+                    //console.log(err, body);
                     test.ifError(err);
-                    if (result) {
-                        test.ok(result.ok);
-                        test.equal(result.name, testusername);
+                    if (body) {
+                        test.ok(body.ok);
+                        test.equal(body.name, testusername);
                     }
                     done();
-                });
-                test.strictEqual(server, ret);
+                }));
             },
             "Check Session": function (done) {
-                var ret = server.session(function (err, result) {
+                test.strictEqual(server, server.session(function (err, body, res) {
+                    //console.log(err, body);
                     test.ifError(err);
-                    if (result) {
-                        test.ok(result.ok);
-                        test.equal(result.userCtx.name, testusername);
+                    if (body) {
+                        test.ok(body.ok);
+                        test.equal(body.userCtx.name, testusername);
                     }
                     done();
-                });
-                test.strictEqual(server, ret);
+                }));
             },
             "Logout": function (done) {
-                var ret = server.logout(function (err, result) {
+                test.strictEqual(server, server.logout(function (err, body, res) {
+                    //console.log(err, body);
                     test.ifError(err);
-                    if (result) {
-                        test.ok(result.ok);
+                    if (body) {
+                        test.ok(body.ok);
                     }
-                    this.session(function (err, result) {
+                    this.session(function (err, body, res) {
                         test.ifError(err);
-                        if (result) {
-                            test.ok(result.ok);
-                            test.equal(result.userCtx.name, null);
+                        if (body) {
+                            test.ok(body.ok);
+                            test.equal(body.userCtx.name, null);
                         }
                         done();
                     });
-                });
-                test.strictEqual(server, ret);
+                }));
             }
         }
     }
