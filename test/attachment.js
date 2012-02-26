@@ -7,9 +7,10 @@ var _ = require("underscore"),
     doc = db.doc("test_doc_1"),
     fs = require("fs"),
     attachments = {
-        string: doc.attachment("test_attachment_string"),
-        buffer: doc.attachment("test_attachment_buffer"),
-        stream: doc.attachment("test_attachment_stream")
+        string:  doc.attachment("test_attachment_string"),
+        buffer:  doc.attachment("test_attachment_buffer"),
+        stream1: doc.attachment("test_attachment_stream_png"),
+        stream2: doc.attachment("test_attachment_stream_json")
     };
 
 module.exports = {
@@ -58,16 +59,29 @@ module.exports = {
                         done();
                     });
             },
-            "Using Stream": function (done) {
-                attachments.stream
-                    .setBody("image/png", fs.createReadStream(__dirname + "/assets/couchdb-logo.png"))
-                    .save(function (err, result) {
-                        test.ifError(err);
-                        if (result) {
-                            test.ok(result.ok);
-                        }
-                        done();
-                    });
+            "Stream": {
+                "PNG": function (done) {
+                    attachments.stream1
+                        .setBody("image/png", fs.createReadStream(__dirname + "/assets/couchdb-logo.png"))
+                        .save(function (err, result) {
+                            test.ifError(err);
+                            if (result) {
+                                test.ok(result.ok);
+                            }
+                            done();
+                        });
+                },
+                "JSON": function (done) {
+                    attachments.stream2
+                        .setBody("application/json", fs.createReadStream(__dirname + "/../package.json"))
+                        .save(function (err, result) {
+                            test.ifError(err);
+                            if (result) {
+                                test.ok(result.ok);
+                            }
+                            done();
+                        });
+                }
             }
         },
         "Get": {
@@ -82,7 +96,16 @@ module.exports = {
                     });
                 },
                 "Binary": function (done) {
-                    attachments.stream.get(function (err, content) {
+                    attachments.stream1.get(function (err, content) {
+                        test.ifError(err);
+                        if (content) {
+                            test.ok(content);
+                        }
+                        done();
+                    });
+                },
+                "JSON": function (done) {
+                    attachments.stream2.get(function (err, content) {
                         test.ifError(err);
                         if (content) {
                             test.ok(content);
@@ -91,12 +114,12 @@ module.exports = {
                     });
                 }
             },
-            "Stream": function (done) {
+            "Stream PNG": function (done) {
                 var source = __dirname + "/assets/couchdb-logo.png",
                     target = __dirname + "/assets/test.png",
                     stream = fs.createWriteStream(target);
 
-                attachments.stream.get(true, function (err, content) {
+                attachments.stream1.get(true, function (err, content) {
                     test.ifError(err);
                     if (content) {
                         content.pipe(stream);
