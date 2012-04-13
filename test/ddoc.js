@@ -23,6 +23,18 @@ module.exports = {
     },
 
     "Design Document": {
+        "Get": function (done) {
+            ddoc.get(function (err, results) {
+                test.ifError(err, results);
+                done();
+            });
+        },
+        "Set": function (done) {
+            ddoc.save(function (err, results) {
+                test.ifError(err);
+                done();
+            });
+        },
         "Information": function (done) {
             var ret = ddoc.info(function (err, response) {
                 test.ifError(err);
