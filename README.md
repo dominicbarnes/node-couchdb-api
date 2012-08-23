@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/dominicbarnes/node-couchdb-api.png)](http://travis-ci.org/dominicbarnes/node-couchdb-api)
 # node-couchdb-api
 
 This [node.js](http://nodejs.org/) module aims to provide a clean, asynchronous wrapper for the [CouchDB](http://couchdb.apache.org/) API.
