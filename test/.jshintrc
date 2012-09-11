@@ -1,1 +1,13 @@
-../.jshintrc
+{
+    "browser":  false,
+    "devel":    true,
+    "jquery":   false,
+    "node":     true,
+    "couch":    true,
+
+
+
+    "white":    true,
+    "indent":   4,
+    "onevar":   true
+}
