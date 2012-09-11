@@ -3,7 +3,7 @@
     "name":        "couchdb-api",
     "description": "An async wrapper for the CouchDB HTTP API, following Node.js conventions",
     "keywords":    [ "couchdb", "async", "nosql", "api", "http", "couch", "rest" ],
-    "version":     "1.1.4",
+    "version":     "1.1.5",
     "main":        "index",
     "homepage":    "http://dominicbarnes.us/node-couchdb-api",
     "repository": {
@@ -14,10 +14,10 @@
         "test": "mocha"
     },
     "engines": {
-        "node": "0.6"
+        "node": "0.8"
     },
     "dependencies": {
-        "underscore": "",
-        "request":    ""
+        "underscore": "*",
+        "request":    "*"
     }
 }
