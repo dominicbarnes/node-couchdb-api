@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>node-couchdb-api</title>
-    <link rel="stylesheet" type="text/css" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap.min.css">
+    <title>jWizard</title>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
 </head>
 
 <body>
-    <%= navigation %>
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <a href="/" class="brand">Dominic Barnes</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="/">About Me</a></li>
+                        <li><a href="/jWizard">jWizard</a></li>
+                        <li class="active"><a href="/node-couchdb-api">node-couchdb-api</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <%= content %>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.4/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>
