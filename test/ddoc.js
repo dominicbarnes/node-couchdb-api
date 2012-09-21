@@ -2,7 +2,7 @@ var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
     couchdb = require("../"),
-    server = couchdb.srv(config.host, config.port, config.ssl),
+    server = couchdb.srv(config.url),
     db = server.db("test_db_ddoc"),
     ddoc = db.ddoc("test_ddoc_1"),
     noop = function () {};
@@ -11,7 +11,7 @@ module.exports = {
     before: function (done) {
         server.debug = config.debug;
         if (!config.party) {
-            server.setUser(config.user, config.pass);
+            server.auth = [ config.user, config.pass ];
         }
         db.create(function (err, response) {
             ddoc.save(done);

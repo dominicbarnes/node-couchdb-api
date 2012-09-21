@@ -2,14 +2,14 @@ var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
     couchdb = require("../"),
-    server = couchdb.srv(config.host, config.port, config.ssl),
+    server = couchdb.srv(config.url),
     testusername = "testuser",
     testpassword = "password";
 
 module.exports = {
     before: function (done) {
         if (!config.party) {
-            server.auth = config.user + ":" + config.pass;
+            server.auth = [ config.user, config.pass ];
         }
         done();
     },

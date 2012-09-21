@@ -38,7 +38,9 @@ Refer to [my website](http://dominicbarnes.us/node-couchdb-api/) for documentati
 ## Changelog
 
 **1.2.0**
- - Complete documentation rewrite
+ - Complete documentation rewrite (now generated automatically via source code comments with [dox](https://github.com/visionmedia/dox))
+ - Simplified the `.jshintrc`
+ - Simplified the `index.js` entry-point. `couchdb.srv()` now only takes a single argument, a string URL.
 
 **1.1.5**
  - Changed the package.json to allow for installs on node engine version 8
