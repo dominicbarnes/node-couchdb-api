@@ -3,8 +3,8 @@
     "intro": {
         "code": "var _         = require(\"underscore\"),\n    doc       = require(\"./document\"),\n    view      = require(\"./view\"),\n    util      = require(\"./util\"),\n    prototype = Object.create(doc.prototype);",
         "description": {
-            "full": "<h2>DesignDocument API</h2>\n\n<p>A <code>DesignDocument</code> object represents a single design document.</p>\n\n<pre><code>var doc = db.ddoc(\"my-ddoc-name\")\n</code></pre>",
-            "summary": "<h2>DesignDocument API</h2>",
+            "full": "<h3>DesignDocument API</h3>\n\n<p>A <code>DesignDocument</code> object represents a single design document.</p>\n\n<pre><code>var doc = db.ddoc(\"my-ddoc-name\")\n</code></pre>",
+            "summary": "<h3>DesignDocument API</h3>",
             "body": "<p>A <code>DesignDocument</code> object represents a single design document.</p>\n\n<pre><code>var doc = db.ddoc(\"my-ddoc-name\")\n</code></pre>"
         }
     },

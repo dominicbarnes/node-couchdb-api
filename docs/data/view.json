@@ -3,8 +3,8 @@
     "intro": {
         "code": "var client = require(\"./client\"),\n    doc    = require(\"./document\"),\n    prototype  = Object.create(client);",
         "description": {
-            "full": "<h2>View API</h2>\n\n<p>A <code>View</code> object represents a single view within a design document</p>\n\n<pre><code>var view = ddoc.view(\"my-view-name\");\n</code></pre>",
-            "summary": "<h2>View API</h2>",
+            "full": "<h3>View API</h3>\n\n<p>A <code>View</code> object represents a single view within a design document</p>\n\n<pre><code>var view = ddoc.view(\"my-view-name\");\n</code></pre>",
+            "summary": "<h3>View API</h3>",
             "body": "<p>A <code>View</code> object represents a single view within a design document</p>\n\n<pre><code>var view = ddoc.view(\"my-view-name\");\n</code></pre>"
         }
     },

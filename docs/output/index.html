@@ -1,618 +1,653 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>node-couchdb-api</title>
-    <link rel="stylesheet" type="text/css" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap.min.css">
+    <title>jWizard</title>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+
+    <style>
+    @media (min-width: 981px) {
+        body {
+            padding-top: 60px;
+            padding-bottom: 100px;
+        }
+    }
+
+    article {
+        padding-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    #server {
+        padding-top: 0;
+    }
+
+    article.api section {
+        padding-top: 50px;
+    }
+
+    .member {
+        position: relative;
+    }
+
+    .member a:hover:before {
+        content: "#";
+        position: absolute;
+        left: -.75em;
+    }
+
+    #back-to-top {
+        position: fixed;
+        bottom: 5px;
+        right: 5px;
+        opacity: .5;
+        font-size: 30px;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+    }
+    </style>
 </head>
 
 <body>
-    <div class="navbar">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <a href="/" class="brand">Dominic Barnes</a>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
 
-            <ul class="nav">
-                
+                <a href="/" class="brand">Dominic Barnes</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="/">About Me</a></li>
+                        <li><a href="/jWizard">jWizard</a></li>
+                        <li class="active"><a href="/node-couchdb-api">node-couchdb-api</a></li>
+                        <li class="divider-vertical"></li>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        API Reference
+        <b class="caret"></b>
+    </a>
+
+    <ul class="dropdown-menu">
+        
+            
+            
+
+            <li class="dropdown-submenu">
+                <a href="#">server</a>
+
+                <ul class="dropdown-menu">
                     
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            server
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#server.activeTasks()">
-                                        server.activeTasks()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.allDbs()">
-                                        server.allDbs()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.auth">
-                                        server.auth
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.db()">
-                                        server.db()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.info()">
-                                        server.info()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.log()">
-                                        server.log()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.login()">
-                                        server.login()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.logout()">
-                                        server.logout()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.register()">
-                                        server.register()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.replicate()">
-                                        server.replicate()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.restart()">
-                                        server.restart()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.session()">
-                                        server.session()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.stats()">
-                                        server.stats()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.userDoc()">
-                                        server.userDoc()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#server.uuids()">
-                                        server.uuids()
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
+                        <li>
+                            <a href="#server.activeTasks()">
+                                server.activeTasks()
+                            </a>
+                        </li>
                     
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            database
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#database.allDocs()">
-                                        database.allDocs()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.bulkDocs()">
-                                        database.bulkDocs()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.changes()">
-                                        database.changes()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.compact()">
-                                        database.compact()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.create()">
-                                        database.create()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.designDoc()">
-                                        database.designDoc()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.doc()">
-                                        database.doc()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.drop()">
-                                        database.drop()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.ensureFullCommit()">
-                                        database.ensureFullCommit()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.info()">
-                                        database.info()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.localDoc()">
-                                        database.localDoc()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.name">
-                                        database.name
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.pull()">
-                                        database.pull()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.purge()">
-                                        database.purge()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.recreate()">
-                                        database.recreate()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.replicate()">
-                                        database.replicate()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.security()">
-                                        database.security()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.tempView()">
-                                        database.tempView()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#database.viewCleanup()">
-                                        database.viewCleanup()
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
+                        <li>
+                            <a href="#server.allDbs()">
+                                server.allDbs()
+                            </a>
+                        </li>
                     
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            document
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#document.attachment()">
-                                        document.attachment()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.body">
-                                        document.body
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.del()">
-                                        document.del()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.get()">
-                                        document.get()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.id">
-                                        document.id
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.prop()">
-                                        document.prop()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.save()">
-                                        document.save()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#document.show()">
-                                        document.show()
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
+                        <li>
+                            <a href="#server.auth">
+                                server.auth
+                            </a>
+                        </li>
                     
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            attachment
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#attachment.del()">
-                                        attachment.del()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#attachment.get()">
-                                        attachment.get()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#attachment.name">
-                                        attachment.name
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#attachment.save()">
-                                        attachment.save()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#attachment.setBody()">
-                                        attachment.setBody()
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
+                        <li>
+                            <a href="#server.db()">
+                                server.db()
+                            </a>
+                        </li>
                     
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            view
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#view.list()">
-                                        view.list()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#view.map()">
-                                        view.map()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#view.name">
-                                        view.name
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#view.query()">
-                                        view.query()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#view.reduce()">
-                                        view.reduce()
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
+                        <li>
+                            <a href="#server.info()">
+                                server.info()
+                            </a>
+                        </li>
                     
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            designdoc
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#designdoc.info()">
-                                        designdoc.info()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.list()">
-                                        designdoc.list()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.lists()">
-                                        designdoc.lists()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.name">
-                                        designdoc.name
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.show()">
-                                        designdoc.show()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.shows()">
-                                        designdoc.shows()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.update()">
-                                        designdoc.update()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.updates()">
-                                        designdoc.updates()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.val()">
-                                        designdoc.val()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.validate">
-                                        designdoc.validate
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.view()">
-                                        designdoc.view()
-                                    </a>
-                                </li>
-                            
-                                <li>
-                                    <a href="#designdoc.views()">
-                                        designdoc.views()
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
+                        <li>
+                            <a href="#server.log()">
+                                server.log()
+                            </a>
+                        </li>
                     
+                        <li>
+                            <a href="#server.login()">
+                                server.login()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.logout()">
+                                server.logout()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.register()">
+                                server.register()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.replicate()">
+                                server.replicate()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.restart()">
+                                server.restart()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.session()">
+                                server.session()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.stats()">
+                                server.stats()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.userDoc()">
+                                server.userDoc()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#server.uuids()">
+                                server.uuids()
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+            
+            
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            localdoc
-                            <b class="caret"></b>
-                        </a>
+            <li class="dropdown-submenu">
+                <a href="#">database</a>
 
-                        <ul class="dropdown-menu">
-                            
-                                <li>
-                                    <a href="#localdoc.name">
-                                        localdoc.name
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </li>
-                
-            </ul>
+                <ul class="dropdown-menu">
+                    
+                        <li>
+                            <a href="#database.allDocs()">
+                                database.allDocs()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.bulkDocs()">
+                                database.bulkDocs()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.changes()">
+                                database.changes()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.compact()">
+                                database.compact()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.create()">
+                                database.create()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.designDoc()">
+                                database.designDoc()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.doc()">
+                                database.doc()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.drop()">
+                                database.drop()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.ensureFullCommit()">
+                                database.ensureFullCommit()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.info()">
+                                database.info()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.localDoc()">
+                                database.localDoc()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.name">
+                                database.name
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.pull()">
+                                database.pull()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.purge()">
+                                database.purge()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.recreate()">
+                                database.recreate()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.replicate()">
+                                database.replicate()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.security()">
+                                database.security()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.tempView()">
+                                database.tempView()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#database.viewCleanup()">
+                                database.viewCleanup()
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+            
+            
+
+            <li class="dropdown-submenu">
+                <a href="#">document</a>
+
+                <ul class="dropdown-menu">
+                    
+                        <li>
+                            <a href="#document.attachment()">
+                                document.attachment()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.body">
+                                document.body
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.del()">
+                                document.del()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.get()">
+                                document.get()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.id">
+                                document.id
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.prop()">
+                                document.prop()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.save()">
+                                document.save()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#document.show()">
+                                document.show()
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+            
+            
+
+            <li class="dropdown-submenu">
+                <a href="#">attachment</a>
+
+                <ul class="dropdown-menu">
+                    
+                        <li>
+                            <a href="#attachment.del()">
+                                attachment.del()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#attachment.get()">
+                                attachment.get()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#attachment.name">
+                                attachment.name
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#attachment.save()">
+                                attachment.save()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#attachment.setBody()">
+                                attachment.setBody()
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+            
+            
+
+            <li class="dropdown-submenu">
+                <a href="#">view</a>
+
+                <ul class="dropdown-menu">
+                    
+                        <li>
+                            <a href="#view.list()">
+                                view.list()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#view.map()">
+                                view.map()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#view.name">
+                                view.name
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#view.query()">
+                                view.query()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#view.reduce()">
+                                view.reduce()
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+            
+            
+
+            <li class="dropdown-submenu">
+                <a href="#">designdoc</a>
+
+                <ul class="dropdown-menu">
+                    
+                        <li>
+                            <a href="#designdoc.info()">
+                                designdoc.info()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.list()">
+                                designdoc.list()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.lists()">
+                                designdoc.lists()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.name">
+                                designdoc.name
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.show()">
+                                designdoc.show()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.shows()">
+                                designdoc.shows()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.update()">
+                                designdoc.update()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.updates()">
+                                designdoc.updates()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.val()">
+                                designdoc.val()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.validate">
+                                designdoc.validate
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.view()">
+                                designdoc.view()
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a href="#designdoc.views()">
+                                designdoc.views()
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+            
+            
+
+            <li class="dropdown-submenu">
+                <a href="#">localdoc</a>
+
+                <ul class="dropdown-menu">
+                    
+                        <li>
+                            <a href="#localdoc.name">
+                                localdoc.name
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+        
+    </ul>
+</li>
+
+<li>
+    <a href="#structure">Program Structure</a>
+</li>
+
+<li>
+    <a href="#callbacks">Callbacks</a>
+</li>
+
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
 
     <div class="container">
-        
+        <div class="hero-unit">
+            <div class="row-fluid">
+                <div class="span5">
+                    <h3>
+                        <i class="icon-ok-sign"></i>
+                        What is it?
+                    </h3>
+                    <p>
+                        An easy-to-use, powerful wrapper for the
+                        <a href="http://couchdb.apache.org/">CouchDB</a> HTTP API.
+                        It follows <a href="http://nodejs.org/">Node.js</a> callback
+                        conventions, and takes care of many of the details of the
+                        HTTP request/response cycle, allowing you to focus on
+                        getting your job done.
+                    </p>
+                    <h3>
+                        <i class="icon-remove-sign"></i>
+                        What is it not?
+                    </h3>
+                    <p>
+                        This is <b>not</b> an ORM for CouchDB, it's simply a JavaScript API to communicate with the CouchDB
+                        <a href="http://wiki.apache.org/couchdb/Complete_HTTP_API_Reference">HTTP API</a>.
+                    </p>
+                </div>
+                <div class="span4">
+                    <h3>
+                        <i class="icon-bell"></i>
+                        Features
+                    </h3>
+                    <ul>
+                        <li>Clean, discoverable <a href="#api-reference">API</a></li>
+                        <li>Consistent with Node.js conventions</li>
+                        <li>Built-in caching support (via HTTP Etags)</li>
+                        <li><a href="#database.changes()">Changes</a> API (queries and streams)</li>
+                        <li><a href="#attachment">Attachments</a> support</li>
+                        <li>User API (<code>_users</code> db, see <a href="#server">Server API</a>)</li>
+                        <li>Utilizes mikeal's <a href="https://github.com/mikeal/request">request module</a></li>
+                    </ul>
+
+                    <h3>
+                        <i class="icon-road"></i>
+                        Upcoming
+                    </h3>
+                    <ul>
+                        <li>More auth methods (cookie, oauth, etc.)</li>
+                        <li>HTTP COPY support</li>
+                    </ul>
+                </div>
+                <div class="span3">
+                    <h3>
+                        <i class="icon-download"></i>
+                        Installation
+                    </h3>
+                    <pre>npm install couchdb-api</pre>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="api-reference">API Reference</h2>
+
+
+    
     
 
-    <article id="server">
-        <div class="page-header">
-            <h2>Server API</h2>
+    <article id="server" class="api">
+        <h3>Server API</h3>
 
 <p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>
 
 <pre><code>var couchdb = require("couchdb-api");
 
-couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:5984</a>"
+couchdb.srv("<a href='http://localhost:5984'>http://localhost:5984</a>");
 </code></pre>
-        </div>
 
-        <h3>Methods</h3>
-
-        
-            <section id="server.info()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.info
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /</kbd>
-                    
-
-                    <p>Get basic information about the server</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-info-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="server.allDbs()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.allDbs
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /_all_dbs</kbd>
-                    
-
-                    <p>Get a list of all the databases on the server</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-allDbs-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
         
             <section id="server.activeTasks()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.activeTasks
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.activeTasks()">
+                            server.activeTasks
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -650,12 +685,188 @@ couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:
                 </div>
             </section>
         
+            <section id="server.allDbs()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.allDbs()">
+                            server.allDbs
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /_all_dbs</kbd>
+                    
+
+                    <p>Get a list of all the databases on the server</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-allDbs-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="server.auth" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.auth">
+                            server.auth
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Getter/setter property for HTTP Basic Auth parameters</p>
+
+<pre><code>// get
+server.auth; // "user:pass"
+
+// set
+server.auth = [ "user", "pass" ];
+server.auth = "user:pass";
+</code></pre>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
+        
+            <section id="server.db()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.db()">
+                            server.db
+                            
+                                (name)
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Database object</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Returns an object representing a database on this server</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-db-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>name</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="server.info()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.info()">
+                            server.info
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /</kbd>
+                    
+
+                    <p>Get basic information about the server</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-info-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
             <section id="server.log()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.log
-                        ([query], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.log()">
+                            server.log
+                            
+                                ([query], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -699,147 +910,16 @@ couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:
                 </div>
             </section>
         
-            <section id="server.restart()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.restart
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /_restart</kbd>
-                    
-
-                    <p>Restarts the server</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-restart-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="server.stats()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.stats
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /_stats</kbd>
-                    
-
-                    <p>Get the server running stats</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-stats-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="server.uuids()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.uuids
-                        ([count], callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /_uuids</kbd>
-                    
-
-                    <p>Get a list of generated UUIDs</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-uuids-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[count]</td>
-                                            <td><code>Number</code></td>
-                                            <td>default = 1</td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
             <section id="server.login()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.login
-                        (user, pass, callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.login()">
+                            server.login
+                            
+                                (user, pass, callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -891,10 +971,14 @@ couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:
         
             <section id="server.logout()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.logout
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.logout()">
+                            server.logout
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -932,55 +1016,16 @@ couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:
                 </div>
             </section>
         
-            <section id="server.session()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.session
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /_session</kbd>
-                    
-
-                    <p>Check the status of the current session</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-session-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
             <section id="server.register()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.register
-                        (name, pass, [options], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.register()">
+                            server.register
+                            
+                                (name, pass, [options], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1036,69 +1081,16 @@ couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:
                 </div>
             </section>
         
-            <section id="server.userDoc()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        server.userDoc
-                        (name, pass, [options])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> New User Document</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Creates a properly structured user document</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-userDoc-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>name</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>pass</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>[options]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
             <section id="server.replicate()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.replicate
-                        (source, target, [options], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.replicate()">
+                            server.replicate
+                            
+                                (source, target, [options], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1154,94 +1146,30 @@ couchdb.srv(); // defaults to "<a href='http://localhost:5984'>http://localhost:
                 </div>
             </section>
         
-            <section id="server.db()" class="row-fluid">
+            <section id="server.restart()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        server.db
-                        (name)
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Database object</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Returns an object representing a database on this server</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="server-db-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>name</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-    </article>
-
-    
-
-    <article id="database">
-        <div class="page-header">
-            <h2>Database API</h2>
-
-<p>A <code>Database</code> object represents a single CouchDB database.</p>
-
-<pre><code>var couchdb = require("couchdb-api");
-
-// defaults to "<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>"
-couchdb.db("db-name");
-
-// or use a Server object to initialize
-couchdb.srv().db("db-name");
-</code></pre>
-        </div>
-
-        <h3>Methods</h3>
-
-        
-            <section id="database.info()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        database.info
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#server.restart()">
+                            server.restart
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
 
                     
-                        <kbd>GET /db</kbd>
+                        <kbd>GET /_restart</kbd>
                     
 
-                    <p>Get basic information about the database</p>
+                    <p>Restarts the server</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="database-info-args">
+                        <div id="server-restart-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -1265,12 +1193,244 @@ couchdb.srv().db("db-name");
                 </div>
             </section>
         
+            <section id="server.session()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.session()">
+                            server.session
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /_session</kbd>
+                    
+
+                    <p>Check the status of the current session</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-session-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="server.stats()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.stats()">
+                            server.stats
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /_stats</kbd>
+                    
+
+                    <p>Get the server running stats</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-stats-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="server.userDoc()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.userDoc()">
+                            server.userDoc
+                            
+                                (name, pass, [options])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> New User Document</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Creates a properly structured user document</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-userDoc-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>name</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>pass</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>[options]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="server.uuids()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#server.uuids()">
+                            server.uuids
+                            
+                                ([count], callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /_uuids</kbd>
+                    
+
+                    <p>Get a list of generated UUIDs</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="server-uuids-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[count]</td>
+                                            <td><code>Number</code></td>
+                                            <td>default = 1</td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+    </article>
+
+    
+    
+
+    <article id="database" class="api">
+        <h3>Database API</h3>
+
+<p>A <code>Database</code> object represents a single CouchDB database.</p>
+
+<pre><code>var couchdb = require("couchdb-api");
+
+// defaults to "<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>"
+couchdb.db("db-name");
+
+// or use a Server object to initialize
+couchdb.srv().db("db-name");
+</code></pre>
+
+        
             <section id="database.allDocs()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.allDocs
-                        ([query], [keys], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.allDocs()">
+                            database.allDocs
+                            
+                                ([query], [keys], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1330,26 +1490,30 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="database.create()" class="row-fluid">
+            <section id="database.bulkDocs()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.create
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.bulkDocs()">
+                            database.bulkDocs
+                            
+                                (docs, [mode])
+                                *
+                            
+                        </a>
                     </h4>
 
                     
 
                     
-                        <kbd>PUT /db</kbd>
+                        <kbd>POST /db/_bulk_docs</kbd>
                     
 
-                    <p>Create the database</p>
+                    <p>Performs a bulk operation</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="database-create-args">
+                        <div id="database-bulkDocs-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -1361,95 +1525,15 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
+                                            <td>docs</td>
+                                            <td><code>Array</code></td>
+                                            <td>Array of document objects</td>
                                         </tr>
                                     
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="database.drop()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        database.drop
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>DELETE /db</kbd>
-                    
-
-                    <p>Drop the database</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="database-drop-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
                                         <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="database.recreate()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        database.recreate
-                        (callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>DELETE /db, PUT /db</kbd>
-                    
-
-                    <p>Drop the database, then create it again</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="database-recreate-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
+                                            <td>[mode]</td>
+                                            <td><code>String</code></td>
+                                            <td>"all-or-nothing" or "non-atomic"</td>
                                         </tr>
                                     
                                 </tbody>
@@ -1461,10 +1545,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
         
             <section id="database.changes()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.changes
-                        (query, callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.changes()">
+                            database.changes
+                            
+                                (query, callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1510,10 +1598,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
         
             <section id="database.compact()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.compact
-                        ([ddoc], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.compact()">
+                            database.compact
+                            
+                                ([ddoc], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1557,26 +1649,175 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="database.viewCleanup()" class="row-fluid">
+            <section id="database.create()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.viewCleanup
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.create()">
+                            database.create
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
 
                     
-                        <kbd>POST /db/_view_cleanup</kbd>
+                        <kbd>PUT /db</kbd>
                     
 
-                    <p>Clear the cached view output</p>
+                    <p>Create the database</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="database-viewCleanup-args">
+                        <div id="database-create-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="database.designDoc()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.designDoc()">
+                            database.designDoc
+                            
+                                (name)
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> a new DesignDocument object</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Initializes a new <code>DesignDocument</code> object for this database</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="database-designDoc-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>name</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="database.doc()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.doc()">
+                            database.doc
+                            
+                                ([id])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> a new Document object</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Initializes a new <code>Document</code> object for this database</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="database-doc-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[id]</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="database.drop()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.drop()">
+                            database.drop
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>DELETE /db</kbd>
+                    
+
+                    <p>Drop the database</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="database-drop-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -1602,10 +1843,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
         
             <section id="database.ensureFullCommit()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.ensureFullCommit
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.ensureFullCommit()">
+                            database.ensureFullCommit
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1643,26 +1888,30 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="database.purge()" class="row-fluid">
+            <section id="database.info()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.purge
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.info()">
+                            database.info
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
 
                     
-                        <kbd>POST /db/_purge</kbd>
+                        <kbd>GET /db</kbd>
                     
 
-                    <p>Purges references to deleted documents from the database</p>
+                    <p>Get basic information about the database</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="database-purge-args">
+                        <div id="database-info-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -1686,26 +1935,32 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="database.replicate()" class="row-fluid">
+            <section id="database.localDoc()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.replicate
-                        (target, [query], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.localDoc()">
+                            database.localDoc
+                            
+                                (name)
+                                
+                            
+                        </a>
                     </h4>
 
                     
-
-                    
-                        <kbd>POST /_replicate</kbd>
+                        <p><b>Returns</b> a new LocalDocument object</p>
                     
 
-                    <p>Replicates the current db to another db</p>
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Initializes a new <code>LocalDocument</code> object for this database</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="database-replicate-args">
+                        <div id="database-localDoc-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -1717,36 +1972,51 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>target</td>
-                                            <td><code>String, Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>[query]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
+                                            <td>name</td>
+                                            <td><code>String</code></td>
                                             <td></td>
                                         </tr>
                                     
                                 </tbody>
                             </table>
                         </div>
+                    
+                </div>
+            </section>
+        
+            <section id="database.name" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.name">
+                            database.name
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Getter/setter property for database name</p>
+
+<p><strong>Note</strong> It is entirely dependent on <code>_url.pathname[1]</code></p>
+                </div>
+
+                <div class="span4">
                     
                 </div>
             </section>
         
             <section id="database.pull()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.pull
-                        (source, [query], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.pull()">
+                            database.pull
+                            
+                                (source, [query], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1796,12 +2066,169 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
+            <section id="database.purge()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.purge()">
+                            database.purge
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>POST /db/_purge</kbd>
+                    
+
+                    <p>Purges references to deleted documents from the database</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="database-purge-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="database.recreate()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.recreate()">
+                            database.recreate
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>DELETE /db, PUT /db</kbd>
+                    
+
+                    <p>Drop the database, then create it again</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="database-recreate-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="database.replicate()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#database.replicate()">
+                            database.replicate
+                            
+                                (target, [query], callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>POST /_replicate</kbd>
+                    
+
+                    <p>Replicates the current db to another db</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="database-replicate-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>target</td>
+                                            <td><code>String, Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>[query]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
             <section id="database.security()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.security
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.security()">
+                            database.security
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1841,10 +2268,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
         
             <section id="database.tempView()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.tempView
-                        (map, [reduce], [query], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#database.tempView()">
+                            database.tempView
+                            
+                                (map, [reduce], [query], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -1900,26 +2331,30 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="database.bulkDocs()" class="row-fluid">
+            <section id="database.viewCleanup()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        database.bulkDocs
-                        (docs, [mode])
-                        *
+                    <h4 class="member">
+                        <a href="#database.viewCleanup()">
+                            database.viewCleanup
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
 
                     
-                        <kbd>POST /db/_bulk_docs</kbd>
+                        <kbd>POST /db/_view_cleanup</kbd>
                     
 
-                    <p>Performs a bulk operation</p>
+                    <p>Clear the cached view output</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="database-bulkDocs-args">
+                        <div id="database-viewCleanup-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -1931,149 +2366,8 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>docs</td>
-                                            <td><code>Array</code></td>
-                                            <td>Array of document objects</td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>[mode]</td>
-                                            <td><code>String</code></td>
-                                            <td>"all-or-nothing" or "non-atomic"</td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="database.doc()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        database.doc
-                        ([id])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> a new Document object</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Initializes a new <code>Document</code> object for this database</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="database-doc-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[id]</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="database.designDoc()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        database.designDoc
-                        (name)
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> a new DesignDocument object</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Initializes a new <code>DesignDocument</code> object for this database</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="database-designDoc-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>name</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="database.localDoc()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        database.localDoc
-                        (name)
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> a new LocalDocument object</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Initializes a new <code>LocalDocument</code> object for this database</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="database-localDoc-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>name</td>
-                                            <td><code>String</code></td>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
                                             <td></td>
                                         </tr>
                                     
@@ -2087,40 +2381,43 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
     </article>
 
     
+    
 
-    <article id="document">
-        <div class="page-header">
-            <h2>Document API</h2>
+    <article id="document" class="api">
+        <h3>Document API</h3>
 
 <p>A <code>Document</code> object represents a single document.</p>
 
 <pre><code>var doc = db.doc("my-doc-id")
 </code></pre>
-        </div>
-
-        <h3>Methods</h3>
 
         
-            <section id="document.get()" class="row-fluid">
+            <section id="document.attachment()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        document.get
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#document.attachment()">
+                            document.attachment
+                            
+                                (name)
+                                
+                            
+                        </a>
                     </h4>
 
                     
-
-                    
-                        <kbd>GET /db/doc</kbd>
+                        <p><b>Returns</b> </p>
                     
 
-                    <p>Retrieve the document from the server</p>
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Create a new Attachment object</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="document-get-args">
+                        <div id="document-attachment-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -2132,8 +2429,8 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
+                                            <td>name</td>
+                                            <td><code>String</code></td>
                                             <td></td>
                                         </tr>
                                     
@@ -2144,55 +2441,37 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="document.save()" class="row-fluid">
+            <section id="document.body" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        document.save
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#document.body">
+                            document.body
+                            
+                        </a>
                     </h4>
 
                     
 
                     
-                        <kbd>PUT /db/doc, POST /db</kbd>
-                    
 
-                    <p>Save the document to the server</p>
+                    <p>This property helps maintain the internals of the object if it is set after<br />initialization. (keeps _id in sync with the rest of the body)</p>
                 </div>
 
                 <div class="span4">
-                    
-                        <div id="document-save-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
                     
                 </div>
             </section>
         
             <section id="document.del()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        document.del
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#document.del()">
+                            document.del
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -2230,12 +2509,186 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
+            <section id="document.get()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#document.get()">
+                            document.get
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /db/doc</kbd>
+                    
+
+                    <p>Retrieve the document from the server</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="document-get-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="document.id" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#document.id">
+                            document.id
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Another property to help keep the internals in line. This will make sure the<br />internal URL is in sync with the _id property even after initialization.</p>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
+        
+            <section id="document.prop()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#document.prop()">
+                            document.prop
+                            
+                                (field, [value])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Set = chainable, Get = returns current value</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Shorthand for getting/setting basic properties (only works 1 level deep)</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="document-prop-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>field</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>[value]</td>
+                                            <td><code>Various</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="document.save()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#document.save()">
+                            document.save
+                            
+                                (callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>PUT /db/doc, POST /db</kbd>
+                    
+
+                    <p>Save the document to the server</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="document-save-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
             <section id="document.show()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        document.show
-                        (show, [query], [options], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#document.show()">
+                            document.show
+                            
+                                (show, [query], [options], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -2291,139 +2744,46 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="document.prop()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        document.prop
-                        (field, [value])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Set = chainable, Get = returns current value</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Shorthand for getting/setting basic properties (only works 1 level deep)</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="document-prop-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>field</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>[value]</td>
-                                            <td><code>Various</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="document.attachment()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        document.attachment
-                        (name)
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> </p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Create a new Attachment object</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="document-attachment-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>name</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
     </article>
 
     
+    
 
-    <article id="attachment">
-        <div class="page-header">
-            <h2>Attachment API</h2>
+    <article id="attachment" class="api">
+        <h3>Attachment API</h3>
 
 <p>An <code>Attachment</code> object represents a single attachment on a document.</p>
 
 <pre><code>var attachment = doc.attachment("my-ddoc-name");
 </code></pre>
-        </div>
-
-        <h3>Methods</h3>
 
         
-            <section id="attachment.setBody()" class="row-fluid">
+            <section id="attachment.del()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        attachment.setBody
-                        (format, body)
-                        *
+                    <h4 class="member">
+                        <a href="#attachment.del()">
+                            attachment.del
+                            
+                                (callback)
+                                
+                            
+                        </a>
                     </h4>
 
                     
-
-                    
-                        <kbd></kbd>
+                        <p><b>Returns</b> this</p>
                     
 
-                    <p>Set up the body of this attachment</p>
+                    
+                        <kbd>DELETE /db/doc/attachment</kbd>
+                    
+
+                    <p>Removes an attachment from a document on the server</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="attachment-setBody-args">
+                        <div id="attachment-del-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -2435,14 +2795,8 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>format</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>body</td>
-                                            <td><code>Various</code></td>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
                                             <td></td>
                                         </tr>
                                     
@@ -2455,10 +2809,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
         
             <section id="attachment.get()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        attachment.get
-                        (stream, [options], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#attachment.get()">
+                            attachment.get
+                            
+                                (stream, [options], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -2508,12 +2866,37 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
+            <section id="attachment.name" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#attachment.name">
+                            attachment.name
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Maintains the name as part of the URL</p>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
+        
             <section id="attachment.save()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        attachment.save
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#attachment.save()">
+                            attachment.save
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -2551,28 +2934,30 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="attachment.del()" class="row-fluid">
+            <section id="attachment.setBody()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        attachment.del
-                        (callback)
-                        
+                    <h4 class="member">
+                        <a href="#attachment.setBody()">
+                            attachment.setBody
+                            
+                                (format, body)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
-                        <p><b>Returns</b> this</p>
-                    
 
                     
-                        <kbd>DELETE /db/doc/attachment</kbd>
+                        <kbd></kbd>
                     
 
-                    <p>Removes an attachment from a document on the server</p>
+                    <p>Set up the body of this attachment</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="attachment-del-args">
+                        <div id="attachment-setBody-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -2584,8 +2969,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
+                                            <td>format</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>body</td>
+                                            <td><code>Various</code></td>
                                             <td></td>
                                         </tr>
                                     
@@ -2599,179 +2990,27 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
     </article>
 
     
+    
 
-    <article id="view">
-        <div class="page-header">
-            <h2>View API</h2>
+    <article id="view" class="api">
+        <h3>View API</h3>
 
 <p>A <code>View</code> object represents a single view within a design document</p>
 
 <pre><code>var view = ddoc.view("my-view-name");
 </code></pre>
-        </div>
 
-        <h3>Methods</h3>
-
-        
-            <section id="view.query()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        view.query
-                        ([query], [data], callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /db/ddoc/_view/view</kbd>
-                    
-
-                    <p>Perform a generic query against a stored view</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="view-query-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[query]</td>
-                                            <td><code>Object</code></td>
-                                            <td>If only one of the optional params is provided, this is assumed to be the one</td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>[data]</td>
-                                            <td><code>Array, Various</code></td>
-                                            <td>Array = pass as `keys` in body, Various = pass as complete body</td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="view.map()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        view.map
-                        ([query], callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /db/ddoc/_view/view</kbd>
-                    
-
-                    <p>Perform a map query against a stored view</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="view-map-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[query]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="view.reduce()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        view.reduce
-                        ([query], callback)
-                        *
-                    </h4>
-
-                    
-
-                    
-                        <kbd>GET /db/ddoc/_view/view</kbd>
-                    
-
-                    <p>Perform a reduce query against a stored view</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="view-reduce-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[query]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>callback</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
         
             <section id="view.list()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        view.list
-                        (list, [query], callback)
-                        *
+                    <h4 class="member">
+                        <a href="#view.list()">
+                            view.list
+                            
+                                (list, [query], callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -2821,29 +3060,216 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
+            <section id="view.map()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#view.map()">
+                            view.map
+                            
+                                ([query], callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /db/ddoc/_view/view</kbd>
+                    
+
+                    <p>Perform a map query against a stored view</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="view-map-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[query]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="view.name" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#view.name">
+                            view.name
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Gets/sets the name as part of the URL</p>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
+        
+            <section id="view.query()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#view.query()">
+                            view.query
+                            
+                                ([query], [data], callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /db/ddoc/_view/view</kbd>
+                    
+
+                    <p>Perform a generic query against a stored view</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="view-query-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[query]</td>
+                                            <td><code>Object</code></td>
+                                            <td>If only one of the optional params is provided, this is assumed to be the one</td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>[data]</td>
+                                            <td><code>Array, Various</code></td>
+                                            <td>Array = pass as `keys` in body, Various = pass as complete body</td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="view.reduce()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#view.reduce()">
+                            view.reduce
+                            
+                                ([query], callback)
+                                *
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+                        <kbd>GET /db/ddoc/_view/view</kbd>
+                    
+
+                    <p>Perform a reduce query against a stored view</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="view-reduce-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[query]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>callback</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
     </article>
 
     
+    
 
-    <article id="designdoc">
-        <div class="page-header">
-            <h2>DesignDocument API</h2>
+    <article id="designdoc" class="api">
+        <h3>DesignDocument API</h3>
 
 <p>A <code>DesignDocument</code> object represents a single design document.</p>
 
 <pre><code>var doc = db.ddoc("my-ddoc-name")
 </code></pre>
-        </div>
-
-        <h3>Methods</h3>
 
         
             <section id="designdoc.info()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        designdoc.info
-                        (callback)
-                        *
+                    <h4 class="member">
+                        <a href="#designdoc.info()">
+                            designdoc.info
+                            
+                                (callback)
+                                *
+                            
+                        </a>
                     </h4>
 
                     
@@ -2881,249 +3307,16 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="designdoc.views()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        designdoc.views
-                        ([views])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Set = chainable, Get = view hash</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Get/set all the views</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="designdoc-views-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[views]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="designdoc.view()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        designdoc.view
-                        (map, [reduce])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Set = chainable, Get = view object</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Set a single named view</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="designdoc-view-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>map</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>[reduce]</td>
-                                            <td><code>Function, String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="designdoc.shows()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        designdoc.shows
-                        ([shows])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Set = chainable, Get = show hash</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Get/set all the show functions</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="designdoc-shows-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[shows]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="designdoc.show()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        designdoc.show
-                        (name, fn)
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Set = chainable, Get = show function</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Get/set a single show function</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="designdoc-show-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>name</td>
-                                            <td><code>String</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td>fn</td>
-                                            <td><code>Function</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
-            <section id="designdoc.lists()" class="row-fluid">
-                <div class="span8">
-                    <h4>
-                        designdoc.lists
-                        ([lists])
-                        
-                    </h4>
-
-                    
-                        <p><b>Returns</b> Set = chainable, Get = list hash</p>
-                    
-
-                    
-                        <kbd></kbd>
-                    
-
-                    <p>Get/set all the list functions</p>
-                </div>
-
-                <div class="span4">
-                    
-                        <div id="designdoc-lists-args">
-                            <table class="table table-striped table-bordered table-condensed" align="right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            <td>[lists]</td>
-                                            <td><code>Object</code></td>
-                                            <td></td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            </section>
-        
             <section id="designdoc.list()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        designdoc.list
-                        (name, fn)
-                        
+                    <h4 class="member">
+                        <a href="#designdoc.list()">
+                            designdoc.list
+                            
+                                (name, fn)
+                                
+                            
+                        </a>
                     </h4>
 
                     
@@ -3169,28 +3362,32 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
-            <section id="designdoc.updates()" class="row-fluid">
+            <section id="designdoc.lists()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        designdoc.updates
-                        ([updates])
-                        
+                    <h4 class="member">
+                        <a href="#designdoc.lists()">
+                            designdoc.lists
+                            
+                                ([lists])
+                                
+                            
+                        </a>
                     </h4>
 
                     
-                        <p><b>Returns</b> Set = chainable, Get = update hash</p>
+                        <p><b>Returns</b> Set = chainable, Get = list hash</p>
                     
 
                     
                         <kbd></kbd>
                     
 
-                    <p>Get/set the update handlers</p>
+                    <p>Get/set all the list functions</p>
                 </div>
 
                 <div class="span4">
                     
-                        <div id="designdoc-updates-args">
+                        <div id="designdoc-lists-args">
                             <table class="table table-striped table-bordered table-condensed" align="right">
                                 <thead>
                                     <tr>
@@ -3202,7 +3399,132 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                                 <tbody>
                                     
                                         <tr>
-                                            <td>[updates]</td>
+                                            <td>[lists]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="designdoc.name" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.name">
+                            designdoc.name
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Behaves similarly to the Document property with the same now</p>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
+        
+            <section id="designdoc.show()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.show()">
+                            designdoc.show
+                            
+                                (name, fn)
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Set = chainable, Get = show function</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Get/set a single show function</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="designdoc-show-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>name</td>
+                                            <td><code>String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>fn</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="designdoc.shows()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.shows()">
+                            designdoc.shows
+                            
+                                ([shows])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Set = chainable, Get = show hash</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Get/set all the show functions</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="designdoc-shows-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[shows]</td>
                                             <td><code>Object</code></td>
                                             <td></td>
                                         </tr>
@@ -3216,10 +3538,14 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
         
             <section id="designdoc.update()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        designdoc.update
-                        (name, fn)
-                        
+                    <h4 class="member">
+                        <a href="#designdoc.update()">
+                            designdoc.update
+                            
+                                (name, fn)
+                                
+                            
+                        </a>
                     </h4>
 
                     
@@ -3265,12 +3591,65 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
+            <section id="designdoc.updates()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.updates()">
+                            designdoc.updates
+                            
+                                ([updates])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Set = chainable, Get = update hash</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Get/set the update handlers</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="designdoc-updates-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[updates]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
             <section id="designdoc.val()" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        designdoc.val
-                        ([fn])
-                        
+                    <h4 class="member">
+                        <a href="#designdoc.val()">
+                            designdoc.val
+                            
+                                ([fn])
+                                
+                            
+                        </a>
                     </h4>
 
                     
@@ -3310,30 +3689,269 @@ db.allDocs(null, ["doc-id-1", "doc-id-2"], callback)
                 </div>
             </section>
         
+            <section id="designdoc.validate" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.validate">
+                            designdoc.validate
+                            
+                        </a>
+                    </h4>
+
+                    
+
+                    
+
+                    <p>Get/set the validation function</p>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
+        
+            <section id="designdoc.view()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.view()">
+                            designdoc.view
+                            
+                                (map, [reduce])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Set = chainable, Get = view object</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Set a single named view</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="designdoc-view-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>map</td>
+                                            <td><code>Function</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>[reduce]</td>
+                                            <td><code>Function, String</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
+            <section id="designdoc.views()" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#designdoc.views()">
+                            designdoc.views
+                            
+                                ([views])
+                                
+                            
+                        </a>
+                    </h4>
+
+                    
+                        <p><b>Returns</b> Set = chainable, Get = view hash</p>
+                    
+
+                    
+                        <kbd></kbd>
+                    
+
+                    <p>Get/set all the views</p>
+                </div>
+
+                <div class="span4">
+                    
+                        <div id="designdoc-views-args">
+                            <table class="table table-striped table-bordered table-condensed" align="right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            <td>[views]</td>
+                                            <td><code>Object</code></td>
+                                            <td></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </section>
+        
     </article>
 
     
+    
 
-    <article id="localdoc">
-        <div class="page-header">
-            <h2>LocalDocument API</h2>
+    <article id="localdoc" class="api">
+        <h3>LocalDocument API</h3>
 
 <p>A <code>LocalDocument</code> object represents a single local document<br />(a document that does not get replicated)</p>
 
 <pre><code>var ldoc = db.ldoc("my-ldoc-id")
 </code></pre>
-        </div>
 
-        <h3>Methods</h3>
+        
+            <section id="localdoc.name" class="row-fluid">
+                <div class="span8">
+                    <h4 class="member">
+                        <a href="#localdoc.name">
+                            localdoc.name
+                            
+                        </a>
+                    </h4>
 
+                    
+
+                    
+
+                    <p>Behaves similar to the Document property with the same name,<br />also keeping the id and url in sync.</p>
+                </div>
+
+                <div class="span4">
+                    
+                </div>
+            </section>
         
     </article>
 
 
+
+        <article id="structure">
+            <h2>Code / Object Structure</h2>
+            <p>
+                Great care has been taken to leverage the powerful nature of JavaScript.
+                This includes using prototypes for inheritance and code encapsulation,
+                cached mixins for a smaller type of inheritance and performance as well
+                as leveraging every object as a reference to allow for lots of useful
+                references and discoverability.
+            </p>
+
+            <h3>The Client Object</h3>
+            <p>
+                Every API object inherits from a HTTP client object that is the workhorse
+                of HTTP requests and responses. All requests are routed through here,
+                and responses are automatically handled before being sent back to the calling objects.
+            </p>
+            <p>
+                Every callback executes in the context of the object that made the request.
+                Also, the 3rd parameter to each callback is the HttpResponse object from the request. (if available)
+            </p>
+
+            <h3>The API Hierarchy</h3>
+            <pre class="well">Server
+&#9492;&rarr; Database
+   &#9492;&rarr; Document
+      &#9492;&rarr; Attachment
+   &#9492;&rarr; Design Document
+      &#9492;&rarr; View
+   &#9492;&rarr; Local Document</pre>
+
+            <p>
+                As you descend into the inheritance chain, all the parent objects
+                are also included with each instance. For example, a <code>database</code>
+                object will have a <code>server</code> property that references the
+                object that initialized it. A <code>document</code> object will have a
+                <code>db</code> property and a <code>server</code> property. Feel free
+                to inspect the objects as well, there's plenty to see and use there!
+            </p>
+        </article>
+
+        <article id="callbacks">
+            <h2>Callbacks</h2>
+
+            <p>
+                Every HTTP request method in couchdb-api follows the same conventions,
+                because they are all routed through the same request function.
+            </p>
+
+            <p>
+                Every callback receives the same set of parameters and is given the same
+                context. (the object itself that made the API call)
+            </p>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>DataType</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>err</td>
+                        <td><code>object</code></td>
+                        <td>Not included if no errors took place</td>
+                    </tr>
+                    <tr>
+                        <td>data</td>
+                        <td><code>mixed</code></td>
+                        <td>Not included if an error occurred. In most cases, this will return a parsed JSON object, but sometimes it will simply return a string of the response body.</td>
+                    </tr>
+                    <tr>
+                        <td>response</td>
+                        <td><code>HttpResponse</code></td>
+                        <td>The raw <code>HttpResponse</code> object from Node.js</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+
+
+        <a id="back-to-top" href="#" class="btn btn-large hide">
+            <i class="icon-arrow-up"></i>
+        </a>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.4/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
+    <script>
+    $(function () {
+        var $w = $(window),
+            $top = $("#back-to-top");
+
+        $w.scroll(function () {
+            $top.toggle($w.scrollTop() > 250);
+        });
+    });
+    </script>
 </body>
 
 </html>

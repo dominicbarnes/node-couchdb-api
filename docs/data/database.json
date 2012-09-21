@@ -3,8 +3,8 @@
     "intro": {
         "code": "var _         = require(\"underscore\")\n    util      = require(\"./util\"),\n    doc       = require(\"./document\"),\n    ddoc      = require(\"./designdoc\"),\n    ldoc      = require(\"./localdoc\"),\n    prototype = Object.create(require(\"./client\"));",
         "description": {
-            "full": "<h2>Database API</h2>\n\n<p>A <code>Database</code> object represents a single CouchDB database.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// defaults to \"<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>\"\ncouchdb.db(\"db-name\");\n\n// or use a Server object to initialize\ncouchdb.srv().db(\"db-name\");\n</code></pre>",
-            "summary": "<h2>Database API</h2>",
+            "full": "<h3>Database API</h3>\n\n<p>A <code>Database</code> object represents a single CouchDB database.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// defaults to \"<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>\"\ncouchdb.db(\"db-name\");\n\n// or use a Server object to initialize\ncouchdb.srv().db(\"db-name\");\n</code></pre>",
+            "summary": "<h3>Database API</h3>",
             "body": "<p>A <code>Database</code> object represents a single CouchDB database.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// defaults to \"<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>\"\ncouchdb.db(\"db-name\");\n\n// or use a Server object to initialize\ncouchdb.srv().db(\"db-name\");\n</code></pre>"
         }
     },

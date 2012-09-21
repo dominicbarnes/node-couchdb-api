@@ -3,8 +3,8 @@
     "intro": {
         "code": "var client     = require(\"./client\"),\n    attachment = require(\"./attachment\"),\n    prototype  = Object.create(client);",
         "description": {
-            "full": "<h2>Document API</h2>\n\n<p>A <code>Document</code> object represents a single document.</p>\n\n<pre><code>var doc = db.doc(\"my-doc-id\")\n</code></pre>",
-            "summary": "<h2>Document API</h2>",
+            "full": "<h3>Document API</h3>\n\n<p>A <code>Document</code> object represents a single document.</p>\n\n<pre><code>var doc = db.doc(\"my-doc-id\")\n</code></pre>",
+            "summary": "<h3>Document API</h3>",
             "body": "<p>A <code>Document</code> object represents a single document.</p>\n\n<pre><code>var doc = db.doc(\"my-doc-id\")\n</code></pre>"
         }
     },

@@ -3,8 +3,8 @@
     "intro": {
         "code": "var client = require(\"./client\"),\n    prototype = Object.create(client),\n    formats = exports.formats = {\n        text: \"text/plain\",\n        json: \"application/json\",\n        html: \"text/html\",\n        xml:  \"application/xml\"\n    };",
         "description": {
-            "full": "<h2>Attachment API</h2>\n\n<p>An <code>Attachment</code> object represents a single attachment on a document.</p>\n\n<pre><code>var attachment = doc.attachment(\"my-ddoc-name\");\n</code></pre>",
-            "summary": "<h2>Attachment API</h2>",
+            "full": "<h3>Attachment API</h3>\n\n<p>An <code>Attachment</code> object represents a single attachment on a document.</p>\n\n<pre><code>var attachment = doc.attachment(\"my-ddoc-name\");\n</code></pre>",
+            "summary": "<h3>Attachment API</h3>",
             "body": "<p>An <code>Attachment</code> object represents a single attachment on a document.</p>\n\n<pre><code>var attachment = doc.attachment(\"my-ddoc-name\");\n</code></pre>"
         }
     },

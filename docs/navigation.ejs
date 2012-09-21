@@ -1,35 +1,39 @@
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <a href="/" class="brand">Dominic Barnes</a>
+<li class="divider-vertical"></li>
 
-            <ul class="nav">
-                <% libs.forEach(function (api) { %>
-                    <%
-                    var meta = data[api],
-                        members = _.sortBy(meta.methods.concat(meta.properties), function (member) {
-                            return member.ctx.name;
-                        });
-                    %>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        API Reference
+        <b class="caret"></b>
+    </a>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <%= api %>
-                            <b class="caret"></b>
-                        </a>
+    <ul class="dropdown-menu">
+        <% libs.forEach(function (api) { %>
+            <% var meta = data[api]; %>
+            <% var members = _.sortBy(meta.methods.concat(meta.properties), function (member) {
+                return member.ctx.string;
+            }); %>
 
-                        <ul class="dropdown-menu">
-                            <% members.forEach(function (member) { %>
-                                <li>
-                                    <a href="#<%= member.ctx.string %>">
-                                        <%= member.ctx.string %>
-                                    </a>
-                                </li>
-                            <% }); %>
-                        </ul>
-                    </li>
-                <% }); %>
-            </ul>
-        </div>
-    </div>
-</div>
+            <li class="dropdown-submenu">
+                <a href="#"><%= api %></a>
+
+                <ul class="dropdown-menu">
+                    <% members.forEach(function (member) { %>
+                        <li>
+                            <a href="#<%= member.ctx.string %>">
+                                <%= member.ctx.string %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </li>
+        <% }); %>
+    </ul>
+</li>
+
+<li>
+    <a href="#structure">Program Structure</a>
+</li>
+
+<li>
+    <a href="#callbacks">Callbacks</a>
+</li>

@@ -1,20 +1,25 @@
+<h2 id="api-reference">API Reference</h2>
+
 <% libs.forEach(function (api) { %>
     <% var meta = data[api]; %>
+    <% var members = _.sortBy(meta.methods.concat(meta.properties), function (member) {
+        return member.ctx.string;
+    }); %>
 
-    <article id="<%= api %>">
-        <div class="page-header">
-            <%= meta.intro.description.full %>
-        </div>
+    <article id="<%= api %>" class="api">
+        <%= meta.intro.description.full %>
 
-        <h3>Methods</h3>
-
-        <% meta.methods.forEach(function (method) { %>
+        <% members.forEach(function (method) { %>
             <section id="<%= method.ctx.string %>" class="row-fluid">
                 <div class="span8">
-                    <h4>
-                        <%= api %>.<%= method.ctx.name %>
-                        (<%= _.pluck(method.args, "name").join(", ") %>)
-                        <%= method.chainable ? "*" : "" %>
+                    <h4 class="member">
+                        <a href="#<%= method.ctx.string %>">
+                            <%= api %>.<%= method.ctx.name %>
+                            <% if (method.ctx.type === "method") { %>
+                                (<%= _.pluck(method.args, "name").join(", ") %>)
+                                <%= method.chainable ? "*" : "" %>
+                            <% } %>
+                        </a>
                     </h4>
 
                     <% if (method.returns && !method.chainable) { %>

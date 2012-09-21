@@ -3,9 +3,9 @@
     "intro": {
         "code": "var _         = require(\"underscore\"),\n    sha1      = require(\"./util\").sha1,\n    database  = require(\"./database\"),\n    prototype = Object.create(require(\"./client\"));",
         "description": {
-            "full": "<h2>Server API</h2>\n\n<p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\ncouchdb.srv(); // defaults to \"<a href='http://localhost:5984'>http://localhost:5984</a>\"\n</code></pre>",
-            "summary": "<h2>Server API</h2>",
-            "body": "<p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\ncouchdb.srv(); // defaults to \"<a href='http://localhost:5984'>http://localhost:5984</a>\"\n</code></pre>"
+            "full": "<h3>Server API</h3>\n\n<p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\ncouchdb.srv(\"<a href='http://localhost:5984'>http://localhost:5984</a>\");\n</code></pre>",
+            "summary": "<h3>Server API</h3>",
+            "body": "<p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\ncouchdb.srv(\"<a href='http://localhost:5984'>http://localhost:5984</a>\");\n</code></pre>"
         }
     },
     "methods": [

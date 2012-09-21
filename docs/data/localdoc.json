@@ -3,8 +3,8 @@
     "intro": {
         "code": "var doc       = require(\"./document\"),\n    prototype = Object.create(doc.proto);",
         "description": {
-            "full": "<h2>LocalDocument API</h2>\n\n<p>A <code>LocalDocument</code> object represents a single local document<br />(a document that does not get replicated)</p>\n\n<pre><code>var ldoc = db.ldoc(\"my-ldoc-id\")\n</code></pre>",
-            "summary": "<h2>LocalDocument API</h2>",
+            "full": "<h3>LocalDocument API</h3>\n\n<p>A <code>LocalDocument</code> object represents a single local document<br />(a document that does not get replicated)</p>\n\n<pre><code>var ldoc = db.ldoc(\"my-ldoc-id\")\n</code></pre>",
+            "summary": "<h3>LocalDocument API</h3>",
             "body": "<p>A <code>LocalDocument</code> object represents a single local document<br />(a document that does not get replicated)</p>\n\n<pre><code>var ldoc = db.ldoc(\"my-ldoc-id\")\n</code></pre>"
         }
     },
