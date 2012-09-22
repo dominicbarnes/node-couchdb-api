@@ -1,3 +1,0 @@
-Sitemap: /node-couchdb-api/sitemap.xml
-User-agent: *
-Allow: /
