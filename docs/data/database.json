@@ -1,0 +1,702 @@
+{
+    "api": "database",
+    "intro": {
+        "code": "var _         = require(\"underscore\"),\n    util      = require(\"./util\"),\n    doc       = require(\"./document\"),\n    ddoc      = require(\"./designdoc\"),\n    ldoc      = require(\"./localdoc\"),\n    prototype = Object.create(require(\"./client\"));",
+        "description": {
+            "full": "<h3>Database API</h3>\n\n<p>A <code>Database</code> object represents a single CouchDB database.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// defaults to \"<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>\"\ncouchdb.db(\"db-name\");\n\n// or use a Server object to initialize\ncouchdb.srv().db(\"db-name\");\n</code></pre>",
+            "summary": "<h3>Database API</h3>",
+            "body": "<p>A <code>Database</code> object represents a single CouchDB database.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// defaults to \"<a href='http://localhost:5984/db-name'>http://localhost:5984/db-name</a>\"\ncouchdb.db(\"db-name\");\n\n// or use a Server object to initialize\ncouchdb.srv().db(\"db-name\");\n</code></pre>"
+        }
+    },
+    "methods": [
+        {
+            "code": "prototype.info = function (callback) {\n    return this._get(callback);\n};",
+            "description": {
+                "full": "<p>Get basic information about the database</p>",
+                "summary": "<p>Get basic information about the database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "info",
+                "string": "database.info()"
+            },
+            "http": [
+                "GET /db"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.allDocs = function (query, keys, callback) {\n    if (typeof query === \"function\") {\n        callback = query;\n        keys = null;\n        query = null;\n    }\n    if (typeof keys === \"function\") {\n        callback = keys;\n        keys = null;\n        if (Array.isArray(query)) {\n            keys = query;\n            query = null;\n        }\n    }\n\n    var url = query ? { pathname: \"_all_docs\", query: query } : \"_all_docs\";\n\n    if (keys) {\n        return this._post(url, { keys: keys }, callback);\n    } else {\n        return this._get(url, callback);\n    }\n};",
+            "description": {
+                "full": "<p>Query the <code>_all_docs</code> special view</p>\n\n<pre><code>// default behavior\ndb.allDocs(callback)\n\n// adding query params\ndb.allDocs({ include_docs: true }, callback)\n\n// querying for specific keys\ndb.allDocs(null, [\"doc-id-1\", \"doc-id-2\"], callback)\n</code></pre>",
+                "summary": "<p>Query the <code>_all_docs</code> special view</p>",
+                "body": "<pre><code>// default behavior\ndb.allDocs(callback)\n\n// adding query params\ndb.allDocs({ include_docs: true }, callback)\n\n// querying for specific keys\ndb.allDocs(null, [\"doc-id-1\", \"doc-id-2\"], callback)\n</code></pre>"
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "allDocs",
+                "string": "database.allDocs()"
+            },
+            "http": [
+                "GET /db/_all_docs"
+            ],
+            "args": [
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[keys]",
+                    "dataTypes": [
+                        "Array"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.create = function (callback) {\n    return this._put(callback);\n};",
+            "description": {
+                "full": "<p>Create the database</p>",
+                "summary": "<p>Create the database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "create",
+                "string": "database.create()"
+            },
+            "http": [
+                "PUT /db"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.drop = function (callback) {\n    return this._del(callback);\n};",
+            "description": {
+                "full": "<p>Drop the database</p>",
+                "summary": "<p>Drop the database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "drop",
+                "string": "database.drop()"
+            },
+            "http": [
+                "DELETE /db"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.recreate = function (callback) {\n    var self = this;\n    return this.drop(function () {\n        self.create(callback);\n    });\n};",
+            "description": {
+                "full": "<p>Drop the database, then create it again</p>",
+                "summary": "<p>Drop the database, then create it again</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "recreate",
+                "string": "database.recreate()"
+            },
+            "http": [
+                "DELETE /db",
+                "PUT /db"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.changes = function (query, callback) {\n    var url = {\n        pathname: \"_changes\",\n        query: query\n    };\n\n    return this._get(url, { changes: true, stream: query.feed === \"continuous\" }, callback);\n};",
+            "description": {
+                "full": "<p>Query (or initiate a stream) the CouchDB _changes API</p>",
+                "summary": "<p>Query (or initiate a stream) the CouchDB _changes API</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "changes",
+                "string": "database.changes()"
+            },
+            "http": [
+                "GET /db/_changes"
+            ],
+            "args": [
+                {
+                    "name": "query",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.compact = function (ddoc, callback) {\n    if (typeof ddoc === \"function\") {\n        callback = ddoc;\n        ddoc = null;\n    }\n\n    var path = \"_compact\";\n    if (ddoc) {\n        path += \"/\" + ddoc;\n    }\n\n    return this._post(path, { json: true }, callback);\n};",
+            "description": {
+                "full": "<p>Perform a database (or design document view index) compation</p>",
+                "summary": "<p>Perform a database (or design document view index) compation</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "compact",
+                "string": "database.compact()"
+            },
+            "http": [
+                "POST /db/_compact",
+                "POST /db/_compact/ddoc"
+            ],
+            "args": [
+                {
+                    "name": "[ddoc]",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": "If passed, will compact the specified design document's view indexes"
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.viewCleanup = function (callback) {\n    return this._post(\"_view_cleanup\", { json: true }, callback);\n};",
+            "description": {
+                "full": "<p>Clear the cached view output</p>",
+                "summary": "<p>Clear the cached view output</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "viewCleanup",
+                "string": "database.viewCleanup()"
+            },
+            "http": [
+                "POST /db/_view_cleanup"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.ensureFullCommit = function (callback) {\n    return this._post(\"_ensure_full_commit\", { json: true }, callback);\n};",
+            "description": {
+                "full": "<p>Commits recent db changes to disk</p>",
+                "summary": "<p>Commits recent db changes to disk</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "ensureFullCommit",
+                "string": "database.ensureFullCommit()"
+            },
+            "http": [
+                "POST /db/_ensure_full_commit"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.purge = function (docs, callback) {\n    return this._post(\"_purge\", { body: docs }, callback);\n};",
+            "description": {
+                "full": "<p>Purges references to deleted documents from the database</p>",
+                "summary": "<p>Purges references to deleted documents from the database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "purge",
+                "string": "database.purge()"
+            },
+            "http": [
+                "POST /db/_purge"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.replicate = function (target, query, callback) {\n    if (typeof query === \"function\") {\n        callback = query;\n        query = null;\n    }\n\n    this.server.replicate(this, target, query, callback);\n\n    return this;\n};\n\nprototype.push = prototype.replicate;",
+            "description": {
+                "full": "<p>Replicates the current db to another db</p>",
+                "summary": "<p>Replicates the current db to another db</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "replicate",
+                "string": "database.replicate()"
+            },
+            "http": [
+                "POST /_replicate"
+            ],
+            "args": [
+                {
+                    "name": "target",
+                    "dataTypes": [
+                        "String",
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.pull = function (source, query, callback) {\n    if (query === \"function\") {\n        callback = query;\n        query = null;\n    }\n\n    source.replicate(this, query, callback);\n\n    return this;\n};",
+            "description": {
+                "full": "<p>Similar to replicate, except it uses the current db as the target instead of the source</p>",
+                "summary": "<p>Similar to replicate, except it uses the current db as the target instead of the source</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "pull",
+                "string": "database.pull()"
+            },
+            "http": [
+                "POST /_replicate"
+            ],
+            "args": [
+                {
+                    "name": "source",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.security = function (obj, callback) {\n    if (typeof obj === \"function\") {\n        callback = obj;\n        obj = null;\n    }\n\n    if (obj) {\n        this._put(\"_security\", obj, callback);\n    } else {\n        this._get(\"_security\", callback);\n    }\n\n    return this;\n};",
+            "description": {
+                "full": "<p>Gets/sets the security object for this db</p>",
+                "summary": "<p>Gets/sets the security object for this db</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "security",
+                "string": "database.security()"
+            },
+            "http": [
+                "POST /db/_security"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.tempView = function (map, reduce, query, callback) {\n    var args = _.toArray(arguments),\n        body = { map: util.formatFunction(args.shift()) };\n\n    callback = args.pop();\n\n    if (args[0]) {\n        body.reduce = util.formatFunction(args[0]);\n    }\n\n    query = args[2] || null;\n\n    return this._post(\"_temp_view\", body, query, callback);\n};",
+            "description": {
+                "full": "<p>Execute a temporary view</p>",
+                "summary": "<p>Execute a temporary view</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "tempView",
+                "string": "database.tempView()"
+            },
+            "http": [
+                "POST /db/_temp_view"
+            ],
+            "args": [
+                {
+                    "name": "map",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[reduce]",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.bulkDocs = function (docs, mode, callback) {\n    if (typeof mode === \"function\") {\n        callback = mode;\n        mode = null;\n    }\n\n    var query = mode ? { mode: mode } : null;\n\n    return this._post(\"_bulk_docs\", { docs: docs }, query, callback);\n};",
+            "description": {
+                "full": "<p>Performs a bulk operation</p>",
+                "summary": "<p>Performs a bulk operation</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "bulkDocs",
+                "string": "database.bulkDocs()"
+            },
+            "http": [
+                "POST /db/_bulk_docs"
+            ],
+            "args": [
+                {
+                    "name": "docs",
+                    "dataTypes": [
+                        "Array"
+                    ],
+                    "description": "Array of document objects"
+                },
+                {
+                    "name": "[mode]",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": "\"all-or-nothing\" or \"non-atomic\""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.doc = function (id) {\n    return doc.create(this, id);\n};",
+            "description": {
+                "full": "<p>Initializes a new <code>Document</code> object for this database</p>",
+                "summary": "<p>Initializes a new <code>Document</code> object for this database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "doc",
+                "string": "database.doc()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "[id]",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "a new Document object"
+            }
+        },
+        {
+            "code": "prototype.designDoc = function (name) {\n    return ddoc.create(this, name);\n};\nprototype.ddoc = prototype.designDoc;",
+            "description": {
+                "full": "<p>Initializes a new <code>DesignDocument</code> object for this database</p>",
+                "summary": "<p>Initializes a new <code>DesignDocument</code> object for this database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "designDoc",
+                "string": "database.designDoc()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "a new DesignDocument object"
+            }
+        },
+        {
+            "code": "prototype.localDoc = function (name) {\n    return ldoc.create(this, name);\n};\nprototype.ldoc = prototype.localDoc;",
+            "description": {
+                "full": "<p>Initializes a new <code>LocalDocument</code> object for this database</p>",
+                "summary": "<p>Initializes a new <code>LocalDocument</code> object for this database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "database",
+                "name": "localDoc",
+                "string": "database.localDoc()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "a new LocalDocument object"
+            }
+        }
+    ],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"name\", {\n    get: function () {\n        return this._url.pathname.split(\"/\")[1];\n    },\n    set: function (v) {\n        var path = this._url.pathname.split(\"/\");\n        path[1] = v;\n        this._url.pathname = path.join(\"/\");\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Getter/setter property for database name</p>\n\n<p><strong>Note</strong> It is entirely dependent on <code>_url.pathname[1]</code></p>",
+                "summary": "<p>Getter/setter property for database name</p>",
+                "body": "<p><strong>Note</strong> It is entirely dependent on <code>_url.pathname[1]</code></p>"
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "database",
+                "name": "name",
+                "string": "database.name"
+            }
+        }
+    ]
+}

@@ -1,8 +1,10 @@
+"use strict";
+
 var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
     couchdb = require("../"),
-    server = couchdb.srv(config.host, config.port, config.ssl),
+    server = couchdb.srv(config.url),
     db = server.db("test_db_view"),
     ddoc = db.ddoc("test_ddoc_1"),
     doc_count = 10,
@@ -17,7 +19,7 @@ module.exports = {
 
         server.debug = config.debug;
         if (!config.party) {
-            server.setUser(config.user, config.pass);
+            server.auth = [ config.user, config.pass ];
         }
         db.create(function (err, result) {
             for (var x = 0; x < doc_count; x++) {

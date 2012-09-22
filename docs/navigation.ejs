@@ -1,0 +1,39 @@
+<li class="divider-vertical"></li>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        API Reference
+        <b class="caret"></b>
+    </a>
+
+    <ul class="dropdown-menu">
+        <% libs.forEach(function (api) { %>
+            <% var meta = data[api]; %>
+            <% var members = _.sortBy(meta.methods.concat(meta.properties), function (member) {
+                return member.ctx.string;
+            }); %>
+
+            <li class="dropdown-submenu">
+                <a href="#"><%= api %></a>
+
+                <ul class="dropdown-menu">
+                    <% members.forEach(function (member) { %>
+                        <li>
+                            <a href="#<%= member.ctx.string %>">
+                                <%= member.ctx.string %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </li>
+        <% }); %>
+    </ul>
+</li>
+
+<li>
+    <a href="#structure">Program Structure</a>
+</li>
+
+<li>
+    <a href="#callbacks">Callbacks</a>
+</li>

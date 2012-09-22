@@ -1,0 +1,205 @@
+{
+    "api": "view",
+    "intro": {
+        "code": "var client = require(\"./client\"),\n    doc    = require(\"./document\"),\n    prototype  = Object.create(client);",
+        "description": {
+            "full": "<h3>View API</h3>\n\n<p>A <code>View</code> object represents a single view within a design document</p>\n\n<pre><code>var view = ddoc.view(\"my-view-name\");\n</code></pre>",
+            "summary": "<h3>View API</h3>",
+            "body": "<p>A <code>View</code> object represents a single view within a design document</p>\n\n<pre><code>var view = ddoc.view(\"my-view-name\");\n</code></pre>"
+        }
+    },
+    "methods": [
+        {
+            "code": "prototype.query = function (query, data, callback) {\n    if (typeof query === \"function\") {\n        callback = query;\n        data     = null;\n        query    = null;\n    }\n    if (typeof data === \"function\") {\n        callback = data;\n        data = null;\n    }\n\n    var opts = { query: query || {} };\n\n    if (data) {\n        return this._post(opts, Array.isArray(data) ? { keys: data } : data, callback);\n    } else {\n        return this._get(opts, callback);\n    }\n};",
+            "description": {
+                "full": "<p>Perform a generic query against a stored view</p>",
+                "summary": "<p>Perform a generic query against a stored view</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "view",
+                "name": "query",
+                "string": "view.query()"
+            },
+            "http": [
+                "GET /db/ddoc/_view/view"
+            ],
+            "args": [
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": "If only one of the optional params is provided, this is assumed to be the one"
+                },
+                {
+                    "name": "[data]",
+                    "dataTypes": [
+                        "Array",
+                        "Various"
+                    ],
+                    "description": "Array = pass as `keys` in body, Various = pass as complete body"
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "View"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.map = function (query, callback) {\n    if (typeof query === \"function\") {\n        callback = query;\n        query = {};\n    }\n\n    query.reduce = false;\n\n    return this.query(query, callback);\n};",
+            "description": {
+                "full": "<p>Perform a map query against a stored view</p>",
+                "summary": "<p>Perform a map query against a stored view</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "view",
+                "name": "map",
+                "string": "view.map()"
+            },
+            "http": [
+                "GET /db/ddoc/_view/view"
+            ],
+            "args": [
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "View"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.reduce = function (query, callback) {\n    if (typeof query === \"function\") {\n        callback = query;\n        query = {};\n    }\n\n    query.reduce = true;\n\n    return this.query(query, callback);\n};",
+            "description": {
+                "full": "<p>Perform a reduce query against a stored view</p>",
+                "summary": "<p>Perform a reduce query against a stored view</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "view",
+                "name": "reduce",
+                "string": "view.reduce()"
+            },
+            "http": [
+                "GET /db/ddoc/_view/view"
+            ],
+            "args": [
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "View"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.list = function (list, query, options, callback) {\n    if (typeof options === \"function\") {\n        callback = options;\n        options = null;\n    }\n    if (typeof query === \"function\") {\n        callback = query;\n        options = null;\n        query = null;\n    }\n\n    var list_ddoc, view, path, url;\n\n    if (list.indexOf(\"/\") > -1) {\n        list = list.split(\"/\");\n        list_ddoc = list[0];\n        list = list[1];\n        view = this.ddoc.name + \"/\" + this.name;\n    } else {\n        list_ddoc = this.ddoc.name;\n        view = this.name;\n    }\n\n    path = [\"\", this.db.name, \"_design\", list_ddoc, \"_list\", list, view];\n    url = {\n        replace: true,\n        pathname: path.join(\"/\")\n    };\n\n    if (query) {\n        url.query = query;\n    }\n\n    options = options || {};\n    if (!(\"json\" in options)) {\n        options.json = false;\n    }\n\n    return this._get(url, options, callback);\n};",
+            "description": {
+                "full": "<p>Execute a list function for the current document</p>",
+                "summary": "<p>Execute a list function for the current document</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "view",
+                "name": "list",
+                "string": "view.list()"
+            },
+            "http": [
+                "GET /db/_design/design-doc/_list/list-name/doc"
+            ],
+            "args": [
+                {
+                    "name": "list",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": "The name of the list function in the above design document"
+                },
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "View"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        }
+    ],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"name\", {\n    get: function () {\n        return this._url.path.split(\"/\")[5];\n    },\n    set: function (v) {\n        var path = this._url.path.split(\"/\");\n        path[5] = v;\n        this._url.path = this._url.pathname = path.join(\"/\");\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Gets/sets the name as part of the URL</p>",
+                "summary": "<p>Gets/sets the name as part of the URL</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "view",
+                "name": "name",
+                "string": "view.name"
+            }
+        }
+    ]
+}

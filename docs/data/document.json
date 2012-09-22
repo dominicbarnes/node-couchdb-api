@@ -1,0 +1,266 @@
+{
+    "api": "document",
+    "intro": {
+        "code": "var client     = require(\"./client\"),\n    attachment = require(\"./attachment\"),\n    prototype  = Object.create(client);",
+        "description": {
+            "full": "<h3>Document API</h3>\n\n<p>A <code>Document</code> object represents a single document.</p>\n\n<pre><code>var doc = db.doc(\"my-doc-id\")\n</code></pre>",
+            "summary": "<h3>Document API</h3>",
+            "body": "<p>A <code>Document</code> object represents a single document.</p>\n\n<pre><code>var doc = db.doc(\"my-doc-id\")\n</code></pre>"
+        }
+    },
+    "methods": [
+        {
+            "code": "prototype.get = function (callback) {\n    var doc = this;\n    return this._get(null, function (err, body, res) {\n        if (!err) {\n            doc.body = body;\n        }\n\n        callback.apply(doc, arguments);\n    });\n};",
+            "description": {
+                "full": "<p>Retrieve the document from the server</p>",
+                "summary": "<p>Retrieve the document from the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "document",
+                "name": "get",
+                "string": "document.get()"
+            },
+            "http": [
+                "GET /db/doc"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Document"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.save = function (callback) {\n    var doc = this,\n        method = this.id ? \"_put\" : \"_post\";\n\n    return this[method](null, this.body, null, function (err, body, res) {\n        if (!err) {\n            if (!doc.id) {\n                doc.id = body.id;\n            }\n            doc.body._rev = body.rev;\n        }\n\n        callback.apply(doc, arguments);\n    });\n};",
+            "description": {
+                "full": "<p>Save the document to the server</p>",
+                "summary": "<p>Save the document to the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "document",
+                "name": "save",
+                "string": "document.save()"
+            },
+            "http": [
+                "PUT /db/doc",
+                "POST /db"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Document"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.del = function (callback) {\n    var doc = this,\n        options = { headers: { \"if-match\": this.body._rev } }; // use \"If-Match\" instead of URL param\n\n    return this._del(null, options, function (err, body, res) {\n        if (!err) {\n            doc.body = false;\n        }\n\n        callback.apply(doc, arguments);\n    });\n};",
+            "description": {
+                "full": "<p>Delete the document from the server</p>",
+                "summary": "<p>Delete the document from the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "document",
+                "name": "del",
+                "string": "document.del()"
+            },
+            "http": [
+                "DELETE /db/doc"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Document"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.show = function (show, query, options, callback) {\n    if (typeof options === \"function\") {\n        callback = options;\n        options = null;\n    }\n    if (typeof query === \"function\") {\n        callback = query;\n        options = null;\n        query = null;\n    }\n\n    show = show.split(\"/\");\n    var ddoc = show[0], url;\n    show = show[1];\n\n    url = {\n        replace: true,\n        pathname: \"/\" + this.db.name + \"/_design/\" + ddoc + \"/_show/\" + show + \"/\" + this.id\n    };\n\n    if (query) {\n        url.query = query;\n    }\n\n    options = options || {};\n    if (!(\"json\" in options)) {\n        options.json = false;\n    }\n\n    return this._get(url, options, callback);\n};",
+            "description": {
+                "full": "<p>Execute a show function for the current document</p>",
+                "summary": "<p>Execute a show function for the current document</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "document",
+                "name": "show",
+                "string": "document.show()"
+            },
+            "http": [
+                "GET /db/_design/design-doc/_show/show-name/doc"
+            ],
+            "args": [
+                {
+                    "name": "show",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": "The name of the show function (ddoc/show)"
+                },
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[options]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Document"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.prop = function (field, value) {\n    if (value === undefined) {\n        return this.body[field];\n    } else {\n        this.body[field] = value;\n        return this;\n    }\n};",
+            "description": {
+                "full": "<p>Shorthand for getting/setting basic properties (only works 1 level deep)</p>",
+                "summary": "<p>Shorthand for getting/setting basic properties (only works 1 level deep)</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "document",
+                "name": "prop",
+                "string": "document.prop()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "field",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[value]",
+                    "dataTypes": [
+                        "Various"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Various"
+                ],
+                "description": "Set = chainable, Get = returns current value"
+            }
+        },
+        {
+            "code": "prototype.attachment = function (name) {\n    return attachment.create(this, name);\n};",
+            "description": {
+                "full": "<p>Create a new Attachment object</p>",
+                "summary": "<p>Create a new Attachment object</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "document",
+                "name": "attachment",
+                "string": "document.attachment()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Attachment"
+                ],
+                "description": ""
+            }
+        }
+    ],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"body\", {\n    get: function () {\n        return this._body;\n    },\n    set: function (v) {\n        this._body = v;\n        if (v._id) {\n            this.id = v._id;\n        } else {\n            delete this.id;\n        }\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>This property helps maintain the internals of the object if it is set after<br />initialization. (keeps _id in sync with the rest of the body)</p>",
+                "summary": "<p>This property helps maintain the internals of the object if it is set after<br />initialization. (keeps _id in sync with the rest of the body)</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "document",
+                "name": "body",
+                "string": "document.body"
+            }
+        },
+        {
+            "code": "Object.defineProperty(prototype, \"id\", {\n    get: function () {\n        return this._url.pathname.split(\"/\").slice(2).join(\"/\");\n    },\n    set: function (v) {\n        var path = this._url.pathname.split(\"/\");\n        path.splice(2, v.split(\"/\").length, v);\n        this.body._id = v;\n        this._url.path = this._url.pathname = path.join(\"/\");\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Another property to help keep the internals in line. This will make sure the<br />internal URL is in sync with the _id property even after initialization.</p>",
+                "summary": "<p>Another property to help keep the internals in line. This will make sure the<br />internal URL is in sync with the _id property even after initialization.</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "document",
+                "name": "id",
+                "string": "document.id"
+            }
+        }
+    ]
+}

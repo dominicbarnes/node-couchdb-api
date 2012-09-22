@@ -1,7 +1,9 @@
+"use strict";
+
 var server = require("./lib/server");
 
-exports.srv = function (host, port, ssl, cache) {
-    return server.create(host, port, ssl, cache);
+exports.srv = function () {
+    return server.apply(null, arguments);
 };
 
 exports.db = function (name) {

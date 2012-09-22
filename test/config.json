@@ -1,9 +1,6 @@
 {
-    "host":  "localhost",
-    "port":  5984,
+    "url":   "http://localhost:5984",
     "party": true,
-    "user":  null,
-    "pass":  null,
     "ssl":   false,
     "debug": "warn"
 }
