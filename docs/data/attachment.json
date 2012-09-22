@@ -1,0 +1,180 @@
+{
+    "api": "attachment",
+    "intro": {
+        "code": "var client = require(\"./client\"),\n    prototype = Object.create(client),\n    formats = exports.formats = {\n        text: \"text/plain\",\n        json: \"application/json\",\n        html: \"text/html\",\n        xml:  \"application/xml\"\n    };",
+        "description": {
+            "full": "<h3>Attachment API</h3>\n\n<p>An <code>Attachment</code> object represents a single attachment on a document.</p>\n\n<pre><code>var attachment = doc.attachment(\"my-ddoc-name\");\n</code></pre>",
+            "summary": "<h3>Attachment API</h3>",
+            "body": "<p>An <code>Attachment</code> object represents a single attachment on a document.</p>\n\n<pre><code>var attachment = doc.attachment(\"my-ddoc-name\");\n</code></pre>"
+        }
+    },
+    "methods": [
+        {
+            "code": "prototype.setBody = function (format, body) {\n    // TODO: Object.defineProperty instead\n    this.format = getFormat(format);\n    this.body   = body;\n    return this;\n};",
+            "description": {
+                "full": "<p>Set up the body of this attachment</p>",
+                "summary": "<p>Set up the body of this attachment</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "attachment",
+                "name": "setBody",
+                "string": "attachment.setBody()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "format",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "body",
+                    "dataTypes": [
+                        "Various"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Attachment"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.get = function (stream, options, callback) {\n    if (typeof options === \"function\") {\n        callback = options;\n        options = null;\n    }\n    if (typeof stream === \"function\") {\n        callback = stream;\n        options = null;\n        stream = false;\n    }\n\n    options = options || {};\n    options.stream = !!stream;\n    if (!(\"json\" in options)) {\n        options.json = false;\n    }\n\n    return this._get(null, options, callback);\n};",
+            "description": {
+                "full": "<p>Retrieve an attachment from a document</p>",
+                "summary": "<p>Retrieve an attachment from a document</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "attachment",
+                "name": "get",
+                "string": "attachment.get()"
+            },
+            "http": [
+                "GET /db/doc/attachment"
+            ],
+            "args": [
+                {
+                    "name": "stream",
+                    "dataTypes": [
+                        "Boolean"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[options]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Attachment"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.save = function (callback) {\n    var url = { query: { rev: this.doc.body._rev } },\n        opts = { headers: { \"content-type\": this.format } };\n\n    if (this.body.pipe) {\n        opts.stream = true;\n    }\n\n    return this._put(url, this.body, opts, function (err, result) {\n        if (!err) {\n            // update the parent document's rev number\n            this.doc.body._rev = result.rev;\n        }\n        callback.apply(this, arguments);\n    });\n};",
+            "description": {
+                "full": "<p>Saves an attachment to the server</p>",
+                "summary": "<p>Saves an attachment to the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "attachment",
+                "name": "save",
+                "string": "attachment.save()"
+            },
+            "http": [
+                "PUT /db/doc/attachment"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Attachment"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.del = function (callback) {\n    return this._del({\n        query: {\n            rev: this.doc.body._rev\n        }\n    }, callback);\n};",
+            "description": {
+                "full": "<p>Removes an attachment from a document on the server</p>",
+                "summary": "<p>Removes an attachment from a document on the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "attachment",
+                "name": "del",
+                "string": "attachment.del()"
+            },
+            "http": [
+                "DELETE /db/doc/attachment"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Attachment"
+                ],
+                "description": "this"
+            }
+        }
+    ],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"name\", {\n    get: function () {\n        return this._url.path.split(\"/\")[3];\n    },\n    set: function (v) {\n        var path = this._url.path.split(\"/\");\n        path[3] = v;\n        this._url.path = this._url.pathname = path.join(\"/\");\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Maintains the name as part of the URL</p>",
+                "summary": "<p>Maintains the name as part of the URL</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "attachment",
+                "name": "name",
+                "string": "attachment.name"
+            }
+        }
+    ]
+}

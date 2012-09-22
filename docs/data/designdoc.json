@@ -1,0 +1,386 @@
+{
+    "api": "designdoc",
+    "intro": {
+        "code": "var _         = require(\"underscore\"),\n    doc       = require(\"./document\"),\n    view      = require(\"./view\"),\n    util      = require(\"./util\"),\n    prototype = Object.create(doc.prototype);",
+        "description": {
+            "full": "<h3>DesignDocument API</h3>\n\n<p>A <code>DesignDocument</code> object represents a single design document.</p>\n\n<pre><code>var doc = db.ddoc(\"my-ddoc-name\")\n</code></pre>",
+            "summary": "<h3>DesignDocument API</h3>",
+            "body": "<p>A <code>DesignDocument</code> object represents a single design document.</p>\n\n<pre><code>var doc = db.ddoc(\"my-ddoc-name\")\n</code></pre>"
+        }
+    },
+    "methods": [
+        {
+            "code": "prototype.info = function (callback) {\n    return this._get(\"_info\", callback);\n};",
+            "description": {
+                "full": "<p>Get statistical information about the design document</p>",
+                "summary": "<p>Get statistical information about the design document</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "info",
+                "string": "designdoc.info()"
+            },
+            "http": [
+                "GET /db/_design/ddoc"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.views = function (views) {\n    if (views === null || views === false) {\n        delete this._body.views;\n        return this;\n    } else if (views && typeof views === \"object\") {\n        _.each(views, function (view, name, list) {\n            if (view.map && typeof view.map === \"function\") {\n                view.map = util.formatFunction(view.map);\n            }\n            if (view.reduce && typeof view.reduce === \"function\") {\n                view.reduce = util.formatFunction(view.reduce);\n            }\n        });\n        this._body.views = views;\n        return this;\n    } else if (!this._body.views) {\n        this._body.views = Object.create(null);\n    }\n    return this.body.views;\n};",
+            "description": {
+                "full": "<p>Get/set all the views</p>",
+                "summary": "<p>Get/set all the views</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "views",
+                "string": "designdoc.views()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "[views]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Object"
+                ],
+                "description": "Set = chainable, Get = view hash"
+            }
+        },
+        {
+            "code": "prototype.view = function (name, map, reduce) {\n    if (map) {\n        var body = {\n            map: util.formatFunction(map)\n        };\n\n        if (reduce) {\n            body.reduce = util.formatFunction(reduce);\n        }\n\n        this.views()[name] = body;\n\n        return this;\n    } else {\n        return view.create(this, name);\n    }\n};",
+            "description": {
+                "full": "<p>Set a single named view</p>",
+                "summary": "<p>Set a single named view</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "view",
+                "string": "designdoc.view()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "map",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[reduce]",
+                    "dataTypes": [
+                        "Function",
+                        "String"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Object"
+                ],
+                "description": "Set = chainable, Get = view object"
+            }
+        },
+        {
+            "code": "prototype.shows = function (shows) {\n    if (shows === null || shows === false) {\n        delete this._body.shows;\n        return this;\n    } else if (shows && typeof shows === \"object\") {\n        _.each(shows, function (fn, name, list) {\n            if (typeof fn === \"function\") {\n                list[name] = util.formatFunction(fn);\n            }\n        });\n        this._body.shows = shows;\n        return this;\n    } else if (!this._body.shows) {\n        this._body.shows = Object.create(null);\n    }\n    return this.body.shows;\n};",
+            "description": {
+                "full": "<p>Get/set all the show functions</p>",
+                "summary": "<p>Get/set all the show functions</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "shows",
+                "string": "designdoc.shows()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "[shows]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Object"
+                ],
+                "description": "Set = chainable, Get = show hash"
+            }
+        },
+        {
+            "code": "prototype.show = function (name, fn) {\n    if (fn) {\n        this.shows()[name] = util.formatFunction(fn);\n        return this;\n    } else {\n        return this.shows()[name];\n    }\n};",
+            "description": {
+                "full": "<p>Get/set a single show function</p>",
+                "summary": "<p>Get/set a single show function</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "show",
+                "string": "designdoc.show()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "fn",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Function"
+                ],
+                "description": "Set = chainable, Get = show function"
+            }
+        },
+        {
+            "code": "prototype.lists = function (lists) {\n    if (lists === null || lists === false) {\n        delete this._body.lists;\n        return this;\n    } else if (lists && typeof lists === \"object\") {\n        this._body.lists = lists;\n        _.each(lists, function (fn, name, list) {\n            if (typeof fn === \"function\") {\n                list[name] = util.formatFunction(fn);\n            }\n        });\n        return this;\n    } else if (!this._body.lists) {\n        this._body.lists = Object.create(null);\n    }\n    return this.body.lists;\n};",
+            "description": {
+                "full": "<p>Get/set all the list functions</p>",
+                "summary": "<p>Get/set all the list functions</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "lists",
+                "string": "designdoc.lists()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "[lists]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Object"
+                ],
+                "description": "Set = chainable, Get = list hash"
+            }
+        },
+        {
+            "code": "prototype.list = function (name, fn) {\n    if (fn) {\n        this.lists()[name] = util.formatFunction(fn);\n        return this;\n    } else {\n        return this.lists()[name];\n    }\n};",
+            "description": {
+                "full": "<p>Get/set a single list function</p>",
+                "summary": "<p>Get/set a single list function</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "list",
+                "string": "designdoc.list()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "fn",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Function"
+                ],
+                "description": "Set = chainable, Get = list function"
+            }
+        },
+        {
+            "code": "prototype.updates = function (updates) {\n    if (updates === null || updates === false) {\n        delete this._body.updates;\n        return this;\n    } else if (updates && typeof updates === \"object\") {\n        this._body.updates = updates;\n        _.each(updates, function (fn, name, list) {\n            if (typeof fn === \"function\") {\n                list[name] = util.formatFunction(fn);\n            }\n        });\n        return this;\n    } else if (!this._body.updates) {\n        this._body.updates = Object.create(null);\n    }\n    return this.body.updates;\n};",
+            "description": {
+                "full": "<p>Get/set the update handlers</p>",
+                "summary": "<p>Get/set the update handlers</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "updates",
+                "string": "designdoc.updates()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "[updates]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Object"
+                ],
+                "description": "Set = chainable, Get = update hash"
+            }
+        },
+        {
+            "code": "prototype.update = function (name, fn) {\n    if (fn) {\n        this.updates()[name] = util.formatFunction(fn);\n        return this;\n    } else {\n        return this.updates()[name];\n    }\n};",
+            "description": {
+                "full": "<p>Get/set a single update handler</p>",
+                "summary": "<p>Get/set a single update handler</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "update",
+                "string": "designdoc.update()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "fn",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Function"
+                ],
+                "description": "Set = chainable, Get = update function"
+            }
+        },
+        {
+            "code": "prototype.val = function (fn) {\n    if (fn) {\n        this.validate = fn;\n        return this;\n    } else {\n        return this.validate;\n    }\n};",
+            "description": {
+                "full": "<p>Method wrapper for validate, to allow for chaining</p>",
+                "summary": "<p>Method wrapper for validate, to allow for chaining</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "designdoc",
+                "name": "val",
+                "string": "designdoc.val()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "[fn]",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "DesignDocument",
+                    "Function"
+                ],
+                "description": "Set = chainable, Get = validation function"
+            }
+        }
+    ],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"name\", {\n    get: function () {\n        return this.id.split(\"/\")[1];\n    },\n    set: function (v) {\n        var id = this.id.split(\"/\");\n        id[1] = v;\n        this.id = id.join(\"/\");\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Behaves similarly to the Document property with the same now</p>",
+                "summary": "<p>Behaves similarly to the Document property with the same now</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "designdoc",
+                "name": "name",
+                "string": "designdoc.name"
+            }
+        },
+        {
+            "code": "Object.defineProperty(prototype, \"validate\", {\n    get: function () {\n        return this.body.validate_doc_update;\n    },\n    set: function (v) {\n        if (!v) {\n            delete this.body.validate_doc_update;\n        } else {\n            this.body.validate_doc_update = util.formatFunction(v);\n        }\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Get/set the validation function</p>",
+                "summary": "<p>Get/set the validation function</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "designdoc",
+                "name": "validate",
+                "string": "designdoc.validate"
+            }
+        }
+    ]
+}

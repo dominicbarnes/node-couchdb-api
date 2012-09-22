@@ -1,3 +1,5 @@
+"use strict";
+
 var fs     = require("fs"),
     path   = require("path"),
     file   = __dirname + "/../" + process.argv[2],

@@ -1,0 +1,29 @@
+{
+    "api": "localdoc",
+    "intro": {
+        "code": "var doc       = require(\"./document\"),\n    prototype = Object.create(doc.prototype);",
+        "description": {
+            "full": "<h3>LocalDocument API</h3>\n\n<p>A <code>LocalDocument</code> object represents a single local document<br />(a document that does not get replicated)</p>\n\n<pre><code>var ldoc = db.ldoc(\"my-ldoc-id\")\n</code></pre>",
+            "summary": "<h3>LocalDocument API</h3>",
+            "body": "<p>A <code>LocalDocument</code> object represents a single local document<br />(a document that does not get replicated)</p>\n\n<pre><code>var ldoc = db.ldoc(\"my-ldoc-id\")\n</code></pre>"
+        }
+    },
+    "methods": [],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"name\", {\n    get: function () {\n        return this.id.split(\"/\")[1];\n    },\n    set: function (v) {\n        var id = this.id.split(\"/\");\n        id[1] = v;\n        this.id = id.join(\"/\");\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Behaves similar to the Document property with the same name,<br />also keeping the id and url in sync.</p>",
+                "summary": "<p>Behaves similar to the Document property with the same name,<br />also keeping the id and url in sync.</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "localdoc",
+                "name": "name",
+                "string": "localdoc.name"
+            }
+        }
+    ]
+}

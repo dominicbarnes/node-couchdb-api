@@ -66,7 +66,7 @@ async.parallel({
         },
         body = templates.layout({
             content:    templates.content(data),
-            navigation: templates.navigation(data),
+            navigation: templates.navigation(data)
         });
 
     fs.writeFile(output, body, function (err) {

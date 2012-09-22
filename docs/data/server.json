@@ -1,0 +1,570 @@
+{
+    "api": "server",
+    "intro": {
+        "code": "var _         = require(\"underscore\"),\n    sha1      = require(\"./util\").sha1,\n    database  = require(\"./database\"),\n    prototype = Object.create(require(\"./client\"));",
+        "description": {
+            "full": "<h3>Server API</h3>\n\n<p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// only 1 argument, a full URL string pointing to your Couch\nvar server = couchdb.srv(\"<a href='http://localhost:5984'>http://localhost:5984</a>\");\n</code></pre>",
+            "summary": "<h3>Server API</h3>",
+            "body": "<p>A <code>Server</code> object represents a single CouchDB node/server instance.</p>\n\n<pre><code>var couchdb = require(\"couchdb-api\");\n\n// only 1 argument, a full URL string pointing to your Couch\nvar server = couchdb.srv(\"<a href='http://localhost:5984'>http://localhost:5984</a>\");\n</code></pre>"
+        }
+    },
+    "methods": [
+        {
+            "code": "prototype.info = function (callback) {\n    return this._get(callback);\n};",
+            "description": {
+                "full": "<p>Get basic information about the server</p>",
+                "summary": "<p>Get basic information about the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "info",
+                "string": "server.info()"
+            },
+            "http": [
+                "GET /"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.allDbs = function (callback) {\n    return this._get(\"_all_dbs\", callback);\n};",
+            "description": {
+                "full": "<p>Get a list of all the databases on the server</p>",
+                "summary": "<p>Get a list of all the databases on the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "allDbs",
+                "string": "server.allDbs()"
+            },
+            "http": [
+                "GET /_all_dbs"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.activeTasks = function (callback) {\n    return this._get(\"_active_tasks\", callback);\n};",
+            "description": {
+                "full": "<p>Get information about all the active tasks currently running on the server</p>",
+                "summary": "<p>Get information about all the active tasks currently running on the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "activeTasks",
+                "string": "server.activeTasks()"
+            },
+            "http": [
+                "GET /_active_tasks"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.log = function (query, callback) {\n    if (typeof query === \"function\") {\n        callback = query;\n        query = null;\n    }\n\n    return this._get(!query ? \"_log\" : {\n        pathname: \"_log\",\n        query:    query\n    }, { json: false }, callback);\n};",
+            "description": {
+                "full": "<p>Get the text of the server's log file</p>",
+                "summary": "<p>Get the text of the server's log file</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "log",
+                "string": "server.log()"
+            },
+            "http": [
+                "GET /_log"
+            ],
+            "args": [
+                {
+                    "name": "[query]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.restart = function (callback) {\n    return this._post(\"_restart\", callback);\n};",
+            "description": {
+                "full": "<p>Restarts the server</p>",
+                "summary": "<p>Restarts the server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "restart",
+                "string": "server.restart()"
+            },
+            "http": [
+                "GET /_restart"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.stats = function (callback) {\n    return this._get(\"_stats\", callback);\n};",
+            "description": {
+                "full": "<p>Get the server running stats</p>",
+                "summary": "<p>Get the server running stats</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "stats",
+                "string": "server.stats()"
+            },
+            "http": [
+                "GET /_stats"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.uuids = function (count, callback) {\n    var self = this,\n        query;\n\n    if (typeof count === \"function\") {\n        callback = count;\n        count = 1;\n    }\n\n    query = {\n        pathname: \"_uuids\",\n        query: { count: count || 1 }\n    };\n\n    return this._get(query, function (err, response) {\n        callback.call(self, null, response.uuids);\n    });\n};",
+            "description": {
+                "full": "<p>Get a list of generated UUIDs</p>",
+                "summary": "<p>Get a list of generated UUIDs</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "uuids",
+                "string": "server.uuids()"
+            },
+            "http": [
+                "GET /_uuids"
+            ],
+            "args": [
+                {
+                    "name": "[count]",
+                    "dataTypes": [
+                        "Number"
+                    ],
+                    "description": "default = 1"
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.login = function (user, pass, callback) {\n    var body = {\n            name: user,\n            password: pass\n        },\n        options = {\n            headers: {\n                \"content-type\": \"application/x-www-form-urlencoded\"\n            }\n        };\n\n    return this._post(\"_session\", body, options, function (err, response) {\n        if (!err) {\n            this.auth = user + \":\" + pass;\n        }\n\n        callback.apply(this, arguments);\n    });\n};",
+            "description": {
+                "full": "<p>Attempt a login against the server itself</p>",
+                "summary": "<p>Attempt a login against the server itself</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "login",
+                "string": "server.login()"
+            },
+            "http": [
+                "POST /_session"
+            ],
+            "args": [
+                {
+                    "name": "user",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "pass",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.logout = function (callback) {\n    return this._del(\"_session\", function (err, result) {\n        if (!err) {\n            this.auth = false;\n        }\n        callback.apply(this, arguments);\n    });\n};",
+            "description": {
+                "full": "<p>Logout (destroy the session)</p>",
+                "summary": "<p>Logout (destroy the session)</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "logout",
+                "string": "server.logout()"
+            },
+            "http": [
+                "DELETE /_session"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.session = function (callback) {\n    return this._get(\"_session\", callback);\n};",
+            "description": {
+                "full": "<p>Check the status of the current session</p>",
+                "summary": "<p>Check the status of the current session</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "session",
+                "string": "server.session()"
+            },
+            "http": [
+                "GET /_session"
+            ],
+            "args": [
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.register = function (name, pass, options, callback) {\n    if (typeof options === \"function\") {\n        callback = options;\n        options = null;\n    }\n\n    this.db(\"_users\").doc(this.userDoc(name, pass, options)).save(callback);\n\n    return this;\n};",
+            "description": {
+                "full": "<p>Create a new user in the <code>_users</code> database</p>",
+                "summary": "<p>Create a new user in the <code>_users</code> database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "register",
+                "string": "server.register()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "pass",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[options]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.userDoc = function (name, pass, options) {\n    var user = !!options ? _.clone(options) : {};\n\n    user._id  = \"org.couchdb.user:\" + name;\n    user.name = name;\n    user.roles = user.roles || [];\n\n    if (!user.salt) {\n        user.salt = sha1(Date.now()).slice(0, 10);\n    }\n    user.password_sha = sha1(pass, user.salt);\n\n    user.type = \"user\";\n\n    return user;\n};",
+            "description": {
+                "full": "<p>Creates a properly structured user document</p>",
+                "summary": "<p>Creates a properly structured user document</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "userDoc",
+                "string": "server.userDoc()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "pass",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[options]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "New User Document"
+            }
+        },
+        {
+            "code": "prototype.replicate = function (source, target, options, callback) {\n    options = options || {};\n\n    if (typeof source === \"string\") {\n        options.source = source;\n    } else if (source) {\n        options.source = source.server === this ? source.name : source.url;\n    }\n    if (typeof target === \"string\") {\n        options.target = target;\n    } else if (target) {\n        options.target = target.server === this ? target.name : target.url;\n    }\n\n    return this._post(\"_replicate\", options, callback);\n};",
+            "description": {
+                "full": "<p>Performs a replication from this database to the destination database</p>",
+                "summary": "<p>Performs a replication from this database to the destination database</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "replicate",
+                "string": "server.replicate()"
+            },
+            "http": [
+                "POST /_replicate"
+            ],
+            "args": [
+                {
+                    "name": "source",
+                    "dataTypes": [
+                        "String",
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "target",
+                    "dataTypes": [
+                        "String",
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "[options]",
+                    "dataTypes": [
+                        "Object"
+                    ],
+                    "description": ""
+                },
+                {
+                    "name": "callback",
+                    "dataTypes": [
+                        "Function"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "chainable"
+            },
+            "chainable": true
+        },
+        {
+            "code": "prototype.db = function (name) {\n    return database(this, name);\n};",
+            "description": {
+                "full": "<p>Returns an object representing a database on this server</p>",
+                "summary": "<p>Returns an object representing a database on this server</p>",
+                "body": ""
+            },
+            "ctx": {
+                "type": "method",
+                "receiver": "server",
+                "name": "db",
+                "string": "server.db()"
+            },
+            "http": [],
+            "args": [
+                {
+                    "name": "name",
+                    "dataTypes": [
+                        "String"
+                    ],
+                    "description": ""
+                }
+            ],
+            "returns": {
+                "dataTypes": [
+                    "Object"
+                ],
+                "description": "Database object"
+            }
+        }
+    ],
+    "properties": [
+        {
+            "code": "Object.defineProperty(prototype, \"auth\", {\n    get: function () {\n        return this._url.auth;\n    },\n    set: function (v) {\n        if (Array.isArray(v)) {\n            this._url.auth = v.join(\":\");\n        } else if (v) {\n            this._url.auth = v;\n        } else {\n            delete this._url.auth;\n        }\n    }\n});",
+            "tags": [],
+            "description": {
+                "full": "<p>Getter/setter property for HTTP Basic Auth parameters</p>\n\n<pre><code>// get\nserver.auth; // \"user:pass\"\n\n// set\nserver.auth = [ \"user\", \"pass\" ];\nserver.auth = \"user:pass\";\n</code></pre>",
+                "summary": "<p>Getter/setter property for HTTP Basic Auth parameters</p>",
+                "body": "<pre><code>// get\nserver.auth; // \"user:pass\"\n\n// set\nserver.auth = [ \"user\", \"pass\" ];\nserver.auth = \"user:pass\";\n</code></pre>"
+            },
+            "ctx": {
+                "type": "property",
+                "receiver": "server",
+                "name": "auth",
+                "string": "server.auth"
+            }
+        }
+    ]
+}

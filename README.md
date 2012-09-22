@@ -44,5 +44,3 @@ Refer to [my website](http://dominicbarnes.us/node-couchdb-api/) for documentati
 
 **1.1.5**
  - Changed the package.json to allow for installs on node engine version 8
-
-* Sorry, I didn't start a changelog until this late in the game :( *

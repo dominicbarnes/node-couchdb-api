@@ -1,3 +1,5 @@
+"use strict";
+
 var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
