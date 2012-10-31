@@ -33,7 +33,7 @@ It uses callbacks that follow node.js conventions and aims to be as expressive a
 	// if you chose a non-existant db, you'd get { error: "not_found", reason: "no_db_file" } in place of `err`
     });
 
-Refer to [my website](http://dominicbarnes.us/node-couchdb-api/) for documentation and resources.
+Refer to [my website](http://www.dbarnes.info/node-couchdb-api/) for documentation and resources.
 
 ## Changelog
 
