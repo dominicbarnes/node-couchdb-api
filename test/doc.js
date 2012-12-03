@@ -1,5 +1,3 @@
-"use strict";
-
 var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
@@ -17,7 +15,7 @@ module.exports = {
             server.auth = [ config.user, config.pass ];
         }
         db.create(function (err, response) {
-            var ddoc = db.ddoc("test")
+            db.ddoc("test")
                 .show("test", function (doc, req) {
                     return doc._id;
                 })
@@ -125,6 +123,15 @@ module.exports = {
                 test.equal(doc.body.foo, "bar");
                 done();
             }
+        },
+        "ID URL": function (done) {
+            var doc = db.doc("special chars /&*?");
+
+            doc.save(function (err, res) {
+                if (err) return done(err);
+
+                doc.get(done);
+            });
         }
         /*
         "Etag Cache Test": function (done) {

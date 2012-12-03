@@ -1,5 +1,3 @@
-"use strict";
-
 var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
@@ -28,14 +26,23 @@ module.exports = {
 
     after: function (done) {
         db.drop(function (err, result) {
-            if (err) {
-                console.error(err);
-            }
+            if (err) console.error(err);
             done();
         });
     },
 
     "Attachment": {
+        "Name URL": function (done) {
+            doc.attachment("special/chars &?*")
+                .setBody("text", "BLAH")
+                .save(function (err, result) {
+                    test.ifError(err);
+                    if (result) {
+                        test.ok(result.ok);
+                    }
+                    done();
+                });
+        },
         "Create": {
             "Plaintext": function (done) {
                 attachments.string

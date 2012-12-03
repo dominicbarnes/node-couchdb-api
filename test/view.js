@@ -1,5 +1,3 @@
-"use strict";
-
 var _ = require("underscore"),
     test = require("assert"),
     config = require("./config"),
@@ -47,6 +45,13 @@ module.exports = {
     },
 
     "View": {
+        "URL": function (done) {
+            ddoc.view("special/chars ?&*()", function () {}).save(function (err) {
+                if (err) return done(err);
+
+                ddoc.view("special/chars ?&*()").map(done);
+            });
+        },
         "Query": {
             "Basic": function (done) {
                 var ret = view_map.query(function (err, result) {
@@ -104,10 +109,9 @@ module.exports = {
         },
         "List Function": function (done) {
             var ret = view_map.list("test", function (err, result) {
-                test.ifError(err);
-                if (result) {
-                    test.equal(result, "test successful");
-                }
+                if (err) return done(JSON.parse(err));
+
+                test.equal(result, "test successful");
                 done();
             });
             test.strictEqual(view_map, ret);
