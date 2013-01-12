@@ -182,12 +182,15 @@ module.exports = {
                         });
 
                         stream.on("end", function () {
-                            test.equal(changes, 2);
+                            test.equal(changes, 3);
                             done();
                         });
 
                         db.doc({ foo: "bar" }).save(check);
                         db.doc({ hello: "world" }).save(check);
+                        db.doc({
+                            test: new Buffer(1024).toString()
+                        }).save(check);
                     }
                 }));
             }
@@ -281,18 +284,51 @@ module.exports = {
                 }));
             }
         },
-        "Temporary View": function (done) {
-            var map = function (doc) {
-                emit(null, doc);
-            };
+        "Temporary View": {
+            map: function (done) {
+                var map = function (doc) {
+                    emit(null, doc);
+                };
 
-            test.strictEqual(db, db.tempView(map, function (err, body, res) {
-                test.ifError(err);
-                if (body) {
-                    test.ok(body.rows);
-                }
-                done();
-            }));
+                test.strictEqual(db, db.tempView(map, function (err, body, res) {
+                    test.ifError(err);
+                    if (body) {
+                        test.ok(body.rows);
+                    }
+                    done();
+                }));
+            },
+            reduce: function (done) {
+                var map = function (doc) {
+                    emit(null, doc);
+                };
+
+                var reduce = "_count";
+
+                test.strictEqual(db, db.tempView(map, reduce, function (err, body, res) {
+                    test.ifError(err);
+                    if (body) {
+                        test.ok(body.rows);
+                    }
+                    done();
+                }));
+            },
+            query: function (done) {
+                var map = function (doc) {
+                    emit(null, doc);
+                };
+
+                test.strictEqual(db, db.tempView(map, null, { descending: true }, function (err, body, res) {
+                    test.ifError(err);
+                    if (body) {
+                        test.ok(body.rows);
+                    }
+                    if (res) {
+                        test.equal(res.req.path, db._url.pathname + "/_temp_view?descending=true");
+                    }
+                    done();
+                }));
+            }
         }
     }
 };
