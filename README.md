@@ -37,6 +37,9 @@ Refer to [my website](http://www.dbarnes.info/node-couchdb-api/) for documentati
 
 ## Changelog
 
+**1.2.2**
+ * Fixing issues #17, #12 and #11
+
 **1.2.0**
  - Complete documentation rewrite (now generated automatically via source code comments with [dox](https://github.com/visionmedia/dox))
  - Simplified the JSHint config by putting it into a single file at the root
