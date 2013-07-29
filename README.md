@@ -33,6 +33,15 @@ It uses callbacks that follow node.js conventions and aims to be as expressive a
 	// if you chose a non-existant db, you'd get { error: "not_found", reason: "no_db_file" } in place of `err`
     });
 
+    // It utilizes mikeal's [request module](https://github.com/mikeal/request) and exposes its methods via setRequestOptions method call on any couchdb entity
+    //i.e. 
+    db.setRequestOptions({ 
+	timeout: 2000,
+        // oauth signing, aws auth can be put here... 
+    }).info(function(err, response){
+          console.log(response);
+       });
+
 Refer to [my website](http://www.dbarnes.info/node-couchdb-api/) for documentation and resources.
 
 ## Changelog
