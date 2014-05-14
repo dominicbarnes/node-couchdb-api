@@ -27,7 +27,7 @@
     "pretest": "rm -rf coverage",
     "test": "istanbul test _mocha",
     "open-cov": "opn coverage/lcov-report/index.html",
-    "prepublish": "npm run lint && npm test"
+    "prepublish": "npm run lint && npm test --coverage && istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100"
   },
   "repository": {
     "type": "git",
