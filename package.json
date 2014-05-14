@@ -24,10 +24,10 @@
   },
   "scripts": {
     "lint": "jshint .",
-    "test": "npm run clean && istanbul test _mocha",
+    "pretest": "rm -rf coverage",
+    "test": "istanbul test _mocha",
     "open-cov": "opn coverage/lcov-report/index.html",
-    "clean": "rm -rf coverage",
-    "distclean": "rm -rf node_modules"
+    "prepublish": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",
