@@ -17,6 +17,18 @@ describe("Server(url)", function () {
     });
 });
 
+describe("Server#url([path])", function () {
+    it("should return a correct url", function () {
+        var srv = new Server();
+        expect(srv.url()).to.equal("http://localhost:5984/");
+    });
+
+    it("should include additional path information", function () {
+        var srv = new Server();
+        expect(srv.url("db")).to.equal("http://localhost:5984/db");
+    });
+});
+
 describe("Server#info(callback)", function () {
     var srv = new Server();
 

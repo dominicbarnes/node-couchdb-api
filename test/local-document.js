@@ -1,5 +1,4 @@
 var expect = require("expect.js");
-var noop = require("nop");
 var Server = require("../lib/server");
 var Document = require("../lib/document");
 var LocalDocument = require("../lib/local-document");

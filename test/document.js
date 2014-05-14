@@ -283,7 +283,7 @@ describe("Document#get(callback)", function () {
                 reason: "missing"
             });
 
-        db.doc("does-not-exist").get(function (err, body) {
+        db.doc("does-not-exist").get(function (err) {
             expect(err).to.be.a(CouchError);
             done();
         });
@@ -493,7 +493,7 @@ describe("Document#show(name, body, callback)", function () {
 
         var doc = db.doc();
 
-        doc.show("ddoc/showfn", function (err, results) {
+        doc.show("ddoc/showfn", function (err) {
             if (err) return done(err);
             expect(this).to.equal(doc);
             done();
@@ -541,7 +541,7 @@ describe("Document#update(name, body, callback)", function () {
 
         var doc = db.doc();
 
-        doc.update("ddoc/updatefn", function (err, results) {
+        doc.update("ddoc/updatefn", function (err) {
             if (err) return done(err);
             expect(this).to.equal(doc);
             done();
