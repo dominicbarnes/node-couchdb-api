@@ -1,0 +1,13 @@
+{
+    "committed_update_seq": 292786,
+    "compact_running": false,
+    "data_size": 65031503,
+    "db_name": "receipts",
+    "disk_format_version": 6,
+    "disk_size": 137433211,
+    "doc_count": 6146,
+    "doc_del_count": 64637,
+    "instance_start_time": "1376269325408900",
+    "purge_seq": 0,
+    "update_seq": 292786
+}

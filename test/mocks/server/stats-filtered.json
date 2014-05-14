@@ -1,0 +1,13 @@
+{
+    "couchdb": {
+        "request_time": {
+            "current": 21.0,
+            "description": "length of a request inside CouchDB without MochiWeb",
+            "max": 19.0,
+            "mean": 7.0,
+            "min": 1.0,
+            "stddev": 10.392,
+            "sum": 21.0
+        }
+    }
+}

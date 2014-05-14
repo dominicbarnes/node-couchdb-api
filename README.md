@@ -34,14 +34,3 @@ It uses callbacks that follow node.js conventions and aims to be as expressive a
     });
 
 Refer to [my website](http://www.dbarnes.info/node-couchdb-api/) for documentation and resources.
-
-## Changelog
-
-**1.2.0**
- - Complete documentation rewrite (now generated automatically via source code comments with [dox](https://github.com/visionmedia/dox))
- - Simplified the JSHint config by putting it into a single file at the root
- - Simplified the `index.js` entry-point. `couchdb.srv()` now only takes a single argument, a string URL.
-
-
-**1.1.5**
- - Changed the package.json to allow for installs on node engine version 8

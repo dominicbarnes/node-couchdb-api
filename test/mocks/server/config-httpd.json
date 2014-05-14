@@ -1,0 +1,11 @@
+{
+    "allow_jsonp": "false",
+    "authentication_handlers": "{couch_httpd_oauth, oauth_authentication_handler}, {couch_httpd_auth, cookie_authentication_handler}, {couch_httpd_auth, default_authentication_handler}",
+    "bind_address": "127.0.0.1",
+    "default_handler": "{couch_httpd_db, handle_request}",
+    "enable_cors": "false",
+    "log_max_chunk_size": "1000000",
+    "port": "5984",
+    "secure_rewrites": "true",
+    "vhost_global_handlers": "_utils, _uuids, _session, _oauth, _users"
+}

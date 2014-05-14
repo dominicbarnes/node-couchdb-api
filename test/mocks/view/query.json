@@ -1,0 +1,21 @@
+{
+    "offset": 0,
+    "rows": [
+        {
+            "id": "SpaghettiWithMeatballs",
+            "key": "meatballs",
+            "value": 1
+        },
+        {
+            "id": "SpaghettiWithMeatballs",
+            "key": "spaghetti",
+            "value": 1
+        },
+        {
+            "id": "SpaghettiWithMeatballs",
+            "key": "tomato sauce",
+            "value": 1
+        }
+    ],
+    "total_rows": 3
+}

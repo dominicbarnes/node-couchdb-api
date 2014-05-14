@@ -1,0 +1,11 @@
+{
+    "offset": 0,
+    "rows": [
+        {
+            "id": "SpaghettiWithMeatballs",
+            "key": "meatballs",
+            "value": 1
+        }
+    ],
+    "total_rows": 3
+}

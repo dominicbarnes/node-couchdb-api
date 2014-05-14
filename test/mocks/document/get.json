@@ -1,0 +1,11 @@
+{
+    "_id": "SpaghettiWithMeatballs",
+    "_rev": "1-917fa2381192822767f010b95b45325b",
+    "description": "An Italian-American dish that usually consists of spaghetti, tomato sauce and meatballs.",
+    "ingredients": [
+        "spaghetti",
+        "tomato sauce",
+        "meatballs"
+    ],
+    "name": "Spaghetti with meatballs"
+}

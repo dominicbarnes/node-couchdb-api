@@ -1,6 +1,0 @@
-{
-    "url":   "http://localhost:5984",
-    "party": true,
-    "ssl":   false,
-    "debug": "warn"
-}
