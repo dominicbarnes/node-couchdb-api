@@ -23,7 +23,8 @@ module.exports = exports = function (href) {
         port: parsed.port
     }));
 
-    var path = parsed.pathname.slice(1);
+    var path = parsed.pathname;
+    if (path[0] === "/") path = path.slice(1);
     if (!path) return srv;
 
     return srv.db(path.split("/").pop());

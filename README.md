@@ -1,36 +1,38 @@
 # node-couchdb-api
 
-This [node.js](http://nodejs.org/) module aims to provide a clean, asynchronous wrapper for the [CouchDB](http://couchdb.apache.org/) API.
-
-It uses callbacks that follow node.js conventions and aims to be as expressive as possible.
+This [node.js](http://nodejs.org/) module aims to provide an expressive and comprehensive
+wrapper for the [CouchDB](http://couchdb.apache.org/) API.
 
 ## Installation
 
-`$ npm install couchdb-api`
+```bash
+npm install couchdb-api
+```
 
 ## Usage
 
-    var couchdb = require("couchdb-api");
+The `couchdb-api` export is a function that takes a URL as it's only parameter. Typically, you will pass your server's
+base URL as the parameter. (or leave it out if you're just using the default: "http://localhost:5984")
 
-    // connect to a couchdb server (defaults to http://localhost:5984)
-    var server = couchdb.srv();
+```js
+var couchdb = require("couchdb-api");
 
-    // test it out!
-    server.info(function (err, response) {
-	console.log(response);
+var srv = couchdb();
+// Server(http://localhost:5984/)
 
-	// should get { couchdb: "Welcome", version: "1.0.1" }
-	// if something went wrong, the `err` argument would provide the error that CouchDB provides
-    });
+var srv = couchdb("https://dominicbarnes.iriscouch.com:5984/");
+// Server(https://dominicbarnes.iriscouch.com:5984/)
+```
 
-    // select a database
-    var db = server.db("my-database");
+**ProTip:** If you include some additional path information, it is assumed that you are wanting to
+connect directly to a database. (and returns a `Database` object accordingly, it's just a little helper)
 
-    db.info(function (err, response) {
-	console.log(response);
+```js
+var db = couchdb("_users");
+// identical to: couchdb().db("_users")
 
-	// should see the basic statistics for your test database
-	// if you chose a non-existant db, you'd get { error: "not_found", reason: "no_db_file" } in place of `err`
-    });
+var db = couchdb("https://dominicbarnes.iriscouch.com:5984/");
+// identical to: couchdb("https://dominicbarnes.iriscouch.com:5984/").db("my-db")
+```
 
-Refer to [my website](http://www.dbarnes.info/node-couchdb-api/) for documentation and resources.
+Check out the [wiki](http://github.com/dominicbarnes/node-couchdb-api/wiki) for complete API documentation.

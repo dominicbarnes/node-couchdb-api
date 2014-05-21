@@ -27,4 +27,12 @@ describe("node-couchdb-api", function () {
         expect(db.client).to.equal(db.server.client);
         expect(db.url()).to.equal("https://user:pass@www.example.com:3000/_users");
     });
+
+    it("should return a correct database instance without a full URL", function () {
+        var db = couchdb("_users");
+        expect(db).to.be.a(Database);
+        expect(db.name).to.equal("_users");
+        expect(db.client).to.equal(db.server.client);
+        expect(db.url()).to.equal("http://localhost:5984/_users");
+    });
 });
