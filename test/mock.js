@@ -15,3 +15,8 @@ mock.file = function (type) {
         return path.join(__dirname, "mocks", type, file);
     };
 };
+
+
+afterEach(function () {
+    nock.cleanAll();
+});
