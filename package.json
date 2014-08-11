@@ -11,14 +11,14 @@
     "debug": "^0.8.0",
     "extend": "^1.2.1",
     "extend-object": "^0.1.0",
-    "superagent": "^0.18.0"
+    "superagent": "~0.18.2"
   },
   "devDependencies": {
     "expect.js": "~0.3.1",
     "istanbul": "^0.2.8",
     "jshint": "^2.5.0",
     "mocha": "~1.18.2",
-    "nock": "^0.29.2",
+    "nock": "~0.44.1",
     "nop": "0.0.0",
     "opn": "^0.1.1"
   },
