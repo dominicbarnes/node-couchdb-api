@@ -478,6 +478,20 @@ describe("Document API", function () {
             });
         });
 
+        it("should include the id in the url", function (done) {
+            couchdb
+                .get("/test-db/_design/ddoc/_show/showfn/test-doc")
+                .reply(200, "Hello World", {
+                    "Content-Type": "text/plain"
+                });
+
+            db.doc("test-doc").show("ddoc/showfn", function (err, results) {
+                if (err) return done(err);
+                expect(results).to.equal("Hello World");
+                done();
+            });
+        });
+
         it("should use post with a request body", function (done) {
             couchdb
                 .post("/test-db/_design/ddoc/_show/showfn", {
