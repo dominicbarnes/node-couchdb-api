@@ -31,7 +31,7 @@ connect directly to a database. (and returns a `Database` object accordingly, it
 var db = couchdb("_users");
 // identical to: couchdb().db("_users")
 
-var db = couchdb("https://dominicbarnes.iriscouch.com:5984/");
+var db = couchdb("https://dominicbarnes.iriscouch.com:5984/my-db");
 // identical to: couchdb("https://dominicbarnes.iriscouch.com:5984/").db("my-db")
 ```
 
