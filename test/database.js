@@ -285,4 +285,56 @@ describe("Database API", function () {
             expect(doc.rev()).to.equal("rev");
         });
     });
+
+    describe("Database#allDocs(query, callback)", function () {
+        var db = srv.db("test");
+
+        it("should retrieve a list of documents", function (done) {
+            couchdb
+                .get("/test/_all_docs")
+                .replyWithFile(200, mockFile("all_docs.json"));
+
+            db.allDocs(function (err, results) {
+                if (err) return done(err);
+                expect(results.offset).to.equal(0);
+                done();
+            });
+        });
+
+        it("should include querystring params", function (done) {
+            couchdb
+                .get("/test/_all_docs?conflicts=true&skip=10")
+                .replyWithFile(200, mockFile("all_docs.json"));
+
+            var query = {
+                conflicts: true,
+                skip: 10
+            };
+
+            db.allDocs(query, function (err, results) {
+                if (err) return done(err);
+                expect(results.total_rows).to.equal(5);
+                done();
+            });
+        });
+
+        it("should send a post for multiple keys", function (done) {
+            var keys = [
+                "Zingylemontart",
+                "Yogurtraita"
+            ];
+
+            couchdb
+                .post("/test/_all_docs", {
+                    keys: keys
+                })
+                .replyWithFile(200, mockFile("all_docs-post.json"));
+
+            db.allDocs(keys, function (err, results) {
+                if (err) return done(err);
+                expect(results.total_rows).to.equal(2666);
+                done();
+            });
+        });
+    });
 });
